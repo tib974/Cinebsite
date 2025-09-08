@@ -1,0 +1,9 @@
+# Development and local files
+scripts/
+desk/
+office/
+.DS_Store
+start-local.bat
+start.command
+share.command
+share-local.sh

@@ -16,3 +16,6 @@ Développement local
 Notes
 - Les assets (images) restent au niveau racine `../assets/...`.
 - Le thème utilisé est `../theme-poppins.css`.
+
+Checklist
+- [ ] Changer le mot de passe admin
