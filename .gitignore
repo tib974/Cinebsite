@@ -1,0 +1,11 @@
+# Ignore runtime/content on the server
+uploads/
+assets/uploads/
+data/
+config.php
+.env
+
+# Typical ignores
+node_modules/
+.DS_Store
+*.log
