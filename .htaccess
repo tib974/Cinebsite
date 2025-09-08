@@ -1,0 +1,56 @@
+# Global security and caching
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header set X-Permitted-Cross-Domain-Policies "none"
+  # CSP: permet le JSON-LD inline et styles inline, bloque les objects, force HTTPS en upgrade
+  Header set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests; img-src 'self' data: blob: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://calendly.com https://www.youtube.com https://player.vimeo.com; connect-src 'self' https:; frame-ancestors 'self'"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/json "access plus 5 minutes"
+</IfModule>
+
+<FilesMatch "\.(json)$">
+  Header set Cache-Control "no-cache, must-revalidate"
+</FilesMatch>
+
+<FilesMatch "\.(php)$">
+  # Prevent caching of API responses by proxies
+  Header set Cache-Control "no-store"
+</FilesMatch>
+
+# HSTS (only when HTTPS)
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+
+# Admin path rename: expose /desk but serve from /office (internal),
+# and redirect legacy /office to /desk when directly requested.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Redirect legacy /office to /desk only on direct browser requests (avoid loops)
+  RewriteCond %{THE_REQUEST} \s/office[\s?/]
+  RewriteRule ^office/?(.*)$ desk/$1 [R=301,L]
+  # Internally rewrite /desk to /office (no visible change)
+  RewriteRule ^desk/?(.*)$ office/$1 [L]
+</IfModule>
+
+# Compression (gzip/deflate)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
+  # Exclusions
+  SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|avif|woff2)$ no-gzip dont-vary
+</IfModule>

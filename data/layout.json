@@ -1,0 +1,32 @@
+{
+  "default": {
+    "moves": [],
+    "order": [
+      { "container": ".header .container", "children": [".brand", ".nav-toggle", ".nav-center", ".nav-cta"] }
+    ]
+  },
+  "index.html": {
+    "moves": [],
+    "order": [
+      { "container": "main .container", "children": ["#featuredGrid", ".hero", ".grid"] }
+    ]
+  },
+  "packs.html": {
+    "moves": [],
+    "order": [
+      { "container": ".toolbar", "children": ["#catChips", "#sortChips", "#search"] }
+    ]
+  },
+  "produit.php": {
+    "moves": [
+      { "target": "#productIncludes", "insertAfter": "#productCalendar" }
+    ],
+    "order": [
+      { "container": ".product-grid", "children": [".media", "#productCalendar", "#productName"] }
+    ]
+  },
+  "calendrier.html": { "moves": [], "order": [] },
+  "realisations.html": { "moves": [], "order": [] },
+  "services.html": { "moves": [], "order": [] }
+}
+

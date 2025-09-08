@@ -1,0 +1,28 @@
+type,category,name,slug,price_eur_day,image,featured,includes,description
+product,Image,Tamron 17-70mm F/2.8 Di III‑A VC RXD,tamron1770,15,assets/products/tamron1770.webp,FALSE,,Objectif polyvalent lumineux.
+product,Image,Sony FX30 (+2 batteries),sony-fx30,50,assets/products/sony-fx30.webp,TRUE,,Boîtier Super35 compact.
+product,Image,"Moniteur vidéo LILLIPUT A7S 7"" HDMI 4K",lilliputa7s,15,assets/products/lilliputa7s.webp,FALSE,,"Moniteur de contrôle 7""."
+product,Image,Sac de transport Pgytech,sacpgytech,10,assets/products/sacpgytech.webp,FALSE,,Sac modulable robuste.
+product,Image,Batterie Sony NP-FZ100,batteriesonynpfz100,2.5,assets/products/batteriesonynpfz100.webp,FALSE,,Batterie pour FX30.
+product,Image,Carte SD Lexar Professional 128GB,sdlexar128g,9,assets/products/sdlexar128g.webp,FALSE,,Carte rapide UHS-I.
+product,Image,Trépied vidéo,trepiedvideo,8,assets/products/trepiedvideo.webp,FALSE,,Trépied fluide.
+product,Lumière,NEEWER CB300C,neewercb300,35,assets/products/neewercb300.webp,TRUE,,COB puissant bi-color.
+product,Lumière,NEEWER MS150B 130W,neewerms150b,20,assets/products/neewerms150b.webp,FALSE,,Projecteur 130W bi-color.
+product,Lumière,Softbox Tarion,tarionsoftbox,10,assets/products/tarionsoftbox.webp,FALSE,,Boîte à lumière.
+product,Lumière,Pied lumière alu,piedlumiere,5,assets/products/piedlumiere.webp,FALSE,,Pied robuste.
+product,Lumière,Batterie Sony NP-F970,batteriesonynpf970,5,assets/products/batteriesonynpf970.webp,FALSE,,Batterie série NP-F.
+product,Audio,Comica VM40,comicavm40,20,assets/products/comicavm40.webp,TRUE,,Micro canon VM40.
+product,Audio,Hollyland Lark Max 2 Ultimate Combo,hollylandlarkmax2,17,assets/products/hollylandlarkmax2.webp,FALSE,,HF double émetteur.
+product,Audio,Perche Rode,perchesonrode,11,assets/products/perchesonrode.webp,FALSE,,Perche micro.
+pack,Packs,FX30 + 17/70mm,pack-fx30-1770,60,assets/products/sony-fx30.webp,TRUE,"sony-fx30,tamron1770",Pack de base image.
+pack,Packs,FX30 + 17/70mm + carte SD,pack-fx30-1770-sd,65,assets/products/sdlexar128g.webp,FALSE,"sony-fx30,tamron1770,sdlexar128g",Pack avec stockage.
+pack,Packs,FX30 + 17/70mm + carte SD + retour vidéo,pack-fx30-1770-sd-retour,75,assets/products/lilliputa7s.webp,FALSE,"sony-fx30,tamron1770,sdlexar128g,lilliputa7s",Ajout du moniteur.
+pack,Packs,FX30 + 17/70mm + trépied + carte SD,pack-fx30-1770-trepied-sd,80,assets/products/trepiedvideo.webp,FALSE,"sony-fx30,tamron1770,trepiedvideo,sdlexar128g",Avec trépied.
+pack,Packs,FX30 + 17/70mm + trépied + carte SD + retour vidéo,pack-fx30-1770-trepied-sd-retour,90,assets/products/lilliputa7s.webp,FALSE,"sony-fx30,tamron1770,trepiedvideo,sdlexar128g,lilliputa7s",Complet image.
+pack,Packs,CB300C + softbox + pied alu,pack-cb300c-softbox-pied,42,assets/products/neewercb300.webp,TRUE,"neewercb300,tarionsoftbox,piedlumiere",Pack lumière 300C.
+pack,Packs,MS150B + softbox + pied alu,pack-ms150b-softbox-pied,27,assets/products/neewerms150b.webp,FALSE,"neewerms150b,tarionsoftbox,piedlumiere",Pack MS150B.
+pack,Packs,MS150B + CB300C + softbox + pieds x2,pack-ms150b-cb300c-softbox-2pieds,60,assets/products/neewercb300.webp,FALSE,"neewerms150b,neewercb300,tarionsoftbox,piedlumiere",Combo 2 lights.
+pack,Packs,MS150B + 2 Batteries NP-F970,pack-ms150b-2xnpf970,27,assets/products/batteriesonynpf970.webp,FALSE,"neewerms150b,batteriesonynpf970",Autonomie terrain.
+pack,Packs,MS150B + softbox + pied + 2x NP-F970,pack-ms150b-softbox-pied-2xnpf970,35,assets/products/neewerms150b.webp,FALSE,"neewerms150b,tarionsoftbox,piedlumiere,batteriesonynpf970",Complet autonome.
+pack,Packs,Pieds lumière x2,pack-2-pieds,7,assets/products/piedlumiere.webp,FALSE,piedlumiere,Deux pieds.
+pack,Packs,Prêt à tourner — FX30 + kit complet,pack-pret-a-tourner,165,assets/products/sony-fx30.webp,TRUE,"sony-fx30,tamron1770,sacpgytech,trepiedvideo,sdlexar128g,neewercb300,neewerms150b,tarionsoftbox,piedlumiere,comicavm40,perchesonrode,hollylandlarkmax2",Pack complet image + lumière + son.

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendrier — CinéB</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#6b37d4">
+  <meta property="og:title" content="CinéB — Calendrier">
+  <meta property="og:description" content="Consultez les disponibilités et demandez un créneau.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.cineb.re/calendrier.html">
+  <meta property="og:image" content="https://www.cineb.re/assets/logooo.png">
+  <link rel="canonical" href="https://www.cineb.re/calendrier.html">
+  <link rel="stylesheet" href="theme-poppins.css">
+  <script defer src="js/config.js"></script>
+  <script defer src="js/seo.js"></script>
+  <script defer src="js/nav.js"></script>
+  <script defer src="js/calendar.js"></script>
+  <script defer src="js/analytics.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="Retour à l’accueil">
+        <img src="assets/logo.webp" alt="CinéB" class="logo" width="1024" height="1024" decoding="async" fetchpriority="high">
+      </a>
+      <button class="btn ghost nav-toggle" aria-label="Ouvrir le menu" aria-controls="navMain" aria-expanded="false">Menu</button>
+      <nav id="navMain" class="nav-center" role="navigation" aria-label="Navigation principale">
+        <a href="services.html">Services</a>
+        <a href="packs.html">Packs & Matériel</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="calendrier.html" class="active">Calendrier</a>
+        <a href="apropos.html">À propos</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn ghost" href="calendrier.html" title="Voir ma sélection">Voir ma sélection</a>
+        <a class="btn" href="contact.html">Contact / Devis</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu" class="container">
+    <h1 class="section-title">Réserver un créneau</h1>
+    <div class="grid cal-layout">
+      <div class="card" style="padding:10px">
+        <div id="calendarWidget" class="cal"></div>
+        <div id="calHints" class="muted" style="margin-top:10px;text-align:center"></div>
+        <div id="priceEstimateCalendar" class="muted" style="margin-top:8px;text-align:center"></div>
+        <div class="cal-legend" style="margin-top:8px;text-align:center;font-size:12px;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:6px;margin:0 10px"><span style="width:12px;height:12px;border-radius:3px;background:#10b981;border:1px solid rgba(16,185,129,.9);display:inline-block"></span> Disponible</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;margin:0 10px"><span style="width:12px;height:12px;border-radius:3px;background:#ef4444;border:1px solid rgba(239,68,68,.9);display:inline-block"></span> Indisponible</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;margin:0 10px"><span style="width:12px;height:12px;border-radius:3px;background:#0e0f13;border:2px solid var(--accent);display:inline-block"></span> Sélectionné</span>
+        </div>
+      </div>
+      <div class="card" style="padding:16px">
+        <h3>Demande rapide</h3>
+        <form id="slotForm">
+          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+            <div id="cartList" class="chips"></div>
+            <button id="clearCartBtn" type="button" class="chip" title="Vider la sélection">Vider</button>
+          </div>
+          <input name="nom" placeholder="Nom" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="produits" placeholder="Matériel / Pack (optionnel)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input name="date" type="date" required>
+            <input name="date_to" type="date" placeholder="Au (optionnel)">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input name="heure" type="time" required>
+            <input name="periode" type="hidden" value="">
+          </div>
+          <div id="dateRangeInfo" class="muted"></div>
+          <input type="hidden" name="estimate" value="">
+          <textarea name="message" rows="3" placeholder="Précisions (optionnel)"></textarea>
+          <div class="status" id="slotStatus"></div>
+          <button type="submit" class="btn">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">© CinéB — La Réunion</footer>
+</body>
+</html>

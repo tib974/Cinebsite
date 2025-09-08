@@ -1,0 +1,14 @@
+# Disallow indexing and add basic security headers for admin
+Options -Indexes
+Header set X-Robots-Tag "noindex, nofollow"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "no-referrer-when-downgrade"
+Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+# Optional: To add Basic Auth on IONOS, uncomment and configure these lines
+#AuthType Basic
+#AuthName "Restricted"
+#AuthUserFile /absolute/path/to/.htpasswd
+#Require valid-user
+
