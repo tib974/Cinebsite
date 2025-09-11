@@ -1,0 +1,1 @@
+scripts/scrape_showtimes.py (TODO) + data/showtimes.json. Expliquer exécution.

@@ -1,0 +1,2 @@
+Create ~/.gemini/.env with:
+GOOGLE_CLOUD_PROJECT="mon-projet-gemini-14716"

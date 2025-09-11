@@ -1,0 +1,5 @@
+version: 3
+models:
+  - name: qwen-coder-7b
+    provider: ollama
+    model: qwen2.5-coder:7b

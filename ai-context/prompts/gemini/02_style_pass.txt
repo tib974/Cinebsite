@@ -1,0 +1,1 @@
+Améliore header/nav/boutons/grille/footer. Explique où et quoi.

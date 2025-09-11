@@ -1,0 +1,15 @@
+# Journal des Tâches
+
+## Tâches Terminées
+1.  **Connexion du Catalogue à la DB:**
+    - Modifié `/api/catalog.php` pour lire depuis la base de données SQLite au lieu d'un fichier JSON/CSV.
+    - Ajout d'une logique pour différencier les 'packs' des 'products'.
+    - Nettoyage des données retournées par l'API.
+2.  **Refactorisation du Formulaire de Contact:**
+    - Remplacement de la logique JavaScript personnalisée (basée sur Google Apps Script) par un formulaire HTML standard.
+    - Configuration du formulaire pour pointer vers un endpoint de test public.
+    - Suppression du fichier JavaScript `public/js/contact.js` devenu inutile.
+
+## Prochaines Étapes (Plan de Projet)
+- Le plan initial suggérait de travailler sur les horaires de cinéma, mais cette tâche a été annulée par l'utilisateur.
+- La prochaine étape est à définir avec l'utilisateur.
