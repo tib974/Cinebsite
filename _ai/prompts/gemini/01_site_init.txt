@@ -1,0 +1,2 @@
+# Init CinéB (FR) dans le dossier courant (/Users/thibautapv/Desktop/Cinebsite)
+Crée pages + styles + serve.sh (8080) + NOTES_DE_SESSION.md. Explique chaque terme, commandes EXACTES, checklist.

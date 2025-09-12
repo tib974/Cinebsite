@@ -1,0 +1,1 @@
+Écrire deploy.sh, deploy_* et .env.example. Ne rien exécuter.

@@ -1,0 +1,7 @@
+tools:
+  gemini_project_id: "mon-projet-gemini-14716"
+paths:
+  ai_context: "/Users/thibautapv/Desktop/ai-context"
+  project: "/Users/thibautapv/Desktop/Cinebsite"
+mode:
+  safe_midproject: true

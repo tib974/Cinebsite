@@ -878,3 +878,5 @@ timestamp,path,referrer,ip,ua
 2025-09-08T20:39:38+00:00,/produit.php?slug=batteriesonynpfz100,,127.0.0.1,"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:142.0) Gecko/20100101 Firefox/142.0"
 timestamp,path,referrer,ip,ua
 2025-09-08T20:39:41+00:00,/produit.php?slug=pack-pret-a-tourner,,127.0.0.1,"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:142.0) Gecko/20100101 Firefox/142.0"
+timestamp,path,referrer,ip,ua
+2025-09-11T13:19:32+00:00,/,,127.0.0.1,"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:142.0) Gecko/20100101 Firefox/142.0"

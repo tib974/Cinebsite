@@ -1,6 +1,26 @@
 # Journal des Tâches
 
 ## Tâches Terminées
+
+1.  **Initialisation de la Refonte (React/Vite)**
+    - Initialisation d'un nouveau projet React avec Vite.
+    - Installation des dépendances de base via npm.
+    - Mise à jour de la documentation `ai-context` pour refléter la nouvelle architecture.
+2.  **Mise en Place de la Structure de Base React**
+    - Création des composants `Header` et `Footer`.
+    - Installation et configuration de `react-router-dom` pour la navigation.
+    - Création des composants de page placeholders (`Home`, `Contact`, etc.).
+    - Importation de la feuille de style principale (`theme-poppins.css`).
+3.  **Reconstruction des Pages**
+    - Recréation de la page `Contact` avec son formulaire.
+    - Recréation de la page `Packs & Matériel`.
+    4.  **Nettoyage Final**
+    - Suppression de tous les dossiers et fichiers de l'ancienne application PHP (`vendor`, `views`, `src`, `api`, etc.).
+
+---
+
+### Ancien Journal (Archivé)
+
 1.  **Connexion du Catalogue à la DB:**
     - Modifié `/api/catalog.php` pour lire depuis la base de données SQLite au lieu d'un fichier JSON/CSV.
     - Ajout d'une logique pour différencier les 'packs' des 'products'.

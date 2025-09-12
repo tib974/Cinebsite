@@ -1,0 +1,1 @@
+Placeholders SVG dans /assets/img et références.

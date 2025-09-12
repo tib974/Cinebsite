@@ -1,21 +1,12 @@
-Base propre CinéB (new-site)
+# React + Vite
 
-Contenu
-- Pages: index, services, packs, produit, realisations, realisation, calendrier, contact, 404
-- JS: config, cache, image-optimizer, nav, featured, catalog, product, realisations, realisation, calendar, contact
-- Données: data/catalogfdf.csv, data/realisations.csv (fallbacks locaux)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Configuration
-- Modifier `js/config.js` → `API_BASE_URL` avec l’URL de déploiement Apps Script V2.
-- Les CSV de secours sont déjà référencés via `data/...`.
+Currently, two official plugins are available:
 
-Développement local
-- Servez le dossier racine du repo avec un serveur statique (ex: `python3 -m http.server 8000`) puis ouvrez `/new-site/index.html`.
-- Ou configurez votre hébergeur pour pointer vers `new-site/`.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Notes
-- Les assets (images) restent au niveau racine `../assets/...`.
-- Le thème utilisé est `../theme-poppins.css`.
+## Expanding the ESLint configuration
 
-Checklist
-- [ ] Changer le mot de passe admin
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

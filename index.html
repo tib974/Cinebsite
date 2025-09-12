@@ -1,102 +1,13 @@
 <!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Accueil — CinéB</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#6b3d4">
-  <meta property="og:title" content="CinéB — Location de matériel audiovisuel">
-  <meta property="og:description" content="Packs prêts-à-tourner, caméras, lumière, audio. La Réunion.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.cineb.re/">
-  <meta property="og:image" content="https://www.cineb.re/assets/logooo.png">
-  <link rel="canonical" href="https://www.cineb.re/">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="description" content="CinéB - Location de matériel audiovisuel à La Réunion. Packs prêts-à-tourner et assistance plateau.">
-  <!-- meta keywords obsolètes retirées -->
-  <link rel="preload" as="image" href="assets/logo.webp" type="image/webp" fetchpriority="high">
-  
-  <link rel="preload" as="font" href="assets/fonts/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2" type="font/woff2" crossorigin>
-  <link rel="preload" as="font" href="assets/fonts/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="theme-poppins.css">
-  <script defer src="js/config.js"></script>
-  <script defer src="js/cache.js"></script>
-  <script defer src="js/image-optimizer.js"></script>
-  <script defer src="js/seo.js"></script>
-  <script defer src="js/nav.js"></script>
-  <script defer src="js/featured.js"></script>
-  <script defer src="js/analytics.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "CinéB",
-    "url": "/",
-    "logo": "assets/logooo.png"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "CinéB",
-    "url": "/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "/packs.html?query={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-</head>
-<body>
-  <a class="skip-link" href="#contenu">Aller au contenu</a>
-  <header class="header">
-    <div class="container">
-      <a class="brand" href="index.html" aria-label="Retour à l’accueil">
-        <img src="assets/logo.webp" alt="CinéB" class="logo" width="1024" height="1024" decoding="async" fetchpriority="high">
-      </a>
-      <button class="btn ghost nav-toggle" aria-label="Ouvrir le menu" aria-controls="navMain" aria-expanded="false">Menu</button>
-      <nav id="navMain" class="nav-center" role="navigation" aria-label="Navigation principale">
-        <a href="services.html">Services</a>
-        <a href="packs.html">Packs & Matériel</a>
-        <a href="realisations.html">Réalisations</a>
-        <a href="calendrier.html">Calendrier</a>
-        <a href="apropos.html">À propos</a>
-      </nav>
-      <div class="nav-cta">
-        <a class="btn ghost" href="calendrier.html" title="Voir ma sélection">Voir ma sélection</a>
-        <a class="btn" href="contact.html">Contact / Devis</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="contenu" class="container">
-    <h2 class="section-title" style="margin-top:6px">En avant</h2>
-    <div id="featuredGrid" class="grid cards"></div>
-    <section class="card hero" style="padding:14px;display:grid;grid-template-columns:1.2fr .8fr;gap:14px;align-items:center;margin-top:16px">
-      <div>
-        <h1 class="section-title" style="margin:0 0 8px 0">Location de matériel audiovisuel</h1>
-        <p class="muted">Packs prêts-à-tourner, caméras, lumière, audio — à La Réunion. Simple, rapide et pro.</p>
-        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-          <a class="btn" href="packs.html">Voir les packs</a>
-          <a class="btn ghost" href="contact.html">Demander un devis</a>
-        </div>
-      </div>
-      <div class="media media-16x9 hero-media" style="border:none">
-        <img src="assets/logo.webp" alt="CinéB — Location audiovisuelle" loading="eager" decoding="async" width="1024" height="576" fetchpriority="low">
-      </div>
-    </section>
-    <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px">
-      <div class="card" style="padding:16px"><b>Rapide</b><div class="muted">Réponses claires, matériel prêt</div></div>
-      <div class="card" style="padding:16px"><b>Pro</b><div class="muted">Matériel fiable et vérifié</div></div>
-      <div class="card" style="padding:16px"><b>Souple</b><div class="muted">Packs adaptés à votre tournage</div></div>
-    </section>
-    
-  </main>
-
-  <footer class="footer">© CinéB — La Réunion</footer>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
