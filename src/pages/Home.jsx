@@ -1,0 +1,1 @@
+export default function Home() { return <h1 className="section-title">Accueil</h1>; }

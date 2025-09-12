@@ -1,53 +1,97 @@
-import { useState, useEffect } from 'react';
-import sanityClient, { urlFor } from '../sanityClient'; // Importation de notre client et du helper d'image
+import { useState, useEffect, useMemo } from 'react';
+import { mockCatalog } from '../../_data.js';
+import { Link } from 'react-router-dom';
 
 function ProductCard({ product }) {
-  const imageUrl = product.image ? urlFor(product.image).width(300).url() : '';
-
   return (
-    <a href={`/produit/${product.slug.current}`} className="card">
+    <Link to={`/produit/${product.slug}`} className="card">
       <div className="media">
-        {imageUrl && <img src={imageUrl} alt={product.name} loading="lazy" decoding="async" />}
+        <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
       </div>
       <div className="body">
         <div className="title">{product.name}</div>
-        <div className="price">{product.price_eur_day > 0 ? `${product.price_eur_day}€ / jour` : 'Prix sur demande'}</div>
+        <div className="price">{product.price_eur_day > 0 ? `${parseFloat(product.price_eur_day).toFixed(0)}€ / jour` : 'Prix sur demande'}</div>
       </div>
-    </a>
+    </Link>
   );
 }
 
 export default function Packs() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  
+  // State for filters and sorting
+  const [activeCategory, setActiveCategory] = useState('');
+  const [activeSort, setActiveSort] = useState('featured');
 
   useEffect(() => {
-    const query = `*[_type == "product"]`; // Requête GROQ pour récupérer tous les produits
-
-    sanityClient.fetch(query)
-      .then(data => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setError("Erreur lors de la récupération des données depuis le CMS.");
-        setLoading(false);
-      });
+    const timer = setTimeout(() => {
+      setProducts(mockCatalog);
+      setLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
   }, []);
+
+  const filteredAndSortedProducts = useMemo(() => {
+    let result = [...products];
+
+    // Filtering
+    if (activeCategory) {
+      if (activeCategory === 'Packs') {
+        result = result.filter(p => p.type === 'pack');
+      } else {
+        result = result.filter(p => p.category === activeCategory && p.type !== 'pack');
+      }
+    }
+
+    // Sorting
+    switch (activeSort) {
+      case 'price_asc':
+        result.sort((a, b) => parseFloat(a.price_eur_day) - parseFloat(b.price_eur_day));
+        break;
+      case 'price_desc':
+        result.sort((a, b) => parseFloat(b.price_eur_day) - parseFloat(a.price_eur_day));
+        break;
+      case 'name':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'featured':
+      default:
+        result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+        break;
+    }
+
+    return result;
+  }, [products, activeCategory, activeSort]);
+
+  const categories = ['Image', 'Lumière', 'Audio', 'Packs'];
+  const sorts = {
+      featured: 'En avant',
+      price_asc: 'Prix ↑',
+      price_desc: 'Prix ↓',
+      name: 'Nom',
+  };
 
   return (
     <>
       <h1 className="section-title">Packs & Matériel</h1>
       <div className="toolbar" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '12px', alignItems: 'center' }}>
-        <p>Filtres et tri (en construction)...</p>
+        <div className="chips">
+            <button onClick={() => setActiveCategory('')} className={`chip ${activeCategory === '' ? 'active' : ''}`}>Tout</button>
+            {categories.map(cat => (
+                <button key={cat} onClick={() => setActiveCategory(cat)} className={`chip ${activeCategory === cat ? 'active' : ''}`}>{cat}</button>
+            ))}
+        </div>
+        <div className="chips">
+            {Object.entries(sorts).map(([key, label]) => (
+                <button key={key} onClick={() => setActiveSort(key)} className={`chip ${activeSort === key ? 'active' : ''}`}>{label}</button>
+            ))}
+        </div>
       </div>
       <div id="grid" className="grid cards">
         {loading && <p>Chargement du catalogue...</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {!loading && !error && products.map(product => (
-          <ProductCard key={product._id} product={product} />
+        {!loading && filteredAndSortedProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </>

@@ -1,0 +1,22 @@
+export const mockCatalog = [
+  { id: 1, type: 'product', slug: 'tamron1770', name: 'Tamron 17-70mm F/2.8 Di III‑A VC RXD', price_eur_day: '15', image: '/assets/products/tamron1770.webp', featured: false, includes: '', description: 'Objectif polyvalent lumineux.' },
+  { id: 2, type: 'product', slug: 'sony-fx30', name: 'Sony FX30 (+2 batteries)', price_eur_day: '50', image: '/assets/products/sony-fx30.webp', featured: true, includes: '', description: 'Boîtier Super35 compact.' },
+  { id: 16, type: 'pack', slug: 'pack-fx30-1770', name: 'Pack FX30 + 17/70mm', price_eur_day: '60', image: '/assets/products/sony-fx30.webp', featured: true, includes: 'sony-fx30,tamron1770', description: 'Pack de base image.' },
+  { id: 17, type: 'pack', slug: 'pack-fx30-1770-sd', name: 'FX30 + 17/70mm + carte SD', price_eur_day: '65', image: '/assets/products/sdlexar128g.webp', featured: false, includes: 'sony-fx30,tamron1770,sdlexar128g', description: 'Pack avec stockage.' },
+  { id: 18, type: 'pack', slug: 'pack-fx30-1770-sd-retour', name: 'FX30 + 17/70mm + carte SD + retour vidéo', price_eur_day: '75', image: '/assets/products/lilliputa7s.webp', featured: false, includes: 'sony-fx30,tamron1770,sdlexar128g,lilliputa7s', description: 'Ajout du moniteur.' },
+  { id: 19, type: 'pack', slug: 'pack-fx30-1770-trepied-sd', name: 'FX30 + 17/70mm + trépied + carte SD', price_eur_day: '70', image: '/assets/products/trepiedvideo.webp', featured: false, includes: 'sony-fx30,tamron1770,trepiedvideo,sdlexar128g', description: 'Avec trépied.' },
+  { id: 20, type: 'pack', slug: 'pack-fx30-1770-trepied-sd-retour', name: 'FX30 + 17/70mm + trépied + carte SD + retour vidéo', price_eur_day: '80', image: '/assets/products/pack-fx30-1770-trepied-sd-retour-studio.png', featured: true, includes: 'sony-fx30,tamron1770,trepiedvideo,sdlexar128g,lilliputa7s', description: 'Complet image.' },
+  { id: 21, type: 'pack', slug: 'pack-cb300c-softbox-pied', name: 'CB300C + softbox + pied alu', price_eur_day: '45', image: '/assets/products/neewercb300.webp', featured: false, includes: 'neewercb300,tarionsoftbox,piedlumiere', description: 'Pack lumière 300C.' },
+  { id: 22, type: 'pack', slug: 'pack-ms150b-softbox-pied', name: 'MS150B + softbox + pied alu', price_eur_day: '30', image: '/assets/products/neewerms150b.webp', featured: false, includes: 'neewerms150b,tarionsoftbox,piedlumiere', description: 'Pack MS150B.' },
+  { id: 23, type: 'pack', slug: 'pack-ms150b-cb300c-softbox-2pieds', name: 'MS150B + CB300C + softbox + pieds x2', price_eur_day: '70', image: '/assets/products/neewercb300.webp', featured: false, includes: 'neewerms150b,neewercb300,tarionsoftbox,piedlumiere', description: 'Combo 2 lights.' },
+  { id: 24, type: 'pack', slug: 'pack-ms150b-2xnpf970', name: 'MS150B + 2 Batteries NP-F970', price_eur_day: '28', image: '/assets/products/batteriesonynpf970.webp', featured: false, includes: 'neewerms150b,batteriesonynpf970', description: 'Autonomie terrain.' },
+  { id: 25, type: 'pack', slug: 'pack-ms150b-softbox-pied-2xnpf970', name: 'MS150B + softbox + pied + 2x NP-F970', price_eur_day: '38', image: '/assets/products/neewerms150b.webp', featured: false, includes: 'neewerms150b,tarionsoftbox,piedlumiere,batteriesonynpf970', description: 'Complet autonome.' },
+  { id: 26, type: 'pack', slug: 'pack-2-pieds', name: 'Pieds lumière x2', price_eur_day: '8', image: '/assets/products/piedlumiere.webp', featured: false, includes: 'piedlumiere', description: 'Deux pieds.' },
+  { id: 27, type: 'pack', slug: 'pack-pret-a-tourner', name: 'Prêt à tourner — FX30 + kit complet', price_eur_day: '150', image: '/assets/products/sony-fx30.webp', featured: true, includes: 'sony-fx30,tamron1770,sacpgytech,trepiedvideo,sdlexar128g,neewercb300,neewerms150b,tarionsoftbox,piedlumiere,comicavm40,perchesonrode,hollylandlarkmax2', description: 'Pack complet image + lumière + son.' }
+];
+
+export const mockRealisations = [
+  { id: 1, slug: 'clip-sombre', title: 'Clip "Sombre"', customer: 'Artiste X', image: '/assets/realisations/clip.webp' },
+  { id: 2, slug: 'interview-ceo', title: 'Interview PDG', customer: 'Startup Y', image: '/assets/realisations/interview.webp' },
+  { id: 3, slug: 'pub-boisson', title: 'Publicité Boisson Énergisante', customer: 'Marque Z', image: '/assets/realisations/pub-fx30.webp' }
+];
