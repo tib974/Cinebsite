@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import sanityClient, { urlFor } from '../sanityClient'; // Importation de notre client et du helper d'image
 
 function ProductCard({ product }) {
+  const imageUrl = product.image ? urlFor(product.image).width(300).url() : '';
+
   return (
-    <a href={`/produit/${product.slug}`} className="card">
+    <a href={`/produit/${product.slug.current}`} className="card">
       <div className="media">
-        <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
+        {imageUrl && <img src={imageUrl} alt={product.name} loading="lazy" decoding="async" />}
       </div>
       <div className="body">
         <div className="title">{product.name}</div>
@@ -20,27 +23,18 @@ export default function Packs() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/catalog');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result = await response.json();
-        if (result.ok) {
-          setProducts(result.data);
-        } else {
-          throw new Error(result.error || 'API returned an error');
-        }
-      } catch (e) {
-        setError(e.message);
-      }
-      finally {
-        setLoading(false);
-      }
-    };
+    const query = `*[_type == "product"]`; // Requête GROQ pour récupérer tous les produits
 
-    fetchProducts();
+    sanityClient.fetch(query)
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setError("Erreur lors de la récupération des données depuis le CMS.");
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -51,9 +45,9 @@ export default function Packs() {
       </div>
       <div id="grid" className="grid cards">
         {loading && <p>Chargement du catalogue...</p>}
-        {error && <p style={{ color: 'red' }}>Erreur: {error}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         {!loading && !error && products.map(product => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
     </>

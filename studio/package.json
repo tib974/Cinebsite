@@ -1,28 +1,37 @@
 {
-  "name": "cinebsitestudio",
+  "name": "cineb",
   "private": true,
   "version": "1.0.0",
-  "description": "",
   "main": "package.json",
-  "author": "",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "sanity start",
-    "build": "sanity build"
+    "dev": "sanity dev",
+    "start": "npx sanity start",
+    "build": "npx sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/base": "^2.0.0",
-    "@sanity/core": "^2.0.0",
-    "@sanity/default-layout": "^2.0.0",
-    "@sanity/default-login": "^2.0.0",
-    "@sanity/desk-tool": "^2.0.0",
-    "@sanity/vision": "^2.0.0",
-    "prop-types": "^15.7",
-    "react": "^17.0",
-    "react-dom": "^17.0",
-    "styled-components": "^5.2"
+    "@sanity/vision": "^4.8.1",
+    "react": "^19.1",
+    "react-dom": "^19.1",
+    "sanity": "^4.8.1",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@types/react": "^19.1",
+    "eslint": "^9.28",
+    "prettier": "^3.5",
+    "typescript": "^5.8"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
   }
 }
