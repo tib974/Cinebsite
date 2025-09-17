@@ -74,13 +74,13 @@ export default function Contact() {
       </div>
 
       <div className="card" style={{ padding: '20px' }}>
-        <form id="contactForm" action="https://formspree.io/f/your_form_id" method="POST" style={{ display: 'grid', gap: '12px' }}>
+        <form id="contactForm" action="https://formspree.io/f/xandgvea" method="POST" style={{ display: 'grid', gap: '12px' }}>
           <input type="text" name="website" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
           <div style={{ display: 'grid', gap: '12px', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))' }}>
             <input name="name" placeholder="Nom" required autoComplete="name" />
             <input name="email" type="email" placeholder="Email" required autoComplete="email" />
           </div>
-          <input name="phone" placeholder="Téléphone (optionnel)" autoComplete="tel" />
+          <input name="phone" type="tel" placeholder="Téléphone (optionnel)" autoComplete="tel" />
           <input name="items" placeholder="Matériel / Pack souhaité" value={itemsForForm} readOnly={quoteItems.length > 0} />
           <input name="dates" placeholder="Dates ou période" defaultValue={presetDates} />
           <input name="source" type="hidden" value="site-web-react" />
