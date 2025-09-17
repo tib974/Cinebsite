@@ -1,10 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-
-const QuoteContext = createContext();
-
-export function useQuote() {
-  return useContext(QuoteContext);
-}
+import React, { useState, useEffect } from 'react';
+import { QuoteContext } from './quoteContextDefinition.js';
 
 export function QuoteProvider({ children }) {
   const [quoteItems, setQuoteItems] = useState([]);
