@@ -3,7 +3,26 @@ import { useSearchParams } from 'react-router-dom';
 import sanityClient from '../sanityClient.js';
 import { useQuote } from '../context/QuoteContext.jsx';
 
+function calculateDuration(start, end) {
+  if (!start || !end) return 1;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  if (endDate < startDate) return 1;
+  const duration = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
+  return Math.round(duration) + 1;
+}
+
 function QuoteSummary({ items, onClear }) {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const duration = useMemo(() => calculateDuration(startDate, endDate), [startDate, endDate]);
+  const totalPrice = useMemo(() => {
+    if (items.length === 0) return 0;
+    const totalPerDay = items.reduce((sum, item) => sum + (item.pricePerDay || 0), 0);
+    return totalPerDay * duration;
+  }, [items, duration]);
+
   if (items.length === 0) return null;
 
   return (
@@ -20,6 +39,21 @@ function QuoteSummary({ items, onClear }) {
           </li>
         ))}
       </ul>
+      <div style={{ borderTop: '1px solid var(--line)', marginTop: '16px', paddingTop: '16px' }}>
+        <h3 style={{ margin: '0 0 12px 0', fontSize: '1rem' }}>Estimer le coût total</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', alignItems: 'center' }}>
+          <label htmlFor="start-date" style={{fontSize: '0.8rem'}}>Début</label>
+          <label htmlFor="end-date" style={{fontSize: '0.8rem'}}>Fin</label>
+          <input type="date" id="start-date" value={startDate} onChange={e => setStartDate(e.target.value)} style={{padding: '8px'}}/>
+          <input type="date" id="end-date" value={endDate} onChange={e => setEndDate(e.target.value)} style={{padding: '8px'}}/>
+        </div>
+        {totalPrice > 0 && (
+          <div style={{marginTop: '16px', textAlign: 'right'}}>
+            <span className="muted">{duration} jour{duration > 1 ? 's' : ''} : </span>
+            <strong style={{fontSize: '1.2rem', color: 'var(--primary)'}}>{totalPrice.toFixed(2)}€</strong>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
