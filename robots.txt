@@ -1,4 +1,5 @@
 User-agent: *
-Disallow: /desk/
-Disallow: /office/
-Sitemap: /sitemap.php
+Disallow:
+
+# Générer un sitemap statique si nécessaire et mettre à jour l’URL ci-dessous
+# Sitemap: https://cineb.great-site.net/sitemap.xml

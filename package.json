@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postbuild": "node -e \"const f=require('fs'),p=require('path'),src=p.resolve('public/.htaccess'),dst=p.resolve('dist/.htaccess');if(f.existsSync(src)){fs.copyFileSync(src,dst);}\"",
+    "deploy:oneclick": "node scripts/oneClickDeploy.js"
   },
   "dependencies": {
     "@sanity/client": "^7.11.1",
@@ -16,6 +18,7 @@
     "express": "^5.1.0",
     "form-data": "^4.0.4",
     "node-fetch": "^3.3.2",
+    "basic-ftp": "^5.0.4",
     "react": "^19.1.1",
     "react-calendar": "^6.0.0",
     "react-dom": "^19.1.1",

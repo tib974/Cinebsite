@@ -1,1 +1,13 @@
-/* Fichier App.css */
+main.container {
+  min-height: min(100vh, 100%);
+}
+
+main.container > * + * {
+  margin-top: 24px;
+}
+
+@media (max-width: 720px) {
+  main.container > * + * {
+    margin-top: 18px;
+  }
+}

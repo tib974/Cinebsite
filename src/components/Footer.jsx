@@ -1,7 +1,17 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="footer">© CinéB — La Réunion</footer>
+    <footer className="footer" style={{ padding: '24px 16px', display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>© {year} CinéB — La Réunion</div>
+      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', fontSize: '0.9rem' }}>
+        <Link to="/packs">Catalogue</Link>
+        <Link to="/contact">Devis</Link>
+        <a href="https://calendly.com/grondin-thibaut/demande-de-reservation-cineb" target="_blank" rel="noreferrer">
+          Calendly
+        </a>
+      </div>
+    </footer>
   );
 }

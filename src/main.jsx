@@ -11,6 +11,7 @@ import Apropos from './pages/Apropos.jsx';
 import Contact from './pages/Contact.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
 import RealisationDetail from './pages/RealisationDetail.jsx';
+import NotFound from './pages/NotFound.jsx';
 import './index.css';
 import './theme-poppins.css';
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       // Routes pour les pages de détail
       { path: 'produit/:slug', element: <ProductDetail /> },
       { path: 'realisation/:slug', element: <RealisationDetail /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ]);

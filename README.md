@@ -1,12 +1,42 @@
-# React + Vite
+# CinéB — Site vitrine React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application monopage (SPA) construite avec [Vite](https://vitejs.dev/) et [React Router] pour présenter les services de location audiovisuelle, les packs de matériel et les réalisations de CinéB (La Réunion).
 
-Currently, two official plugins are available:
+## Prérequis
+- Node.js 18+
+- npm 9+
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Scripts disponibles
+| Commande            | Description                                      |
+|--------------------|--------------------------------------------------|
+| `npm install`      | Installe les dépendances                         |
+| `npm run dev`      | Lance le serveur de développement (port 5173)    |
+| `npm run build`    | Construit la version production dans `dist/`     |
+| `npm run preview`  | Sert localement le build pour validation finale  |
 
-## Expanding the ESLint configuration
+## Structure
+- `src/` : composants React, pages et thème (`theme-poppins.css`)
+- `src/data/` : normalisation du catalogue et des réalisations à partir de `data/catalog.json` et `data/realisations.json`
+- `public/` : assets bruts copiés tels quels (images, polices, `.htaccess`)
+- `dist/` : sortie générée par `npm run build` (à déployer sur l’hébergement)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Déploiement
+Consulter [`README_infinityfree.md`](README_infinityfree.md) pour le pas‑à‑pas vers InfinityFree (`cineb.great-site.net`).
+
+### One click (InfinityFree)
+1. Copier `.env.deploy.example` en `.env.deploy` et vérifier les identifiants FTP.
+2. Sur macOS, double-cliquer `deploy.command`. En terminal, exécuter `npm run deploy:oneclick`.
+3. Le script installe les dépendances si besoin, construit `dist/` puis envoie le site sur `htdocs/`.
+
+## Personnalisation
+- Contenu du catalogue : modifier `data/catalog.json`
+- Réalisations : `data/realisations.json` ou synchronisation Sanity (`src/pages/Realisations.jsx`)
+- Couleurs / styles : éditer `src/theme-poppins.css`
+- Formulaire : mettre à jour la cible `action` dans `src/pages/Contact.jsx`
+
+### Sanity (optionnel)
+- Pour activer le chargement dynamique depuis Sanity, créer `.env.local` avec `VITE_SANITY_FETCH=true`
+- Sans cette variable, le site utilise les réalisations locales et ne dépend d’aucun service externe
+
+## Licence
+Projet propriétaire CinéB — usage interne.
