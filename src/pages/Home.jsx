@@ -59,12 +59,6 @@ export default function Home() {
 
   return (
     <>
-      <div style={{ border: '2px dashed red', padding: '10px', margin: '10px', backgroundColor: '#222' }}>
-        <h2 style={{color: 'red'}}>PANNEAU DE DÉBOGAGE</h2>
-        <p>Project ID utilisé : <strong>{import.meta.env.VITE_SANITY_PROJECT_ID || "NON DÉFINI"}</strong></p>
-        <p>Dataset utilisé : <strong>{import.meta.env.VITE_SANITY_DATASET || "NON DÉFINI"}</strong></p>
-      </div>
-
       <section className="card hero" style={{ padding: '24px', display: 'grid', gap: '24px', gridTemplateColumns: 'minmax(280px, 1fr) minmax(240px, 0.8fr)', alignItems: 'center' }}>
         <div>
           <h1 className="section-title" style={{ margin: 0 }}>Location de matériel audiovisuel</h1>
