@@ -15,22 +15,22 @@ function ProductCard({ item }) {
   const isInQuote = useMemo(() => quoteItems.some(quoteItem => quoteItem._id === item._id), [quoteItems, item]);
 
   return (
-    <div className="card">
-      <Link to={`/produit/${item.slug?.current}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <div className="card product-card">
+      <Link to={`/produit/${item.slug?.current}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <div className="media">
-          {item.image && <img src={urlFor(item.image).width(400).url()} alt={item.name} loading="lazy" decoding="async" />}
+          {item.image && <img src={urlFor(item.image).width(400).height(400).url()} alt={item.name} loading="lazy" decoding="async" />}
           {item.type === 'pack' && (
             <span className="badge badge-cat" style={{ left: '12px', right: 'auto' }}>Pack</span>
           )}
           {item.featured && <span className="badge">En avant</span>}
         </div>
-        <div className="body" style={{ paddingBottom: 0 }}>
-          <div className="title" style={{ fontWeight: 700 }}>{item.name}</div>
-          <div className="muted" style={{ fontSize: '0.85rem', marginTop: '6px' }}>{item.category}</div>
-          <div className="price" style={{ marginTop: '10px' }}>{formatPrice(item.pricePerDay)}</div>
+        <div className="body">
+          <div className="title">{item.name}</div>
+          <div className="category">{item.category}</div>
+          <div className="price">{formatPrice(item.pricePerDay)}</div>
         </div>
       </Link>
-      <div className="card-footer" style={{ padding: '12px', borderTop: '1px solid var(--line)' }}>
+      <div className="card-footer">
         <button 
           className={`btn ${isInQuote ? 'ghost' : ''}`} 
           style={{ width: '100%' }} 

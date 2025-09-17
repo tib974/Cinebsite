@@ -26,11 +26,62 @@ body {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Nouveaux styles pour la carte produit */
+.product-card .media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.product-card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .media img {
+  transform: scale(1.05);
+}
+
+.product-card .body {
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card .title {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.product-card .category {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.product-card .price {
+  margin-top: auto; /* Pousse le prix en bas */
+  padding-top: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.product-card .card-footer {
+  padding: 16px;
+  border-top: 1px solid var(--line);
+  margin-top: auto;
 }
 
 /* Styles des boutons */

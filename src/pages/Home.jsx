@@ -4,15 +4,15 @@ import sanityClient, { urlFor } from '../sanityClient.js';
 
 function ProductPreview({ item }) {
   return (
-    <Link to={`/produit/${item.slug?.current}`} className="card" style={{ textDecoration: 'none' }}>
+    <Link to={`/produit/${item.slug?.current}`} className="card product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="media">
-        {item.image && <img src={urlFor(item.image).width(400).url()} alt={item.name} loading="lazy" decoding="async" />}
+        {item.image && <img src={urlFor(item.image).width(400).height(400).url()} alt={item.name} loading="lazy" decoding="async" />}
         {item.type === 'pack' && <span className="badge badge-cat">Pack</span>}
         {item.featured && <span className="badge" style={{ right: '12px' }}>En avant</span>}
       </div>
       <div className="body">
-        <div className="title" style={{ fontWeight: 700 }}>{item.name}</div>
-        <div className="muted" style={{ marginTop: '6px' }}>{item.category}</div>
+        <div className="title">{item.name}</div>
+        <div className="category">{item.category}</div>
       </div>
     </Link>
   );
