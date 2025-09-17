@@ -83,8 +83,13 @@ export default function Packs() {
   }, []);
 
   const categories = useMemo(() => {
-    const fromData = new Set(allProducts.map((item) => item.category).filter(Boolean));
-    return ['Image', 'Lumière', 'Audio', 'Accessoires', 'Packs'].filter((c) => fromData.has(c) || c === 'Packs');
+    const allCats = new Set(allProducts.map((item) => item.category).filter(Boolean));
+    const hasPacks = allCats.delete('Packs');
+    const otherCats = [...allCats].sort();
+    if (hasPacks) {
+      return ['Packs', ...otherCats];
+    }
+    return otherCats;
   }, [allProducts]);
 
   const featuredCatalogItems = useMemo(() => allProducts.filter(p => p.featured), [allProducts]);

@@ -3,11 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import { useQuote } from '../context/QuoteContext';
 
 const LINKS = [
-  { to: '/services', label: 'Services' },
-  { to: '/packs', label: 'Packs & Matériel' },
+  { to: '/packs', label: 'Catalogue' },
   { to: '/realisations', label: 'Réalisations' },
-  { to: '/calendrier', label: 'Calendrier' },
+  { to: '/services', label: 'Services' },
   { to: '/apropos', label: 'À propos' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 function QuoteStatus() {
@@ -66,8 +66,8 @@ export default function Header() {
         </nav>
         <div className="nav-cta">
           <QuoteStatus />
-          <Link className="btn" to="/contact">
-            Contact
+          <Link className="btn" to="/calendrier">
+            Calendrier
           </Link>
         </div>
       </div>
