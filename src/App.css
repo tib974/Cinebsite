@@ -84,6 +84,37 @@ body {
   margin-top: auto;
 }
 
+/* Styles des boutons de tri */
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-muted);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sort-btn:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.sort-btn.active {
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: rgba(126, 87, 194, 0.1);
+}
+
+.sort-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* Styles des boutons */
 .btn {
   display: inline-flex;

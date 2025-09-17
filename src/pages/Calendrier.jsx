@@ -4,6 +4,21 @@ import Calendar from 'react-calendar';
 import sanityClient from '../sanityClient.js';
 import 'react-calendar/dist/Calendar.css';
 
+// --- Logique de calcul de prix ---
+function getProgressiveDiscount(duration) {
+  if (duration >= 7) return 0.60; // 40% de réduction
+  if (duration >= 5) return 0.70; // 30% de réduction
+  if (duration >= 3) return 0.85; // 15% de réduction
+  return 1; // Plein tarif
+}
+
+function calculatePrice(dailyPrice, duration) {
+  if (!dailyPrice) return null;
+  const discount = getProgressiveDiscount(duration);
+  return dailyPrice * duration * discount;
+}
+// --------------------------------
+
 function formatDate(date) {
   if (!date) return '';
   return date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -43,7 +58,7 @@ export default function Calendrier() {
   const summary = useMemo(() => {
     if (!product) return null;
     const duration = calculateDuration(dateRange);
-    const totalPrice = product.pricePerDay ? product.pricePerDay * duration : null;
+    const totalPrice = calculatePrice(product.pricePerDay, duration);
     return {
       name: product.name,
       price: product.pricePerDay,
@@ -84,7 +99,7 @@ export default function Calendrier() {
           <div>
             <h2 style={{ margin: '0 0 8px 0', fontSize: '1.1rem' }}>Demande rapide</h2>
             <p className="muted" style={{ margin: 0 }}>Du <strong>{formatDate(dateRange[0])}</strong> au <strong>{formatDate(dateRange[1])}</strong></p>
-            {summary?.totalPrice && <p style={{ margin: '8px 0 0 0' }}>Estimation : <strong>{summary.totalPrice}€</strong> ({summary.duration} jours)</p>}
+            {summary?.totalPrice !== null && <p style={{ margin: '8px 0 0 0' }}>Estimation : <strong style={{color: 'var(--primary)'}}>{summary.totalPrice.toFixed(2)}€</strong> ({summary.duration} jours)</p>}
           </div>
           <form id="slotForm" onSubmit={handleFormSubmit} style={{ display: 'grid', gap: '12px' }}>
             <input name="nom" placeholder="Nom" value={formData.nom} onChange={handleFormChange} required />

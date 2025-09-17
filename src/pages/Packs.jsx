@@ -48,18 +48,30 @@ const sorters = {
   featured: {
     label: 'En avant',
     sorter: (a, b) => Number(b.featured) - Number(a.featured),
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" /></svg>
+    ),
   },
   price_asc: {
-    label: 'Prix ↑',
+    label: 'Prix',
     sorter: (a, b) => (a.pricePerDay ?? Number.POSITIVE_INFINITY) - (b.pricePerDay ?? Number.POSITIVE_INFINITY),
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14l-6-6z" /></svg>
+    ),
   },
   price_desc: {
-    label: 'Prix ↓',
+    label: 'Prix',
     sorter: (a, b) => (b.pricePerDay ?? -1) - (a.pricePerDay ?? -1),
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10l-6 6z" /></svg>
+    ),
   },
   name: {
     label: 'Nom',
     sorter: (a, b) => a.name.localeCompare(b.name),
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 15h18v-2H3v2zm0 4h18v-2H3v2zm0-8h18V9H3v2zm0-6v2h18V5H3z" /></svg>
+    ),
   },
 };
 
@@ -143,13 +155,15 @@ export default function Packs() {
           ))}
         </div>
         <div className="chips" aria-label="Tri">
-          {Object.entries(sorters).map(([key, { label }]) => (
+          {Object.entries(sorters).map(([key, { label, icon }]) => (
             <button
               key={key}
               type="button"
               onClick={() => setSelectedSort(key)}
-              className={`chip ${selectedSort === key ? 'active' : ''}`}>
-              {label}
+              className={`sort-btn ${selectedSort === key ? 'active' : ''}`}
+            >
+              {icon}
+              <span>{label}</span>
             </button>
           ))}
         </div>

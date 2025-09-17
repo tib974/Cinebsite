@@ -3,6 +3,21 @@ import { useSearchParams } from 'react-router-dom';
 import sanityClient from '../sanityClient.js';
 import { useQuote } from '../context/QuoteContext.jsx';
 
+// --- Logique de calcul de prix ---
+function getProgressiveDiscount(duration) {
+  if (duration >= 7) return 0.60; // 40% de réduction
+  if (duration >= 5) return 0.70; // 30% de réduction
+  if (duration >= 3) return 0.85; // 15% de réduction
+  return 1; // Plein tarif
+}
+
+function calculatePrice(dailyPrice, duration) {
+  if (!dailyPrice) return 0;
+  const discount = getProgressiveDiscount(duration);
+  return dailyPrice * duration * discount;
+}
+// --------------------------------
+
 function calculateDuration(start, end) {
   if (!start || !end) return 1;
   const startDate = new Date(start);
@@ -20,7 +35,7 @@ function QuoteSummary({ items, onClear }) {
   const totalPrice = useMemo(() => {
     if (items.length === 0) return 0;
     const totalPerDay = items.reduce((sum, item) => sum + (item.pricePerDay || 0), 0);
-    return totalPerDay * duration;
+    return calculatePrice(totalPerDay, duration);
   }, [items, duration]);
 
   if (items.length === 0) return null;
