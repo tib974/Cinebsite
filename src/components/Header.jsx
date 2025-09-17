@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useQuote } from '../context/QuoteContext';
+import { useQuote } from '../hooks/useQuote.js';
 
 const LINKS = [
   { to: '/packs', label: 'Catalogue' },

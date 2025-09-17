@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
-import { useQuote } from '../context/QuoteContext.jsx';
+import { useQuote } from '../hooks/useQuote.js';
 
 function formatPrice(pricePerDay) {
   if (pricePerDay === null || pricePerDay === undefined) {

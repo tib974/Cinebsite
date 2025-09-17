@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import sanityClient, { urlFor } from '../sanityClient.js';
-import { useQuote } from '../context/QuoteContext.jsx';
+import { useQuote } from '../hooks/useQuote.js';
 import 'react-calendar/dist/Calendar.css';
 
 function formatPrice(pricePerDay) {

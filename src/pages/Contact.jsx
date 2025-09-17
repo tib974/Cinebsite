@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import sanityClient from '../sanityClient.js';
-import { useQuote } from '../context/QuoteContext.jsx';
+import { useQuote } from '../hooks/useQuote.js';
 
 // --- Logique de calcul de prix ---
 function getProgressiveDiscount(duration) {
