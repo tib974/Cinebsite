@@ -61,7 +61,7 @@ export default function Home() {
     <>
       <section className="card hero" style={{ padding: '24px', display: 'grid', gap: '24px', gridTemplateColumns: 'minmax(280px, 1fr) minmax(240px, 0.8fr)', alignItems: 'center' }}>
         <div>
-          <h1 className="section-title" style={{ margin: 0 }}>CinéB : Location de matériel audiovisuel</h1>
+          <h1 className="section-title" style={{ margin: 0 }}>Location de matériel audiovisuel</h1>
           <p className="muted" style={{ marginTop: '12px', maxWidth: 560 }}>
             Packs prêts-à-tourner, caméras, lumière et audio. CinéB accompagne vos tournages sur toute l’île de La Réunion.
           </p>
