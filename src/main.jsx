@@ -12,6 +12,7 @@ import Contact from './pages/Contact.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
 import RealisationDetail from './pages/RealisationDetail.jsx';
 import NotFound from './pages/NotFound.jsx';
+import { QuoteProvider } from './context/QuoteContext.jsx';
 import './index.css';
 import './theme-poppins.css';
 
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QuoteProvider>
+      <RouterProvider router={router} />
+    </QuoteProvider>
   </React.StrictMode>
 );

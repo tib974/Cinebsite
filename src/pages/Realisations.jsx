@@ -1,63 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
-import { realisations } from '../data/index.js';
-
-const ENABLE_SANITY_FETCH = import.meta.env.VITE_SANITY_FETCH === 'true';
-
-function getSanityImageUrl(image) {
-  try {
-    return image ? urlFor(image).width(800).url() : '';
-  } catch {
-    return '';
-  }
-}
 
 export default function Realisations() {
-  const [items, setItems] = useState(realisations);
-  const [loading, setLoading] = useState(ENABLE_SANITY_FETCH);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!ENABLE_SANITY_FETCH) {
-      setLoading(false);
-      return;
-    }
-
-    let isMounted = true;
-
     async function loadRealisations() {
+      setLoading(true);
       try {
-        const query = `*[_type == "project"] | order(date desc)`;
+        const query = `*[_type == "realisation"] | order(date desc)`;
         const data = await sanityClient.fetch(query);
-        if (!isMounted || !Array.isArray(data) || !data.length) {
-          setLoading(false);
-          return;
-        }
-        const normalized = data.map((item) => ({
-          id: item._id,
-          title: item.title,
-          slug: item.slug?.current,
-          customer: item.customer,
-          description: item.description,
-          date: item.date,
-          image: getSanityImageUrl(item.image),
-        })).filter((item) => item.slug);
-
-        if (normalized.length && isMounted) {
-          setItems(normalized);
-        }
+        setItems(data || []);
       } catch (fetchError) {
-        console.warn('[Realisations] Sanity fetch failed, using local fallback.', fetchError);
+        console.error('[Realisations] Sanity fetch failed', fetchError);
       } finally {
-        if (isMounted) setLoading(false);
+        setLoading(false);
       }
     }
 
     loadRealisations();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   return (
@@ -74,9 +37,9 @@ export default function Realisations() {
       {!loading && (
         <div className="grid cards grid-reals">
           {items.map((item) => (
-            <Link key={item.slug ?? item.id} to={`/realisation/${item.slug ?? item.id}`} className="card">
+            <Link key={item._id} to={`/realisation/${item.slug?.current}`} className="card">
               <div className="media media-16x9">
-                {item.image && <img src={item.image} alt={item.title} loading="lazy" decoding="async" />}
+                {item.image && <img src={urlFor(item.image).width(600).url()} alt={item.title} loading="lazy" decoding="async" />}
               </div>
               <div className="body">
                 <div className="title" style={{ fontWeight: 700 }}>{item.title}</div>

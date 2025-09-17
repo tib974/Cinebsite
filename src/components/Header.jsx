@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useQuote } from '../context/QuoteContext';
 
 const LINKS = [
   { to: '/services', label: 'Services' },
@@ -8,6 +9,16 @@ const LINKS = [
   { to: '/calendrier', label: 'Calendrier' },
   { to: '/apropos', label: 'À propos' },
 ];
+
+function QuoteStatus() {
+  const { quoteItems } = useQuote();
+  
+  return (
+    <Link className="btn ghost" to="/contact" title="Voir la sélection pour le devis">
+      Devis {quoteItems.length > 0 && `(${quoteItems.length})`}
+    </Link>
+  );
+}
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,11 +65,9 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-cta">
-          <Link className="btn ghost" to="/calendrier" title="Voir ma sélection">
-            Voir ma sélection
-          </Link>
+          <QuoteStatus />
           <Link className="btn" to="/contact">
-            Contact / Devis
+            Contact
           </Link>
         </div>
       </div>

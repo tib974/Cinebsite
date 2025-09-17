@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
+import { useQuote } from '../context/QuoteContext.jsx';
 
 function formatPrice(pricePerDay) {
   if (pricePerDay === null || pricePerDay === undefined) {
@@ -36,6 +37,8 @@ export default function ProductDetail() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addProductToQuote, quoteItems } = useQuote();
+  const isInQuote = useMemo(() => product && quoteItems.some(quoteItem => quoteItem._id === product._id), [quoteItems, product]);
 
   useEffect(() => {
     if (!slug) return;
@@ -89,11 +92,15 @@ export default function ProductDetail() {
           <div className="price" style={{ margin: '12px 0' }}>{formatPrice(product.pricePerDay)}</div>
           <p className="muted" style={{ whiteSpace: 'pre-line' }}>{product.description || 'Description à venir.'}</p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '18px' }}>
-            <Link className="btn" to={`/calendrier?produit=${product.slug?.current}`}>
-              Réserver / Vérifier les dates
-            </Link>
+            <button 
+              className={`btn ${isInQuote ? 'ghost' : ''}`} 
+              onClick={() => addProductToQuote(product)}
+              disabled={isInQuote}
+            >
+              {isInQuote ? 'Ajouté au devis' : 'Ajouter au devis'}
+            </button>
             <Link className="btn ghost" to={`/contact?items=${product.slug?.current}`}>
-              Demander un devis
+              Demander un devis pour ce produit
             </Link>
           </div>
         </div>

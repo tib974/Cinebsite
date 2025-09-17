@@ -1,58 +1,33 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
-import { realisationsBySlug } from '../data/index.js';
-
-const ENABLE_SANITY_FETCH = import.meta.env.VITE_SANITY_FETCH === 'true';
-
-function buildSanityItem(raw) {
-  if (!raw) return null;
-  return {
-    title: raw.title,
-    slug: raw.slug?.current?.toLowerCase(),
-    customer: raw.customer,
-    description: raw.description,
-    date: raw.date,
-    image: raw.image ? urlFor(raw.image).width(960).url() : '',
-    url: raw.url,
-  };
-}
 
 export default function RealisationDetail() {
-  const { slug = '' } = useParams();
-  const normalizedSlug = slug.toLowerCase();
-  const initial = realisationsBySlug.get(normalizedSlug) || null;
-  const [item, setItem] = useState(initial);
-  const [loading, setLoading] = useState(!initial && ENABLE_SANITY_FETCH);
+  const { slug } = useParams();
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (initial || !ENABLE_SANITY_FETCH) {
+    if (!slug) {
       setLoading(false);
       return;
     }
 
-    let isMounted = true;
-
     async function fetchSanityItem() {
+      setLoading(true);
       try {
-        const query = `*[_type == "project" && slug.current == $slug][0]`;
-        const data = await sanityClient.fetch(query, { slug: normalizedSlug });
-        if (!isMounted) return;
-        const parsed = buildSanityItem(data);
-        if (parsed) setItem(parsed);
+        const query = `*[_type == "realisation" && slug.current == $slug][0]`;
+        const data = await sanityClient.fetch(query, { slug });
+        setItem(data);
       } catch (error) {
-        console.warn('[RealisationDetail] Sanity fetch failed, showing fallback message.', error);
+        console.error('[RealisationDetail] Sanity fetch failed', error);
       } finally {
-        if (isMounted) setLoading(false);
+        setLoading(false);
       }
     }
 
     fetchSanityItem();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [initial, normalizedSlug]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -83,7 +58,7 @@ export default function RealisationDetail() {
       {item.date && <p className="muted">{new Date(item.date).toLocaleDateString('fr-FR')}</p>}
       {item.image && (
         <div className="media media-16x9" style={{ marginTop: '18px' }}>
-          <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+          <img src={urlFor(item.image).width(960).url()} alt={item.title} loading="lazy" decoding="async" />
         </div>
       )}
       {item.description && <p style={{ marginTop: '18px' }}>{item.description}</p>}

@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import Calendar from 'react-calendar';
-import { catalogBySlug } from '../data/index.js';
+import sanityClient from '../sanityClient.js';
 import 'react-calendar/dist/Calendar.css';
 
 function formatDate(date) {
@@ -10,18 +10,34 @@ function formatDate(date) {
 
 export default function Calendrier() {
   const [searchParams] = useSearchParams();
-  const preselectedSlug = (searchParams.get('produit') || '').toLowerCase();
-  const product = catalogBySlug.get(preselectedSlug) || null;
+  const [product, setProduct] = useState(null);
   const [date, setDate] = useState(new Date());
   const [formData, setFormData] = useState({ nom: '', email: '', message: '' });
   const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    const preselectedSlug = (searchParams.get('produit') || '').toLowerCase();
+    if (!preselectedSlug) return;
+
+    const fetchProduct = async () => {
+      try {
+        const query = `*[_type == "product" && slug.current == $slug][0]`;
+        const result = await sanityClient.fetch(query, { slug: preselectedSlug });
+        setProduct(result);
+      } catch (error) {
+        console.error("Erreur lors de la récupération du produit pour le calendrier :", error);
+      }
+    };
+
+    fetchProduct();
+  }, [searchParams]);
 
   const summary = useMemo(() => {
     if (!product) return null;
     return {
       name: product.name,
       price: product.pricePerDay,
-      url: `/produit/${product.slug}`,
+      url: `/produit/${product.slug?.current}`,
     };
   }, [product]);
 
@@ -33,7 +49,7 @@ export default function Calendrier() {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setStatus(`Demande enregistrée pour le ${formatDate(date)}. Nous revenons vers vous rapidement.`);
-    console.info('Calendrier — envoi simulé', { date: date.toISOString(), ...formData, produit: product?.slug });
+    console.info('Calendrier — envoi simulé', { date: date.toISOString(), ...formData, produit: product?.slug?.current });
     setFormData({ nom: '', email: '', message: '' });
   };
 
@@ -84,7 +100,7 @@ export default function Calendrier() {
           <Link className="btn ghost" to={summary.url}>
             Voir la fiche produit
           </Link>
-          <Link className="btn" to={`/contact?items=${product.slug}`}>Finaliser la demande</Link>
+          <Link className="btn" to={`/contact?items=${product.slug?.current}`}>Finaliser la demande</Link>
         </div>
       )}
     </section>
