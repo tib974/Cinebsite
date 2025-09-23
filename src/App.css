@@ -212,26 +212,26 @@ body {
 .hero-slider {
   position: relative;
   overflow: hidden;
-  padding: 0;
+  padding: 16px 12px 40px;
   min-height: 200px;
   display: grid;
 }
 
 .hero-ribbon {
   position: absolute;
-  top: 24px;
-  left: -60px;
-  background: linear-gradient(135deg, rgba(126, 87, 194, 0.95), rgba(88, 45, 182, 0.95));
+  top: 18px;
+  left: 18px;
+  background: linear-gradient(135deg, rgba(126, 87, 194, 0.95), rgba(88, 45, 182, 0.9));
   color: #fff;
-  padding: 10px 70px;
+  padding: 6px 18px;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  transform: rotate(-44deg);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
-  z-index: 5;
+  z-index: 3;
 }
 
 .pack-card {
@@ -409,12 +409,12 @@ body {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) minmax(200px, 0.8fr);
   gap: 20px;
-  padding: 24px;
+  padding: 20px 24px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
-  min-height: clamp(320px, 58vh, 440px);
+  min-height: clamp(280px, 52vh, 380px);
 }
 
 .hero-slide.active {
@@ -446,15 +446,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
-  padding: 16px;
+  padding: 14px;
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .hero-slide__visual-img {
-  width: clamp(140px, 28vw, 220px);
+  width: clamp(130px, 24vw, 200px);
   max-width: 100%;
   border-radius: 14px;
   border: 1px solid var(--line);
@@ -502,7 +502,7 @@ body {
 @media (max-width: 900px) {
   .hero-slide {
     grid-template-columns: 1fr;
-    padding: 20px 16px 44px;
+    padding: 20px 16px 36px;
   }
 
   .hero-slider__dots {
@@ -512,18 +512,18 @@ body {
 
 @media (max-width: 600px) {
   .hero-ribbon {
-    top: 18px;
-    left: -70px;
-    font-size: 0.75rem;
-    padding: 8px 68px;
+    top: 16px;
+    left: 16px;
+    font-size: 0.7rem;
+    padding: 6px 16px;
   }
   .hero-slide__visual-img {
-    width: clamp(120px, 60vw, 200px);
+    width: clamp(110px, 52vw, 180px);
   }
 
   .hero-slide__visual {
-    gap: 12px;
-    padding: 20px;
+    gap: 10px;
+    padding: 16px;
   }
 }
 
