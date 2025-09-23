@@ -160,6 +160,7 @@ export default function Calendrier() {
 
             <input name="nom" placeholder="Nom" required />
             <input name="email" type="email" placeholder="Email" required />
+            <input name="telephone" type="tel" placeholder="Téléphone (facultatif)" inputMode="tel" autoComplete="tel" />
             <textarea
               name="message"
               rows={5}
