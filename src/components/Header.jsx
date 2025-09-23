@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useQuote } from '../hooks/useQuote.js';
 
 const LINKS = [
-  { to: '/packs', label: 'Catalogue' },
-  { to: '/realisations', label: 'Réalisations' },
-  { to: '/services', label: 'Services' },
-  { to: '/apropos', label: 'À propos' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/materiel', label: 'Notre matériel' },
+  { to: '/packs', label: 'Packs' },
+  { to: '/contact', label: 'Contact / Devis' },
 ];
 
 function QuoteStatus() {
@@ -22,6 +20,9 @@ function QuoteStatus() {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handler = (event) => {
@@ -40,6 +41,26 @@ export default function Header() {
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
   }, [menuOpen]);
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (!searchValue.trim()) return;
+    setSearchOpen(false);
+    navigate(`/materiel?recherche=${encodeURIComponent(searchValue.trim())}`);
+    setSearchValue('');
+  };
+
+  useEffect(() => {
+    const handleKey = (event) => {
+      if (event.key === 'Escape') {
+        setSearchOpen(false);
+      }
+    };
+    if (searchOpen) {
+      window.addEventListener('keydown', handleKey);
+    }
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [searchOpen]);
 
   return (
     <header className="header">
@@ -65,12 +86,48 @@ export default function Header() {
           ))}
         </nav>
         <div className="nav-cta">
+          <button
+            type="button"
+            className="btn ghost nav-search"
+            aria-label="Rechercher dans le catalogue"
+            onClick={() => {
+              setSearchOpen(true);
+              setMenuOpen(false);
+            }}
+          >
+            🔍
+          </button>
           <QuoteStatus />
           <Link className="btn" to="/calendrier">
             Calendrier
           </Link>
         </div>
       </div>
+      {searchOpen && (
+        <div className="search-overlay" role="dialog" aria-modal="true">
+          <form className="search-overlay__box" onSubmit={handleSearchSubmit}>
+            <label htmlFor="headerSearch" className="muted" style={{ textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              Rechercher un produit ou pack
+            </label>
+            <input
+              id="headerSearch"
+              type="search"
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+              placeholder="FX30, pack lumière, carte SD…"
+              autoFocus
+            />
+            <div className="search-overlay__actions">
+              <button type="button" className="btn ghost" onClick={() => setSearchOpen(false)}>
+                Fermer
+              </button>
+              <button type="submit" className="btn">
+                Rechercher
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </header>
   );
 }

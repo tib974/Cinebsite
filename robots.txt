@@ -1,5 +1,4 @@
 User-agent: *
 Disallow:
 
-# Générer un sitemap statique si nécessaire et mettre à jour l’URL ci-dessous
-# Sitemap: https://cineb.great-site.net/sitemap.xml
+Sitemap: https://cinebsite.vercel.app/sitemap.xml

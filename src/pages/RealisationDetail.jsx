@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
+import { reportError } from '../utils/errorReporter.js';
 
 export default function RealisationDetail() {
   const { slug } = useParams();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (!slug) {
@@ -15,12 +17,14 @@ export default function RealisationDetail() {
 
     async function fetchSanityItem() {
       setLoading(true);
+      setHasError(false);
       try {
         const query = `*[_type == "realisation" && slug.current == $slug][0]`;
         const data = await sanityClient.fetch(query, { slug });
         setItem(data);
       } catch (error) {
-        console.error('[RealisationDetail] Sanity fetch failed', error);
+        reportError(error, { feature: 'realisations-detail', slug });
+        setHasError(true);
       } finally {
         setLoading(false);
       }
@@ -33,6 +37,18 @@ export default function RealisationDetail() {
     return (
       <div className="card" style={{ padding: '18px' }}>
         <p className="muted">Chargement de la réalisation…</p>
+      </div>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <div className="card" style={{ padding: '18px' }}>
+        <h1 className="section-title" style={{ marginTop: 0 }}>Indisponible</h1>
+        <p className="muted">La fiche réalisation ne peut pas être chargée. Merci de réessayer plus tard.</p>
+        <Link className="btn" to="/realisations" style={{ marginTop: '12px', display: 'inline-flex' }}>
+          Voir toutes les réalisations
+        </Link>
       </div>
     );
   }

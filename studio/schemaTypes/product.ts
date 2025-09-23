@@ -1,6 +1,5 @@
 // studio/schemaTypes/product.ts
 import {defineField, defineType} from 'sanity'
-import {GeneratePackImageButton} from '../components/GeneratePackImageButton.tsx'
 
 export default defineType({
   name: 'product',
@@ -65,13 +64,6 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'product'}}],
       hidden: ({parent}) => parent?.type !== 'pack',
     }),
-    defineField({
-      name: 'packImageGenerator',
-      title: 'Générateur d\'image de Pack',
-      type: 'string',
-      components: {field: GeneratePackImageButton},
-      hidden: ({parent}) => parent?.type !== 'pack',
-    }),
   ],
   preview: {
     select: {
@@ -81,4 +73,3 @@ export default defineType({
     },
   },
 })
-

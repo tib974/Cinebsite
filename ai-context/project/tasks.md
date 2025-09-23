@@ -14,8 +14,12 @@
 3.  **Reconstruction des Pages**
     - Recréation de la page `Contact` avec son formulaire.
     - Recréation de la page `Packs & Matériel`.
-    4.  **Nettoyage Final**
+4.  **Nettoyage Final**
     - Suppression de tous les dossiers et fichiers de l'ancienne application PHP (`vendor`, `views`, `src`, `api`, etc.).
+5.  **Mise en Place du Catalogue Local**
+    - Création d'une source de données locale (`src/data/index.js`) à partir du fichier `catalogfdf.csv`.
+    - Refactorisation de la page catalogue (`Packs.jsx`) pour utiliser les données locales au lieu de Sanity.
+    - Refactorisation de la page de détail (`ProductDetail.jsx`) pour faire de même et suppression des fonctionnalités non essentielles (calendrier).
 
 ---
 

@@ -1,7 +1,19 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
 import { useQuote } from '../hooks/useQuote.js';
+import { reportError } from '../utils/errorReporter.js';
+import { getAvailabilitySummary } from '../utils/availability.js';
+
+const CATEGORY_LABELS = {
+  Combo: 'Packs complets',
+  Image: 'Packs image',
+  Lumière: 'Packs lumière',
+  Audio: 'Packs audio',
+  Accessoires: 'Packs accessoires',
+};
+
+const CATEGORY_ORDER = ['Combo', 'Image', 'Lumière', 'Audio', 'Accessoires'];
 
 function formatPrice(pricePerDay) {
   if (pricePerDay === null || pricePerDay === undefined) {
@@ -13,21 +25,35 @@ function formatPrice(pricePerDay) {
 function ProductCard({ item }) {
   const { addProductToQuote, quoteItems } = useQuote();
   const isInQuote = useMemo(() => quoteItems.some(quoteItem => quoteItem._id === item._id), [quoteItems, item]);
+  const availabilitySummary = useMemo(() => getAvailabilitySummary(item.bookings), [item.bookings]);
+  const hasScheduleInfo = availabilitySummary.ongoingBooking || availabilitySummary.nextBooking;
+  const categoryLabel = CATEGORY_LABELS[item.displayCategory] || item.displayCategory || 'Pack';
 
   return (
-    <div className="card product-card">
+    <div className="card product-card pack-card">
       <Link to={`/produit/${item.slug?.current}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <div className="media">
-          {item.image && <img src={urlFor(item.image).width(400).height(400).url()} alt={item.name} loading="lazy" decoding="async" />}
+          {item.image && <img src={urlFor(item.image).width(400).url()} alt={item.name} loading="lazy" decoding="async" />}
           {item.type === 'pack' && (
             <span className="badge badge-cat" style={{ left: '12px', right: 'auto' }}>Pack</span>
           )}
           {item.featured && <span className="badge">En avant</span>}
         </div>
         <div className="body">
+          <div className="pack-card__header">
+            <span className="pack-card__category">{categoryLabel}</span>
+            <span
+              className={`availability-chip availability-chip--${availabilitySummary.status}`}
+              title={availabilitySummary.description || undefined}
+            >
+              {availabilitySummary.label}
+            </span>
+          </div>
           <div className="title">{item.name}</div>
-          <div className="category">{item.category}</div>
           <div className="price">{formatPrice(item.pricePerDay)}</div>
+          {hasScheduleInfo && availabilitySummary.description && (
+            <div className="availability-note">{availabilitySummary.description}</div>
+          )}
         </div>
       </Link>
       <div className="card-footer">
@@ -76,42 +102,84 @@ const sorters = {
 };
 
 export default function Packs() {
+  const [searchParams] = useSearchParams();
   const [allProducts, setAllProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('Combo');
   const [selectedSort, setSelectedSort] = useState('featured');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
+      setHasError(false);
       try {
-        const query = `*[_type == "product"]`;
+        const query = `*[_type == "product" && type == "pack" && defined(slug.current)]{
+          _id,
+          name,
+          slug,
+          image,
+          pricePerDay,
+          description,
+          category,
+          featured,
+          type,
+          "includes": includes[]->{
+            _id,
+            slug,
+            name,
+            category
+          },
+          "bookings": *[_type == "booking" && references(^._id) && defined(startDate) && defined(endDate) && endDate >= now()] | order(startDate asc) [0...3]{
+            _id,
+            startDate,
+            endDate
+          }
+        } | order(featured desc, name asc)`;
         const products = await sanityClient.fetch(query);
-        setAllProducts(products);
+        setAllProducts(products.map((product) => ({
+          ...product,
+          bookings: product.bookings ?? [],
+          displayCategory: derivePackCategory(product),
+        })));
       } catch (error) {
-        console.error("Erreur lors de la récupération des produits :", error);
+        reportError(error, { feature: 'packs-catalog' });
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProducts();
   }, []);
 
   const categories = useMemo(() => {
-    const allCats = new Set(allProducts.map((item) => item.category).filter(Boolean));
-    const hasPacks = allCats.delete('Packs');
-    const otherCats = [...allCats].sort();
-    if (hasPacks) {
-      return ['Packs', ...otherCats];
-    }
-    return otherCats;
+    const present = new Set(allProducts.map((item) => item.displayCategory).filter(Boolean));
+    return CATEGORY_ORDER.filter((key) => present.has(key));
   }, [allProducts]);
 
-  const featuredCatalogItems = useMemo(() => allProducts.filter(p => p.featured), [allProducts]);
+  useEffect(() => {
+    const fromQuery = (searchParams.get('categorie') || '').trim();
+    if (!fromQuery) return;
+    const normalized = fromQuery.toLowerCase();
+    const entry = CATEGORY_ORDER.find((category) => category.toLowerCase() === normalized);
+    if (entry) {
+      setSelectedCategory(entry);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (categories.length > 0 && !categories.includes(selectedCategory)) {
+      setSelectedCategory(categories[0]);
+    }
+  }, [categories, selectedCategory]);
+
+  const featuredCatalogItems = useMemo(() => allProducts.filter(p => p.featured).slice(0, 4), [allProducts]);
 
   const displayedItems = useMemo(() => {
     let items = allProducts;
-    if (selectedCategory === 'Packs') {
-      items = items.filter((item) => item.type === 'pack');
-    } else if (selectedCategory !== 'all') {
-      items = items.filter((item) => item.category === selectedCategory && item.type !== 'pack');
+    if (selectedCategory) {
+      items = items.filter((item) => item.displayCategory === selectedCategory);
     }
 
     if (searchTerm.trim()) {
@@ -120,7 +188,7 @@ export default function Packs() {
         (item) =>
           item.name.toLowerCase().includes(query) ||
           (item.description && item.description.toLowerCase().includes(query)) ||
-          (item.includes && item.includes.some((i) => i._ref.includes(query)))
+          (item.includes && item.includes.some((included) => included?.slug?.current?.toLowerCase().includes(query)))
       );
     }
 
@@ -128,32 +196,41 @@ export default function Packs() {
     return [...items].sort(sorter);
   }, [allProducts, selectedCategory, selectedSort, searchTerm]);
 
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
   return (
     <section>
-      <header style={{ marginBottom: '18px' }}>
-        <h1 className="section-title">Packs &amp; Matériel</h1>
-        <p className="muted" style={{ maxWidth: 720 }}>
-          Matériel image, lumière et audio prêt à tourner. Ajoutez les produits à votre sélection, puis demandez un devis en
-          quelques clics.
-        </p>
+      <header className="packs-hero">
+        <div className="packs-hero__intro">
+          <h1 className="section-title">Packs prêts à tourner</h1>
+          <p className="muted">
+            Des configurations complètes image, lumière et audio prêtes à être chargées. Choisissez votre combo, ajoutez-le au devis et gagnez du temps sur le tournage.
+          </p>
+        </div>
+        <ul className="packs-hero__list">
+          <li>Préparation et tests avant retrait</li>
+          <li>Compatibilités validées par CinéB</li>
+          <li>Remises dès 3 jours de location</li>
+        </ul>
       </header>
 
-      <div className="toolbar" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '18px' }}>
-        <div className="chips" role="tablist" aria-label="Catégories">
-          <button type="button" onClick={() => setSelectedCategory('all')} className={`chip ${selectedCategory === 'all' ? 'active' : ''}`}>
-            Tout
+      <div className="category-tabs" role="tablist" aria-label="Catégories">
+        {categories.map((category) => (
+          <button
+            key={category}
+            type="button"
+            className={`category-tab${selectedCategory === category ? ' active' : ''}`}
+            onClick={() => handleCategorySelect(category)}
+          >
+            <span>{CATEGORY_LABELS[category] || category}</span>
+            <small>{allProducts.filter((item) => item.displayCategory === category).length}</small>
           </button>
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setSelectedCategory(category)}
-              className={`chip ${selectedCategory === category ? 'active' : ''}`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+        ))}
+      </div>
+
+      <div className="toolbar packs-toolbar">
         <div className="chips" aria-label="Tri">
           {Object.entries(sorters).map(([key, { label, icon }]) => (
             <button
@@ -167,18 +244,27 @@ export default function Packs() {
             </button>
           ))}
         </div>
+        <label htmlFor="search-input" className="sr-only">Rechercher un pack</label>
         <input
+          id="search-input"
           type="search"
-          placeholder="Rechercher un matériel ou un pack"
+          placeholder="Rechercher un pack complet"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
-          style={{ flexGrow: 1, minWidth: 220, padding: '10px 12px', borderRadius: '999px', border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--text)' }}
         />
       </div>
 
-      {featuredCatalogItems.length > 0 && selectedCategory === 'all' && !searchTerm && (
+      {hasError && !isLoading && (
         <section className="card" style={{ padding: '18px', marginBottom: '18px' }}>
-          <h2 className="section-title" style={{ marginTop: 0 }}>Mises en avant</h2>
+          <p className="muted" style={{ margin: 0 }}>
+            Le catalogue ne peut pas être affiché pour le moment. Merci de vérifier votre connexion ou de réessayer plus tard.
+          </p>
+        </section>
+      )}
+
+      {!hasError && !isLoading && !searchTerm && featuredCatalogItems.length > 0 && (
+        <section className="card" style={{ padding: '18px', marginBottom: '18px' }}>
+          <h2 className="section-title" style={{ marginTop: 0 }}>En ce moment</h2>
           <div className="grid cards">
             {featuredCatalogItems.map((item) => (
               <ProductCard key={`featured-${item._id}`} item={item} />
@@ -188,10 +274,13 @@ export default function Packs() {
       )}
 
       <div id="grid" className="grid cards">
-        {displayedItems.map((item) => (
-          <ProductCard key={item._id} item={item} />
-        ))}
-        {!displayedItems.length && (
+        {isLoading ? (
+          <div className="card" style={{ padding: '18px' }}><p className="muted">Chargement du catalogue...</p></div>
+        ) : displayedItems.length > 0 ? (
+          displayedItems.map((item) => (
+            <ProductCard key={item._id} item={item} />
+          ))
+        ) : (
           <div className="card" style={{ padding: '18px' }}>
             <p className="muted">Aucun résultat ne correspond à votre recherche.</p>
           </div>
@@ -199,4 +288,28 @@ export default function Packs() {
       </div>
     </section>
   );
+}
+
+function derivePackCategory(product) {
+  const includeCategories = (product.includes || [])
+    .map((item) => item?.category || '')
+    .filter(Boolean);
+
+  const hasImage = includeCategories.some((value) => /image|camera|optique|objectif/i.test(value));
+  const hasLight = includeCategories.some((value) => /lumière|light/i.test(value));
+  const hasAudio = includeCategories.some((value) => /audio|son/i.test(value));
+  const hasAccessories = includeCategories.some((value) => /accessoires?|rig|support/i.test(value));
+
+  const signals = [hasImage, hasLight, hasAudio].filter(Boolean).length;
+
+  if (signals > 1) {
+    return 'Combo';
+  }
+
+  if (hasImage) return 'Image';
+  if (hasLight) return 'Lumière';
+  if (hasAudio) return 'Audio';
+  if (hasAccessories) return 'Accessoires';
+
+  return 'Combo';
 }

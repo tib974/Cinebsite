@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import sanityClient, { urlFor } from '../sanityClient.js';
+import { reportError } from '../utils/errorReporter.js';
 
 export default function Realisations() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadRealisations() {
       setLoading(true);
+      setHasError(false);
       try {
         const query = `*[_type == "realisation"] | order(date desc)`;
         const data = await sanityClient.fetch(query);
         setItems(data || []);
       } catch (fetchError) {
-        console.error('[Realisations] Sanity fetch failed', fetchError);
+        reportError(fetchError, { feature: 'realisations-list' });
+        setHasError(true);
       } finally {
         setLoading(false);
       }
@@ -34,7 +38,13 @@ export default function Realisations() {
 
       {loading && <p className="muted">Chargement des projets…</p>}
 
-      {!loading && (
+      {!loading && hasError && (
+        <div className="card" style={{ padding: '18px' }}>
+          <p className="muted" style={{ margin: 0 }}>Les réalisations ne peuvent pas être chargées pour le moment.</p>
+        </div>
+      )}
+
+      {!loading && !hasError && (
         <div className="grid cards grid-reals">
           {items.map((item) => (
             <Link key={item._id} to={`/realisation/${item.slug?.current}`} className="card">

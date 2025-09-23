@@ -1,8 +1,10 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import Calendar from 'react-calendar';
 import sanityClient from '../sanityClient.js';
+import { reportError } from '../utils/errorReporter.js';
 import 'react-calendar/dist/Calendar.css';
+
+const Calendar = lazy(() => import('react-calendar'));
 
 // --- Logique de calcul de prix ---
 function getProgressiveDiscount(duration) {
@@ -35,8 +37,9 @@ export default function Calendrier() {
   const [searchParams] = useSearchParams();
   const [product, setProduct] = useState(null);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
-  const [formData, setFormData] = useState({ nom: '', email: '', message: '' });
-  const [status, setStatus] = useState('');
+  const [hasError, setHasError] = useState(false);
+  const [formStatus, setFormStatus] = useState({ state: 'idle', message: '' });
+  const formStartRef = useRef(Date.now());
 
   useEffect(() => {
     const preselectedSlug = (searchParams.get('produit') || '').toLowerCase();
@@ -47,8 +50,10 @@ export default function Calendrier() {
         const query = `*[_type == "product" && slug.current == $slug][0]`;
         const result = await sanityClient.fetch(query, { slug: preselectedSlug });
         setProduct(result);
+        setHasError(false);
       } catch (error) {
-        console.error("Erreur lors de la récupération du produit pour le calendrier :", error);
+        reportError(error, { feature: 'calendar-preselect', slug: preselectedSlug });
+        setHasError(true);
       }
     };
 
@@ -56,29 +61,60 @@ export default function Calendrier() {
   }, [searchParams]);
 
   const summary = useMemo(() => {
-    if (!product) return null;
     const duration = calculateDuration(dateRange);
-    const totalPrice = calculatePrice(product.pricePerDay, duration);
+    const totalPrice = product ? calculatePrice(product.pricePerDay, duration) : null;
     return {
-      name: product.name,
-      price: product.pricePerDay,
+      name: product?.name,
+      price: product?.pricePerDay,
       duration,
       totalPrice,
-      url: `/produit/${product.slug?.current}`,
+      url: product ? `/produit/${product.slug?.current}` : null,
     };
   }, [product, dateRange]);
 
-  const handleFormChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const prefilledMessage = `Bonjour,\n\nJe serais intéressé(e) pour louer ${product ? `le produit suivant : ${product.name}` : 'du matériel'} pour la période du ${formatDate(dateRange[0])} au ${formatDate(dateRange[1])} (${summary.duration} jours).\n\nPourriez-vous me confirmer la disponibilité ?\n\nCordialement.`;
 
-  const handleFormSubmit = (event) => {
+  const contactDatesParam = useMemo(() => {
+    if (!Array.isArray(dateRange) || !dateRange[0] || !dateRange[1]) return '';
+    const startIso = dateRange[0].toISOString().slice(0, 10);
+    const endIso = dateRange[1].toISOString().slice(0, 10);
+    return `${startIso}_${endIso}`;
+  }, [dateRange]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const message = `Demande pour ${summary?.name || 'un produit'} du ${formatDate(dateRange[0])} au ${formatDate(dateRange[1])} (${summary?.duration || 1} jours).`;
-    setStatus(`Demande enregistrée. Nous revenons vers vous rapidement.`);
-    console.info('Calendrier — envoi simulé', { dateRange, ...formData, produit: product?.slug?.current, message });
-    setFormData({ nom: '', email: '', message });
+
+    const elapsed = Date.now() - formStartRef.current;
+    if (elapsed < 3000) {
+      setFormStatus({ state: 'error', message: 'Merci de patienter quelques secondes avant d’envoyer la demande.' });
+      return;
+    }
+
+    setFormStatus({ state: 'loading', message: '' });
+
+    const form = event.target;
+    const formData = new FormData(form);
+    formData.append('requestedRange', `${formatDate(dateRange[0])} → ${formatDate(dateRange[1])}`);
+    formData.append('submittedAt', new Date().toISOString());
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Formspree a répondu ${response.status}`);
+      }
+
+      setFormStatus({ state: 'success', message: 'Merci ! Votre demande a été envoyée. Nous confirmons la disponibilité au plus vite.' });
+      form.reset();
+      formStartRef.current = Date.now();
+    } catch (error) {
+      reportError(error, { feature: 'calendar-form-submit', slug: product?.slug?.current });
+      setFormStatus({ state: 'error', message: 'Impossible d’envoyer la demande pour le moment. Écrivez-nous à grondin.thibaut@gmail.com.' });
+    }
   };
 
   return (
@@ -93,33 +129,56 @@ export default function Calendrier() {
 
       <div className="grid cal-layout" style={{ gridTemplateColumns: 'minmax(320px, 1fr) minmax(320px, 1fr)', gap: '24px', alignItems: 'start' }}>
         <div className="card" style={{ padding: '16px', display: 'flex', justifyContent: 'center' }}>
-          <Calendar onChange={setDateRange} value={dateRange} selectRange={true} locale="fr-FR" />
+          <Suspense fallback={<div style={{ padding: '24px', textAlign: 'center', width: '100%' }}>Chargement du calendrier…</div>}>
+            <Calendar onChange={setDateRange} value={dateRange} selectRange locale="fr-FR" />
+          </Suspense>
         </div>
         <div className="card" style={{ padding: '20px', display: 'grid', gap: '16px' }}>
           <div>
             <h2 style={{ margin: '0 0 8px 0', fontSize: '1.1rem' }}>Demande rapide</h2>
             <p className="muted" style={{ margin: 0 }}>Du <strong>{formatDate(dateRange[0])}</strong> au <strong>{formatDate(dateRange[1])}</strong></p>
-            {summary?.totalPrice !== null && <p style={{ margin: '8px 0 0 0' }}>Estimation : <strong style={{color: 'var(--primary)'}}>{summary.totalPrice.toFixed(2)}€</strong> ({summary.duration} jours)</p>}
+            {summary.totalPrice !== null && <p style={{ margin: '8px 0 0 0' }}>Estimation : <strong style={{color: 'var(--primary)'}}>{summary.totalPrice.toFixed(2)}€</strong> ({summary.duration} jours)</p>}
           </div>
-          <form id="slotForm" onSubmit={handleFormSubmit} style={{ display: 'grid', gap: '12px' }}>
-            <input name="nom" placeholder="Nom" value={formData.nom} onChange={handleFormChange} required />
-            <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleFormChange} required />
+          {hasError && (
+            <p className="muted" style={{ margin: 0 }}>
+              Le produit associé n'a pas pu être chargé automatiquement. Vous pouvez tout de même envoyer une demande en
+              précisant le matériel souhaité.
+            </p>
+          )}
+
+          <form
+            id="slotForm"
+            action="https://formspree.io/f/xandgvea"
+            method="POST"
+            onSubmit={handleSubmit}
+            style={{ display: 'grid', gap: '12px' }}
+          >
+            <input type="text" name="website" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
+            <input type="hidden" name="_subject" value={`CinéB - Demande de pré-réservation pour ${summary.name || 'matériel'}`} />
+            <input type="hidden" name="source" value="site-web-react-calendrier" />
+            <input type="hidden" name="formLoadedAt" value={formStartRef.current} />
+
+            <input name="nom" placeholder="Nom" required />
+            <input name="email" type="email" placeholder="Email" required />
             <textarea
               name="message"
-              rows={3}
+              rows={5}
               placeholder="Précisions (matériel, horaires, lieu…)"
-              value={formData.message}
-              onChange={handleFormChange}
+              defaultValue={prefilledMessage}
             />
-            <button type="submit" className="btn">
-              Pré-réserver cette période
+            <button type="submit" className="btn" disabled={formStatus.state === 'loading'}>
+              {formStatus.state === 'loading' ? 'Envoi…' : 'Envoyer la demande'}
             </button>
+            {formStatus.message && (
+              <p style={{ margin: 0, color: formStatus.state === 'error' ? '#ff6b6b' : undefined }} aria-live="polite">
+                {formStatus.message}
+              </p>
+            )}
           </form>
-          {status && <div className="muted" style={{ color: '#9ae6b4' }}>{status}</div>}
         </div>
       </div>
 
-      {summary && (
+      {summary.name && (
         <div className="card" style={{ padding: '18px', marginTop: '24px', display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <div>
             <div style={{ fontWeight: 800 }}>Produit associé à votre demande</div>
@@ -128,7 +187,7 @@ export default function Calendrier() {
           <Link className="btn ghost" to={summary.url}>
             Voir la fiche produit
           </Link>
-          <Link className="btn" to={`/contact?items=${product.slug?.current}&dates=${formatDate(dateRange[0])} - ${formatDate(dateRange[1])}`}>
+          <Link className="btn" to={`/contact?items=${product.slug?.current}&dates=${contactDatesParam}`}>
             Finaliser la demande de devis
           </Link>
         </div>

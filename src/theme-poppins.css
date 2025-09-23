@@ -116,6 +116,7 @@ h3{font-size:18px}
 .nav-center a:hover{background:rgba(255,255,255,.10);transform:translateY(-1px)}
 .nav-center a.active{background:rgba(255,255,255,.18);font-weight:700}
 @media (max-width:600px){ .nav-center a{padding:6px 10px;font-size:14px} }
+.nav-search{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;padding:0}
 
 /* CTA */
 .nav-cta{display:flex;align-items:center;gap:8px;z-index:1}
@@ -156,6 +157,15 @@ h3{font-size:18px}
   .container{padding:10px max(8px, env(safe-area-inset-left)) 10px max(8px, env(safe-area-inset-right))}
   .section-title{font-size:20px}
   .grid.cards{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+}
+@media (max-width:420px){
+  .container{padding:10px max(10px, env(safe-area-inset-left)) 18px max(10px, env(safe-area-inset-right))}
+  .section-title{font-size:18px}
+}
+@media (min-width:1440px){
+  .container{padding:36px 28px 40px}
+  .section-title{font-size:32px}
+  .grid.cards{gap:24px}
 }
 /* Prevent any grid child from overflowing on narrow screens */
 @media (max-width:600px){ .grid.cards .card{ min-width:0; width:100% } }
@@ -298,8 +308,8 @@ main { flex:1; }
   .nav-toggle{display:block;margin-left:auto}
   .nav-center{
     display:none;flex-direction:column;align-items:flex-start;
-    position:fixed; left:0; right:0; top:var(--header-real, var(--header-h)); bottom:0;
-    padding:16px 18px; gap:12px; z-index:99;
+    position:fixed; left:0; right:0; top:0; bottom:0;
+    padding:72px 18px 24px; gap:12px; z-index:99;
     background:linear-gradient(180deg,#5c2db0 0%,#0b0c0e 100%);
     border-top:1px solid var(--line);
     overflow:auto;
@@ -309,11 +319,18 @@ main { flex:1; }
   .nav-center.open{display:flex}
   .nav-cta{width:100%;padding:12px 18px;justify-content:flex-start}
   body.nav-open{overflow:hidden;}
+  body.nav-open main{pointer-events:none}
 }
 /* Mobile header buttons uniform height */
 @media (max-width: 860px){
   .nav-toggle, .nav-cta .btn{ height:36px; padding:6px 12px; border-radius:999px; font-weight:700 }
 }
+
+.search-overlay{position:fixed;inset:0;background:rgba(7,8,10,.82);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:150}
+.search-overlay__box{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;width:min(520px,100%);display:grid;gap:16px}
+.search-overlay__box input[type="search"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#111118;color:var(--text);font-size:1rem}
+.search-overlay__actions{display:flex;justify-content:flex-end;gap:10px}
+@media (max-width:600px){ .search-overlay__box{padding:22px} }
 
 /* ---------- Calendar widget ---------- */
 .cal { max-width: 680px; margin: 0 auto; }

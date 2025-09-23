@@ -26,3 +26,14 @@ Ce document est un résumé détaillé de toutes les interactions et décisions 
 ### **Phase 4 : Développement des Fonctionnalités (Interface Uniquement)**
 
 - **Stratégie Actuelle :** Le développement local se concentre sur l'interface utilisateur (UI/UX). Les fonctionnalités nécessitant un back-end (API Sanity, API de génération d'images) seront construites "à l'aveugle" et ne seront fonctionnelles qu'une fois déployées sur Vercel. Le back-office Sanity est abandonné en local.
+
+### **Phase 5 : Implémentation du Catalogue avec Données Locales**
+
+- **Contexte :** Les pages de catalogue et de détail des produits dépendaient d'un back-end Sanity, qui n'est pas utilisé pour le développement local.
+- **Décision :** Remplacer complètement la dépendance à Sanity par une source de données locale pour rendre la fonctionnalité de catalogue testable localement.
+- **Actions Réalisées :**
+    1.  Création d'un module de données JavaScript (`src/data/index.js`) en convertissant les informations du fichier `data/catalogfdf.csv`.
+    2.  Refactorisation complète de la page `Packs.jsx` pour lire les données depuis le module local.
+    3.  Refactorisation complète de la page `ProductDetail.jsx` pour faire de même.
+    4.  Simplification de la page de détail en retirant le composant de calendrier de disponibilité qui dépendait de Sanity.
+- **État Actuel :** Le système de catalogue est désormais autonome et entièrement fonctionnel dans l'environnement de développement local.

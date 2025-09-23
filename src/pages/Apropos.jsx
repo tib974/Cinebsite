@@ -16,7 +16,7 @@ export default function Apropos() {
         </p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '18px' }}>
           <Link className="btn" to="/packs">Consulter les packs</Link>
-          <Link className="btn ghost" to="/realisations">Voir les réalisations</Link>
+          <Link className="btn ghost" to="/materiel">Voir le matériel</Link>
         </div>
       </div>
     </section>

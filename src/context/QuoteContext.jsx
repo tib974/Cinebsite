@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { QuoteContext } from './quoteContextDefinition.js';
+import { reportError } from '../utils/errorReporter.js';
 
 export function QuoteProvider({ children }) {
   const [quoteItems, setQuoteItems] = useState([]);
@@ -12,7 +13,7 @@ export function QuoteProvider({ children }) {
         setQuoteItems(JSON.parse(storedItems));
       }
     } catch (error) {
-      console.error("Erreur lors du chargement du panier depuis localStorage", error);
+      reportError(error, { feature: 'quote-context-load' });
     }
   }, []);
 
@@ -21,22 +22,22 @@ export function QuoteProvider({ children }) {
     try {
       localStorage.setItem('quoteCart', JSON.stringify(quoteItems));
     } catch (error) {
-      console.error("Erreur lors de la sauvegarde du panier dans localStorage", error);
+      reportError(error, { feature: 'quote-context-save' });
     }
   }, [quoteItems]);
 
   const addProductToQuote = (product) => {
     setQuoteItems(prevItems => {
       // Eviter les doublons
-      if (prevItems.find(item => item._id === product._id)) {
+      if (prevItems.find(item => item.slug === product.slug)) {
         return prevItems;
       }
       return [...prevItems, product];
     });
   };
 
-  const removeProductFromQuote = (productId) => {
-    setQuoteItems(prevItems => prevItems.filter(item => item._id !== productId));
+  const removeProductFromQuote = (productSlug) => {
+    setQuoteItems(prevItems => prevItems.filter(item => item.slug !== productSlug));
   };
 
   const clearQuote = () => {
