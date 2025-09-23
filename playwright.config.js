@@ -1,3 +1,4 @@
+/* eslint-env node */
 import { defineConfig, devices } from '@playwright/test';
 
 const baseURL = process.env.TEST_BASE_URL || 'http://localhost:4173';
