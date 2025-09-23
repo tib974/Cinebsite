@@ -213,27 +213,37 @@ body {
   --hero-padding: clamp(20px, 3vw, 28px);
   --hero-bottom-room: clamp(36px, 8vh, 64px);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   padding: var(--hero-padding);
   padding-bottom: calc(var(--hero-padding) + var(--hero-bottom-room));
   min-height: clamp(280px, 52vh, 360px);
 }
 
+.card.hero-slider {
+  overflow: visible;
+}
+
 .hero-ribbon {
   position: absolute;
-  top: calc(var(--hero-padding) - 8px);
-  left: calc(var(--hero-padding) - 4px);
+  top: calc(var(--hero-padding) - 54px);
+  left: calc(var(--hero-padding) - 110px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  padding: 10px 0;
   background: linear-gradient(135deg, rgba(126, 87, 194, 0.95), rgba(88, 45, 182, 0.9));
   color: #fff;
-  padding: 6px 18px;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  border-radius: 999px;
+  letter-spacing: 0.12em;
+  transform: rotate(-45deg);
+  transform-origin: left top;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   z-index: 3;
+  text-align: center;
 }
 
 .pack-card {
@@ -435,6 +445,7 @@ body {
   display: grid;
   gap: 16px;
   align-content: start;
+  padding-top: 24px;
 }
 
 .hero-slide__price {
@@ -520,10 +531,12 @@ body {
 
 @media (max-width: 600px) {
   .hero-ribbon {
-    top: calc(var(--hero-padding) - 10px);
-    left: calc(var(--hero-padding) - 6px);
-    font-size: 0.7rem;
-    padding: 6px 16px;
+    top: calc(var(--hero-padding) - 42px);
+    left: calc(var(--hero-padding) - 92px);
+    width: 240px;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    padding: 9px 0;
   }
   .hero-slide__visual-img {
     width: clamp(110px, 48vw, 170px);
