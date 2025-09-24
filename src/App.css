@@ -223,10 +223,11 @@ body {
   overflow: visible;
 }
 
+
 .hero-ribbon {
   position: absolute;
-  top: calc(var(--hero-padding) - 26px);
-  left: calc(var(--hero-padding) - 88px);
+  top: var(--hero-padding);
+  left: var(--hero-padding);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,8 +239,8 @@ body {
   font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  transform: rotate(-45deg);
-  transform-origin: top left;
+  transform: translate(-28%, 60%) rotate(-45deg);
+  transform-origin: center;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   z-index: 6;
@@ -531,12 +532,11 @@ body {
 
 @media (max-width: 600px) {
   .hero-ribbon {
-    top: calc(var(--hero-padding) - 20px);
-    left: calc(var(--hero-padding) - 82px);
     width: 230px;
     font-size: 0.66rem;
     letter-spacing: 0.1em;
     padding: 10px 0;
+    transform: translate(-34%, 40%) rotate(-45deg);
   }
   .hero-slide__visual-img {
     width: clamp(110px, 48vw, 170px);
