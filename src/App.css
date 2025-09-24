@@ -236,21 +236,61 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 260px;
-  padding: 10px 0;
+  width: 280px;
+  padding: 10px 18px;
   background: linear-gradient(135deg, rgba(126, 87, 194, 0.98), rgba(88, 45, 182, 0.95));
   color: #fff;
   font-weight: 700;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  /* move the ribbon mostly inside the hero block and rotate to diagonal */
-  transform: translate(6%, 6%) rotate(-45deg);
+  /* position ribbon inside hero and rotate to diagonal */
+  transform: translate(10%, 8%) rotate(-45deg);
   transform-origin: left top;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
   pointer-events: none;
   z-index: 6;
   text-align: center;
+  white-space: nowrap;
+}
+
+/* Create triangular ends and a subtle folded look using pseudo elements */
+.hero-ribbon::before,
+.hero-ribbon::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: inherit;
+  transform: rotate(45deg);
+  top: 50%;
+  margin-top: -12px;
+  box-shadow: inherit;
+}
+.hero-ribbon::before {
+  /* left triangle (closer to top-left of hero) */
+  left: -12px;
+}
+.hero-ribbon::after {
+  /* right tail triangle */
+  right: -12px;
+}
+
+/* Add a small inner darker strip to simulate a fold */
+.hero-ribbon span {
+  display: inline-block;
+  position: relative;
+}
+.hero-ribbon span::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -6px;
+  height: 6px;
+  background: rgba(0,0,0,0.08);
+  transform: skewX(-45deg);
+  border-radius: 2px;
 }
 
 .pack-card {
@@ -538,12 +578,21 @@ body {
 
 @media (max-width: 600px) {
   .hero-ribbon {
-    width: 210px;
-    font-size: 0.64rem;
-    letter-spacing: 0.1em;
-    padding: 8px 0;
-    /* keep the ribbon inside the hero on small screens */
-    transform: translate(6%, 6%) rotate(-45deg);
+    width: 180px;
+    font-size: 0.62rem;
+    letter-spacing: 0.09em;
+    padding: 6px 12px;
+    transform: translate(8%, 8%) rotate(-45deg);
+  }
+  .hero-ribbon::before,
+  .hero-ribbon::after {
+    width: 18px;
+    height: 18px;
+    margin-top: -9px;
+  }
+  .hero-ribbon span::after {
+    bottom: -5px;
+    height: 5px;
   }
   .hero-slide__visual-img {
     width: clamp(110px, 48vw, 170px);
