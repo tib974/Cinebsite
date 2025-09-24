@@ -193,18 +193,18 @@ export default function Home() {
       </section>
 
       <section className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginTop: '18px' }}>
-        <div className="card" style={{ padding: '16px' }}>
-          <strong>Rapide</strong>
-          <div className="muted">Réponses claires, matériel prêt quand vous arrivez.</div>
-        </div>
-        <div className="card" style={{ padding: '16px' }}>
-          <strong>Pro</strong>
-          <div className="muted">Matériel vérifié, assistance plateau possible.</div>
-        </div>
-        <div className="card" style={{ padding: '16px' }}>
-          <strong>Souple</strong>
-          <div className="muted">Packs modulables selon votre tournage.</div>
-        </div>
+        <Link className="card" style={{ padding: '16px', textDecoration: 'none', color: 'inherit' }} to="/materiel?categorie=Image">
+          <strong>Image</strong>
+          <div className="muted">Caméras, optiques et moniteurs prêts à capter vos plans.</div>
+        </Link>
+        <Link className="card" style={{ padding: '16px', textDecoration: 'none', color: 'inherit' }} to="/materiel?categorie=Lumière">
+          <strong>Lumière</strong>
+          <div className="muted">Panneaux LED, modeleurs et accessoires pour des ambiances maîtrisées.</div>
+        </Link>
+        <Link className="card" style={{ padding: '16px', textDecoration: 'none', color: 'inherit' }} to="/materiel?categorie=Son">
+          <strong>Son</strong>
+          <div className="muted">Microphones, enregistreurs et HF pour une prise de son nette.</div>
+        </Link>
       </section>
 
       {hasError && (

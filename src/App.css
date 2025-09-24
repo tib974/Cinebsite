@@ -242,7 +242,7 @@ body {
   transform-origin: left top;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
-  z-index: 3;
+  z-index: 6;
   text-align: center;
 }
 
