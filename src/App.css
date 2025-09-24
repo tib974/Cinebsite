@@ -225,21 +225,21 @@ body {
 
 .hero-ribbon {
   position: absolute;
-  top: calc(var(--hero-padding) - 54px);
-  left: calc(var(--hero-padding) - 110px);
+  top: calc(var(--hero-padding) - 26px);
+  left: calc(var(--hero-padding) - 88px);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 280px;
-  padding: 10px 0;
+  padding: 11px 0;
   background: linear-gradient(135deg, rgba(126, 87, 194, 0.95), rgba(88, 45, 182, 0.9));
   color: #fff;
   font-weight: 700;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   transform: rotate(-45deg);
-  transform-origin: left top;
+  transform-origin: top left;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   z-index: 6;
@@ -445,7 +445,7 @@ body {
   display: grid;
   gap: 16px;
   align-content: start;
-  padding-top: 24px;
+  padding-top: 36px;
 }
 
 .hero-slide__price {
@@ -531,12 +531,12 @@ body {
 
 @media (max-width: 600px) {
   .hero-ribbon {
-    top: calc(var(--hero-padding) - 42px);
-    left: calc(var(--hero-padding) - 92px);
-    width: 240px;
-    font-size: 0.64rem;
+    top: calc(var(--hero-padding) - 20px);
+    left: calc(var(--hero-padding) - 82px);
+    width: 230px;
+    font-size: 0.66rem;
     letter-spacing: 0.1em;
-    padding: 9px 0;
+    padding: 10px 0;
   }
   .hero-slide__visual-img {
     width: clamp(110px, 48vw, 170px);
