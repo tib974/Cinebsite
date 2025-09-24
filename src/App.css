@@ -220,27 +220,33 @@ body {
 }
 
 .card.hero-slider {
-  overflow: visible;
+  /* Make the hero a positioned container so absolutely-positioned children
+     (the ribbon) are clipped to it when overflow is hidden. */
+  position: relative;
+  /* Clip any part of the ribbon that would extend outside the hero block */
+  overflow: hidden;
 }
 
 
 .hero-ribbon {
   position: absolute;
-  top: var(--hero-padding);
-  left: var(--hero-padding);
+  /* anchor close to the top-left corner of the hero */
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 280px;
-  padding: 11px 0;
-  background: linear-gradient(135deg, rgba(126, 87, 194, 0.95), rgba(88, 45, 182, 0.9));
+  width: 260px;
+  padding: 10px 0;
+  background: linear-gradient(135deg, rgba(126, 87, 194, 0.98), rgba(88, 45, 182, 0.95));
   color: #fff;
   font-weight: 700;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  transform: translate(-28%, 60%) rotate(-45deg);
-  transform-origin: center;
+  /* move the ribbon mostly inside the hero block and rotate to diagonal */
+  transform: translate(6%, 6%) rotate(-45deg);
+  transform-origin: left top;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   z-index: 6;
@@ -532,11 +538,12 @@ body {
 
 @media (max-width: 600px) {
   .hero-ribbon {
-    width: 230px;
-    font-size: 0.66rem;
+    width: 210px;
+    font-size: 0.64rem;
     letter-spacing: 0.1em;
-    padding: 10px 0;
-    transform: translate(-34%, 40%) rotate(-45deg);
+    padding: 8px 0;
+    /* keep the ribbon inside the hero on small screens */
+    transform: translate(6%, 6%) rotate(-45deg);
   }
   .hero-slide__visual-img {
     width: clamp(110px, 48vw, 170px);
