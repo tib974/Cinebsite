@@ -192,6 +192,18 @@ export default function Home() {
         </div>
       </section>
 
+      <aside
+        className="card"
+        style={{
+          marginTop: '18px',
+          padding: '18px',
+          background: 'linear-gradient(135deg, rgba(126, 87, 194, 0.08), rgba(49, 27, 146, 0.04))',
+        }}
+      >
+        <strong>Mise à jour de test :</strong>{' '}
+        Ceci est une modification temporaire pour vérifier la mise en ligne.
+      </aside>
+
       <section className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginTop: '18px' }}>
         <Link className="card" style={{ padding: '16px', textDecoration: 'none', color: 'inherit' }} to="/materiel?categorie=Image">
           <strong>Image</strong>
