@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import sanityClient, { urlFor } from '../sanityClient.js';
 import { reportError } from '../utils/errorReporter.js';
+import { fetchRealisationBySlug } from '../utils/apiClient.js';
 
 export default function RealisationDetail() {
   const { slug } = useParams();
@@ -15,12 +15,11 @@ export default function RealisationDetail() {
       return;
     }
 
-    async function fetchSanityItem() {
+    async function fetchRealisation() {
       setLoading(true);
       setHasError(false);
       try {
-        const query = `*[_type == "realisation" && slug.current == $slug][0]`;
-        const data = await sanityClient.fetch(query, { slug });
+        const data = await fetchRealisationBySlug(slug);
         setItem(data);
       } catch (error) {
         reportError(error, { feature: 'realisations-detail', slug });
@@ -30,7 +29,7 @@ export default function RealisationDetail() {
       }
     }
 
-    fetchSanityItem();
+    fetchRealisation();
   }, [slug]);
 
   if (loading) {
@@ -65,16 +64,20 @@ export default function RealisationDetail() {
     );
   }
 
+  const date = item.date ? new Date(item.date) : null;
+  const dateLabel = date && !Number.isNaN(date.getTime()) ? date.toLocaleDateString('fr-FR') : null;
+
   return (
     <article className="card" style={{ padding: '24px', maxWidth: '960px', margin: '0 auto' }}>
       <Link to="/realisations" className="btn ghost" style={{ marginBottom: '12px', display: 'inline-flex' }}>
         ← Retour aux réalisations
       </Link>
       <h1 className="section-title" style={{ marginTop: 0 }}>{item.title}</h1>
-      {item.date && <p className="muted">{new Date(item.date).toLocaleDateString('fr-FR')}</p>}
-      {item.image && (
+      {item.customer && <p className="muted" style={{ marginBottom: '6px' }}>{item.customer}</p>}
+      {dateLabel && <p className="muted">{dateLabel}</p>}
+      {item.imageUrl && (
         <div className="media media-16x9" style={{ marginTop: '18px' }}>
-          <img src={urlFor(item.image).width(960).url()} alt={item.title} loading="lazy" decoding="async" />
+          <img src={item.imageUrl} alt={item.title} loading="lazy" decoding="async" />
         </div>
       )}
       {item.description && <p style={{ marginTop: '18px' }}>{item.description}</p>}

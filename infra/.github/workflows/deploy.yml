@@ -1,0 +1,72 @@
+name: Deploy Cinebsite to Oracle Cloud
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SSH_HOST: ${{ secrets.ORACLE_HOST }}
+  SSH_USER: ${{ secrets.ORACLE_USER }}
+  SSH_KEY: ${{ secrets.ORACLE_SSH_KEY }}
+  SSH_PORT: ${{ secrets.ORACLE_SSH_PORT || '22' }}
+  DEPLOY_PATH: /var/www/cinebsite
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint --if-present
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Package artifacts
+        run: |
+          tar -czf cinebsite.tar.gz dist server scripts package.json package-lock.json
+
+      - name: Copy build to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.SSH_HOST }}
+          username: ${{ env.SSH_USER }}
+          key: ${{ env.SSH_KEY }}
+          port: ${{ env.SSH_PORT }}
+          source: cinebsite.tar.gz
+          target: ${{ env.DEPLOY_PATH }}/releases
+
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ env.SSH_HOST }}
+          username: ${{ env.SSH_USER }}
+          key: ${{ env.SSH_KEY }}
+          port: ${{ env.SSH_PORT }}
+          script: |
+            set -e
+            RELEASE_DIR=$(date +"%Y%m%d%H%M%S")
+            mkdir -p $DEPLOY_PATH/releases/$RELEASE_DIR
+            tar -xzf $DEPLOY_PATH/releases/cinebsite.tar.gz -C $DEPLOY_PATH/releases/$RELEASE_DIR
+            cd $DEPLOY_PATH/releases/$RELEASE_DIR
+            npm ci --omit=dev
+            npm run migrate
+            cd $DEPLOY_PATH
+            ln -sfn releases/$RELEASE_DIR current
+            sudo systemctl restart cinebsite
+            sudo systemctl reload nginx
+
+      - name: Clean artifacts
+        run: rm cinebsite.tar.gz

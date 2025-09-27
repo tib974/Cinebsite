@@ -1,0 +1,44 @@
+<% layout('layout', { title: `Produit · ${product.name}`, activePage: 'products', csrfToken }) %>
+<header class="page-header">
+  <div>
+    <h2><%= product.name %></h2>
+    <p style="margin:0;color:#94a3b8;">Slug: <code><%= product.slug %></code></p>
+  </div>
+  <a class="button-link" href="/admin/products">← Retour</a>
+</header>
+
+<form class="form-card" method="post" action="/admin/products/<%= product.id %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <div>
+    <label for="name">Nom</label>
+    <input id="name" name="name" type="text" required value="<%= product.name %>" />
+  </div>
+  <div>
+    <label for="slug">Slug</label>
+    <input id="slug" name="slug" type="text" required value="<%= product.slug %>" />
+  </div>
+  <div>
+    <label for="dailyPrice">Tarif journalier (€)</label>
+    <input id="dailyPrice" name="dailyPrice" type="number" step="0.01" required value="<%= product.dailyPrice %>" />
+  </div>
+  <div>
+    <label for="stock">Stock disponible</label>
+    <input id="stock" name="stock" type="number" min="0" value="<%= product.stock %>" />
+  </div>
+  <div>
+    <label for="imageUrl">URL image</label>
+    <input id="imageUrl" name="imageUrl" type="text" value="<%= product.imageUrl || '' %>" />
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <textarea id="description" name="description"><%= product.description || '' %></textarea>
+  </div>
+  <div class="actions">
+    <button type="submit">Enregistrer</button>
+  </div>
+</form>
+
+<form class="form-card" method="post" action="/admin/products/<%= product.id %>/delete" onsubmit="return confirm('Supprimer ce produit ?');" style="margin-top:16px;">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <button type="submit" class="danger">Supprimer définitivement</button>
+</form>

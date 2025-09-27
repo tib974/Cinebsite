@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import sanityClient from '../sanityClient.js';
 import { reportError } from '../utils/errorReporter.js';
+import { fetchProductOrPackBySlug } from '../utils/apiClient.js';
 import 'react-calendar/dist/Calendar.css';
 
 const Calendar = lazy(() => import('react-calendar'));
@@ -47,12 +47,17 @@ export default function Calendrier() {
 
     const fetchProduct = async () => {
       try {
-        const query = `*[_type == "product" && slug.current == $slug][0]`;
-        const result = await sanityClient.fetch(query, { slug: preselectedSlug });
-        setProduct(result);
-        setHasError(false);
+        const result = await fetchProductOrPackBySlug(preselectedSlug);
+        if (result && result.type === 'product') {
+          setProduct(result);
+          setHasError(false);
+        } else {
+          setProduct(null);
+          setHasError(true);
+        }
       } catch (error) {
         reportError(error, { feature: 'calendar-preselect', slug: preselectedSlug });
+        setProduct(null);
         setHasError(true);
       }
     };
@@ -62,13 +67,13 @@ export default function Calendrier() {
 
   const summary = useMemo(() => {
     const duration = calculateDuration(dateRange);
-    const totalPrice = product ? calculatePrice(product.pricePerDay, duration) : null;
+    const totalPrice = product ? calculatePrice(product.dailyPrice, duration) : null;
     return {
       name: product?.name,
-      price: product?.pricePerDay,
+      price: product?.dailyPrice,
       duration,
       totalPrice,
-      url: product ? `/produit/${product.slug?.current}` : null,
+      url: product ? `/produit/${product.slug}` : null,
     };
   }, [product, dateRange]);
 
@@ -112,7 +117,7 @@ export default function Calendrier() {
       form.reset();
       formStartRef.current = Date.now();
     } catch (error) {
-      reportError(error, { feature: 'calendar-form-submit', slug: product?.slug?.current });
+      reportError(error, { feature: 'calendar-form-submit', slug: product?.slug });
       setFormStatus({ state: 'error', message: 'Impossible d’envoyer la demande pour le moment. Écrivez-nous à grondin.thibaut@gmail.com.' });
     }
   };
@@ -188,7 +193,7 @@ export default function Calendrier() {
           <Link className="btn ghost" to={summary.url}>
             Voir la fiche produit
           </Link>
-          <Link className="btn" to={`/contact?items=${product.slug?.current}&dates=${contactDatesParam}`}>
+          <Link className="btn" to={`/contact?items=${encodeURIComponent(product.slug)}&dates=${contactDatesParam}`}>
             Finaliser la demande de devis
           </Link>
         </div>

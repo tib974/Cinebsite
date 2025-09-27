@@ -27,11 +27,15 @@ import { getAvailabilityCalendar } from '../services/availabilityService.js';
 
 const router = express.Router();
 
-router.get('/', async (_req, res, next) => {
+router.get('/', (req, res, next) => {
   try {
-    const [products, packs, quotes] = [getAllProducts(), getAllPacks(), listQuotes({ status: 'pending' })];
+    const products = getAllProducts();
+    const packs = getAllPacks();
+    const quotes = listQuotes({ status: 'pending' });
     res.render('dashboard', {
       activePage: 'dashboard',
+      title: 'Tableau de bord',
+      csrfToken: res.locals.csrfToken,
       stats: {
         productCount: products.length,
         packCount: packs.length,
@@ -46,7 +50,12 @@ router.get('/', async (_req, res, next) => {
 router.get('/products', (_req, res, next) => {
   try {
     const products = getAllProducts();
-    res.render('products', { activePage: 'products', products });
+    res.render('products', {
+      activePage: 'products',
+      title: 'Produits',
+      csrfToken: res.locals.csrfToken,
+      products,
+    });
   } catch (error) {
     next(error);
   }
@@ -58,7 +67,12 @@ router.get('/products/:id', (req, res, next) => {
     if (!product) {
       return res.redirect('/admin/products');
     }
-    res.render('product-detail', { activePage: 'products', product });
+    res.render('product-detail', {
+      activePage: 'products',
+      title: `Produit · ${product.name}`,
+      csrfToken: res.locals.csrfToken,
+      product,
+    });
   } catch (error) {
     next(error);
   }
@@ -68,7 +82,13 @@ router.get('/packs', (_req, res, next) => {
   try {
     const packs = getAllPacks();
     const products = getAllProducts();
-    res.render('packs', { activePage: 'packs', packs, products });
+    res.render('packs', {
+      activePage: 'packs',
+      title: 'Packs',
+      csrfToken: res.locals.csrfToken,
+      packs,
+      products,
+    });
   } catch (error) {
     next(error);
   }
@@ -81,16 +101,31 @@ router.get('/packs/:id', (req, res, next) => {
       return res.redirect('/admin/packs');
     }
     const products = getAllProducts();
-    res.render('pack-detail', { activePage: 'packs', pack, products });
+    res.render('pack-detail', {
+      activePage: 'packs',
+      title: `Pack · ${pack.name}`,
+      csrfToken: res.locals.csrfToken,
+      pack,
+      products,
+    });
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/quotes', (_req, res, next) => {
+router.get('/quotes', (req, res, next) => {
   try {
-    const quotes = listQuotes();
-    res.render('quotes', { activePage: 'quotes', quotes });
+    const status = req.query.status ? String(req.query.status) : null;
+    const allowedStatuses = ['pending', 'validated', 'archived'];
+    const filterStatus = status && allowedStatuses.includes(status) ? status : null;
+    const quotes = listQuotes(filterStatus ? { status: filterStatus } : undefined);
+    res.render('quotes', {
+      activePage: 'quotes',
+      title: 'Demandes de devis',
+      csrfToken: res.locals.csrfToken,
+      quotes,
+      query: req.query,
+    });
   } catch (error) {
     next(error);
   }
@@ -103,7 +138,13 @@ router.get('/quotes/:id', (req, res, next) => {
       return res.redirect('/admin/quotes');
     }
     const availability = getAvailabilityCalendar({ start: quote.startDate, end: quote.endDate });
-    res.render('quote-detail', { activePage: 'quotes', quote, availability });
+    res.render('quote-detail', {
+      activePage: 'quotes',
+      title: `Demande · #${quote.id}`,
+      csrfToken: res.locals.csrfToken,
+      quote,
+      availability,
+    });
   } catch (error) {
     next(error);
   }
@@ -167,12 +208,24 @@ router.post('/packs/:id', (req, res, next) => {
       imageUrl,
     });
 
-    const items = Array.isArray(req.body.itemProductId)
-      ? req.body.itemProductId.map((productId, index) => ({
-          productId: Number(productId),
-          quantity: Number(req.body.itemQuantity[index] || 1),
-        }))
-      : [];
+    let items = [];
+    const productIds = Array.isArray(req.body.itemProductId)
+      ? req.body.itemProductId
+      : req.body.itemProductId
+        ? [req.body.itemProductId]
+        : [];
+    const quantities = Array.isArray(req.body.itemQuantity)
+      ? req.body.itemQuantity
+      : req.body.itemQuantity
+        ? [req.body.itemQuantity]
+        : [];
+
+    if (productIds.length > 0) {
+      items = productIds.map((productId, index) => ({
+        productId: Number(productId),
+        quantity: Number(quantities[index] || 1),
+      }));
+    }
     setPackItems(Number(req.params.id), items.filter((item) => item.productId));
 
     res.redirect('/admin/packs');
@@ -204,13 +257,24 @@ router.post('/quotes/:id', (req, res, next) => {
       notes,
     });
 
-    if (Array.isArray(req.body.itemName)) {
-      const items = req.body.itemName.map((name, index) => ({
+    const itemNames = Array.isArray(req.body.itemName)
+      ? req.body.itemName
+      : req.body.itemName
+        ? [req.body.itemName]
+        : [];
+
+    if (itemNames.length > 0) {
+      const itemTypes = Array.isArray(req.body.itemType) ? req.body.itemType : [req.body.itemType];
+      const itemIds = Array.isArray(req.body.itemId) ? req.body.itemId : [req.body.itemId];
+      const itemQuantities = Array.isArray(req.body.itemQuantity) ? req.body.itemQuantity : [req.body.itemQuantity];
+      const itemUnitPrices = Array.isArray(req.body.itemUnitPrice) ? req.body.itemUnitPrice : [req.body.itemUnitPrice];
+
+      const items = itemNames.map((name, index) => ({
         name,
-        itemType: req.body.itemType[index],
-        itemId: Number(req.body.itemId[index] || 0),
-        quantity: Number(req.body.itemQuantity[index] || 1),
-        unitPrice: Number(req.body.itemUnitPrice[index] || 0),
+        itemType: itemTypes[index] || 'product',
+        itemId: Number(itemIds[index] || 0),
+        quantity: Number(itemQuantities[index] || 1),
+        unitPrice: Number(itemUnitPrices[index] || 0),
       }));
       setQuoteItems(Number(req.params.id), items);
     }

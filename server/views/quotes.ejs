@@ -1,0 +1,69 @@
+<header class="page-header">
+  <div>
+    <h2>Demandes de devis</h2>
+    <p style="margin:0;color:#94a3b8;">Suivez les demandes clients et mettez à jour leur statut.</p>
+  </div>
+  <form method="get" action="/admin/quotes" class="form-inline" style="display:flex;gap:12px;align-items:center;">
+    <label for="status" style="font-weight:500;">Filtrer</label>
+    <select id="status" name="status">
+      <option value="">Tous</option>
+      <option value="pending" <%= (query?.status || '') === 'pending' ? 'selected' : '' %>>En attente</option>
+      <option value="validated" <%= (query?.status || '') === 'validated' ? 'selected' : '' %>>Validés</option>
+      <option value="archived" <%= (query?.status || '') === 'archived' ? 'selected' : '' %>>Archivés</option>
+    </select>
+    <button type="submit">Appliquer</button>
+  </form>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Client</th>
+      <th>Période</th>
+      <th>Statut</th>
+      <th>Total estimé</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (quotes.length === 0) { %>
+      <tr><td colspan="6">Aucune demande pour ce filtre.</td></tr>
+    <% } %>
+    <% quotes.forEach((quote) => { %>
+      <tr>
+        <td>#<%= quote.id %></td>
+        <td>
+          <strong><%= quote.customerName %></strong><br />
+          <small><%= quote.email %><% if (quote.phone) { %> · <%= quote.phone %><% } %></small>
+        </td>
+        <td><%= quote.startDate %> → <%= quote.endDate %></td>
+        <td>
+          <span class="tag <%= quote.status %>">
+            <% if (quote.status === 'pending') { %>En attente<% } %>
+            <% if (quote.status === 'validated') { %>Validé<% } %>
+            <% if (quote.status === 'archived') { %>Archivé<% } %>
+          </span>
+        </td>
+        <td><%= quote.total ? quote.total.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }) : '—' %></td>
+        <td class="actions">
+          <a class="button-link" href="/admin/quotes/<%= quote.id %>">Ouvrir</a>
+          <% if (quote.status !== 'validated') { %>
+            <form action="/admin/quotes/<%= quote.id %>/status" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <input type="hidden" name="status" value="validated" />
+              <button type="submit">Valider</button>
+            </form>
+          <% } %>
+          <% if (quote.status !== 'archived') { %>
+            <form action="/admin/quotes/<%= quote.id %>/status" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <input type="hidden" name="status" value="archived" />
+              <button type="submit" class="ghost">Archiver</button>
+            </form>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

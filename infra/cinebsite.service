@@ -1,0 +1,25 @@
+# /etc/systemd/system/cinebsite.service
+[Unit]
+Description=Cinebsite Node.js Server
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/cinebsite/current
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=SESSION_SECRET=${SESSION_SECRET}
+Environment=SQLITE_DIR=/var/www/cinebsite/data
+Environment=SESSION_DB=sessions.sqlite
+ExecStart=/usr/bin/env npm run server
+Restart=on-failure
+RestartSec=5
+User=www-data
+Group=www-data
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=cinebsite
+
+[Install]
+WantedBy=multi-user.target

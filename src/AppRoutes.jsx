@@ -7,9 +7,6 @@ import Calendrier from './pages/Calendrier.jsx';
 import Apropos from './pages/Apropos.jsx';
 import Contact from './pages/Contact.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
-import CampagneClip from './pages/CampagneClip.jsx';
-import Guides from './pages/Guides.jsx';
-import GuideDetail from './pages/GuideDetail.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function AppRoutes() {
@@ -20,9 +17,6 @@ export default function AppRoutes() {
         <Route path="packs" element={<Packs />} />
         <Route path="materiel" element={<Materiel />} />
         <Route path="calendrier" element={<Calendrier />} />
-        <Route path="campagne/clip" element={<CampagneClip />} />
-        <Route path="guides" element={<Guides />} />
-        <Route path="guides/:slug" element={<GuideDetail />} />
         <Route path="apropos" element={<Apropos />} />
         <Route path="contact" element={<Contact />} />
         <Route path="produit/:slug" element={<ProductDetail />} />

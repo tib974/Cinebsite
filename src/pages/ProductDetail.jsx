@@ -1,14 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import sanityClient, { urlFor } from '../sanityClient.js';
+
 import { useQuote } from '../hooks/useQuote.js';
 import { reportError } from '../utils/errorReporter.js';
-import {
-  getAvailabilitySummary,
-  formatBookingRange,
-  formatBookingDate,
-  addDays,
-} from '../utils/availability.js';
+import { fetchJson, fetchProductOrPackBySlug, mapApiProduct, mapApiPack } from '../utils/apiClient.js';
 
 function formatPrice(pricePerDay) {
   if (pricePerDay === null || pricePerDay === undefined) {
@@ -16,6 +11,17 @@ function formatPrice(pricePerDay) {
   }
   const value = pricePerDay % 1 === 0 ? pricePerDay.toFixed(0) : pricePerDay.toFixed(2);
   return `${value}€ / jour`;
+}
+
+function formatDateLabel(isoDate) {
+  if (!isoDate) return '';
+  const date = new Date(isoDate);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 }
 
 function IncludedItems({ items, title = 'Inclus dans le pack' }) {
@@ -29,15 +35,15 @@ function IncludedItems({ items, title = 'Inclus dans le pack' }) {
       </div>
       <div className="grid cards product-detail__items-grid">
         {items.map((item) => (
-          <Link key={item._id} to={`/produit/${item.slug?.current}`} className="card" style={{ textDecoration: 'none' }}>
+          <Link key={item.slug} to={`/produit/${item.slug}`} className="card" style={{ textDecoration: 'none' }}>
             <div className="media">
-              {item.image && <img src={urlFor(item.image).width(360).url()} alt={item.name} loading="lazy" decoding="async" />}
+              {item.imageUrl && <img src={item.imageUrl} alt={item.name} loading="lazy" decoding="async" />}
               {item.type === 'pack' && <span className="badge badge-cat">Pack</span>}
             </div>
             <div className="body">
               <div className="title">{item.name}</div>
-              {item.pricePerDay !== undefined && (
-                <div className="muted" style={{ marginTop: '6px' }}>{formatPrice(item.pricePerDay)}</div>
+              {item.dailyPrice !== undefined && item.dailyPrice !== null && (
+                <div className="muted" style={{ marginTop: '6px' }}>{formatPrice(item.dailyPrice)}</div>
               )}
             </div>
           </Link>
@@ -58,15 +64,15 @@ function CompatiblePacks({ packs }) {
       </div>
       <div className="grid cards product-detail__items-grid">
         {packs.map((pack) => (
-          <Link key={pack._id} to={`/produit/${pack.slug?.current}`} className="card" style={{ textDecoration: 'none' }}>
+          <Link key={pack.slug} to={`/produit/${pack.slug}`} className="card" style={{ textDecoration: 'none' }}>
             <div className="media">
-              {pack.image && <img src={urlFor(pack.image).width(320).url()} alt={pack.name} loading="lazy" decoding="async" />}
+              {pack.imageUrl && <img src={pack.imageUrl} alt={pack.name} loading="lazy" decoding="async" />}
               <span className="badge badge-cat">Pack</span>
             </div>
             <div className="body">
               <div className="title">{pack.name}</div>
-              {pack.pricePerDay !== undefined && (
-                <div className="muted" style={{ marginTop: '6px' }}>{formatPrice(pack.pricePerDay)}</div>
+              {pack.dailyPrice !== undefined && pack.dailyPrice !== null && (
+                <div className="muted" style={{ marginTop: '6px' }}>{formatPrice(pack.dailyPrice)}</div>
               )}
             </div>
           </Link>
@@ -87,16 +93,16 @@ function RelatedProducts({ products, currentSlug }) {
       </div>
       <div className="grid cards product-detail__items-grid">
         {products
-          .filter((product) => product.slug?.current !== currentSlug)
+          .filter((product) => product.slug !== currentSlug)
           .map((product) => (
-            <Link key={product._id} to={`/produit/${product.slug?.current}`} className="card" style={{ textDecoration: 'none' }}>
+            <Link key={product.slug} to={`/produit/${product.slug}`} className="card" style={{ textDecoration: 'none' }}>
               <div className="media">
-                {product.image && <img src={urlFor(product.image).width(320).url()} alt={product.name} loading="lazy" decoding="async" />}
+                {product.imageUrl && <img src={product.imageUrl} alt={product.name} loading="lazy" decoding="async" />}
               </div>
               <div className="body">
                 <div className="title">{product.name}</div>
-                {product.pricePerDay !== undefined && (
-                  <div className="muted" style={{ marginTop: '6px' }}>{formatPrice(product.pricePerDay)}</div>
+                {product.dailyPrice !== undefined && product.dailyPrice !== null && (
+                  <div className="muted" style={{ marginTop: '6px' }}>{formatPrice(product.dailyPrice)}</div>
                 )}
               </div>
             </Link>
@@ -106,132 +112,161 @@ function RelatedProducts({ products, currentSlug }) {
   );
 }
 
-function AvailabilityPanel({ summary, productSlug }) {
-  const nextFreeDate = useMemo(() => {
-    if (summary.ongoingBooking) {
-      return addDays(summary.ongoingBooking.end, 1);
-    }
-    if (summary.nextBooking) {
-      return addDays(summary.nextBooking.end, 1);
-    }
-    return null;
-  }, [summary]);
-
+function AvailabilityPanel({ summary, busyDays }) {
   return (
     <div className="availability-panel">
       <div className={`availability-chip availability-chip--${summary.status}`}>{summary.label}</div>
       {summary.description && <p className="availability-panel__description">{summary.description}</p>}
 
-      {summary.bookings.length > 0 && (
+      {busyDays.length > 0 && (
         <div>
-          <div className="availability-panel__label">Réservations à venir</div>
+          <div className="availability-panel__label">Jours avec réservations</div>
           <ul className="availability-panel__list">
-            {summary.bookings.slice(0, 3).map((booking) => (
-              <li key={booking._id || `${booking.start.toISOString()}-${booking.end.toISOString()}`}>
-                {formatBookingRange(booking)}
+            {busyDays.map((entry) => (
+              <li key={entry.date}>
+                {formatDateLabel(entry.date)} · {entry.reservedQuantity} réservation{entry.reservedQuantity > 1 ? 's' : ''}
               </li>
             ))}
           </ul>
         </div>
       )}
-
-      {nextFreeDate && (
-        <div className="availability-panel__next">
-          Prochain créneau libre : <strong>{formatBookingDate(nextFreeDate)}</strong>
-        </div>
-      )}
-
-      <div className="availability-panel__actions">
-        <Link className="btn ghost" to={`/calendrier?produit=${productSlug}`}>
-          Vérifier un créneau
-        </Link>
-      </div>
     </div>
   );
+}
+
+function buildAvailabilitySummary(product) {
+  const stock = typeof product.stock === 'number' ? product.stock : null;
+  const entries = Array.isArray(product.availability) ? product.availability : [];
+
+  if (stock === null) {
+    return {
+      status: 'reserved',
+      label: 'Disponibilité sur demande',
+      description: 'Contactez-nous pour confirmer les créneaux disponibles.',
+      busyDays: entries.slice(0, 5),
+    };
+  }
+
+  if (stock <= 0) {
+    return {
+      status: 'busy',
+      label: 'Sur demande',
+      description: 'Ce matériel est actuellement en préparation. Nous vous recontactons rapidement.',
+      busyDays: entries.slice(0, 5),
+    };
+  }
+
+  const busyDays = entries
+    .filter((entry) => (entry.reservedQuantity ?? 0) >= stock)
+    .slice(0, 5);
+
+  if (busyDays.length === 0) {
+    return {
+      status: 'available',
+      label: 'Disponible',
+      description: `${stock} exemplaire${stock > 1 ? 's' : ''} immédiatement disponibles`,
+      busyDays: [],
+    };
+  }
+
+  const firstBusy = busyDays[0];
+  return {
+    status: 'reserved',
+    label: 'Réservé prochainement',
+    description: `Complet le ${formatDateLabel(firstBusy.date)}. Réservez tôt pour garantir votre tournage.`,
+    busyDays,
+  };
 }
 
 export default function ProductDetail() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
+  const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const { addProductToQuote, quoteItems } = useQuote();
 
   useEffect(() => {
+    let cancelled = false;
+
     if (!slug) {
+      setProduct(null);
+      setRelated([]);
       setLoading(false);
-      return;
+      return () => {};
     }
 
-    async function fetchProduct() {
+    async function fetchData() {
       setLoading(true);
       setHasError(false);
       try {
-        const query = `*[_type == "product" && slug.current == $slug][0]{
-          _id,
-          name,
-          slug,
-          image,
-          pricePerDay,
-          description,
-          category,
-          featured,
-          type,
-          includes[]->{
-            _id,
-            name,
-            slug,
-            image,
-            pricePerDay,
-            type
-          },
-          "bookings": *[_type == "booking" && references(^._id) && defined(startDate) && defined(endDate) && endDate >= now()] | order(startDate asc) {
-            _id,
-            startDate,
-            endDate
-          },
-          "includedBy": *[_type == "product" && type == "pack" && references(^._id)]{
-            _id,
-            name,
-            slug,
-            image,
-            pricePerDay,
-            type
-          },
-          "related": *[_type == "product" && slug.current != $slug && category == ^.category][0...4]{
-            _id,
-            name,
-            slug,
-            image,
-            pricePerDay,
-            type
-          }
-        }`;
-        const data = await sanityClient.fetch(query, { slug });
-        if (data) {
-          setProduct({
-            ...data,
-            bookings: data.bookings ?? [],
-            includes: data.includes ?? [],
-            includedBy: data.includedBy ?? [],
-            related: data.related ?? [],
-          });
-        } else {
+        const fetched = await fetchProductOrPackBySlug(slug);
+        if (cancelled) return;
+        if (!fetched) {
           setProduct(null);
+          setRelated([]);
+          setHasError(true);
+          return;
+        }
+        setProduct(fetched);
+
+        if (fetched.type === 'product' && fetched.category) {
+          try {
+            const relatedResponse = await fetchJson(`/api/products?category=${encodeURIComponent(fetched.category)}`);
+            if (!cancelled) {
+              const relatedProducts = relatedResponse
+                .map(mapApiProduct)
+                .filter((item) => item && item.slug !== fetched.slug)
+                .slice(0, 4);
+              setRelated(relatedProducts);
+            }
+          } catch (relatedError) {
+            if (!cancelled) {
+              reportError(relatedError, { feature: 'product-detail-related', category: fetched.category });
+              setRelated([]);
+            }
+          }
+        } else if (fetched.type === 'pack') {
+          try {
+            const relatedResponse = await fetchJson(`/api/packs`);
+            if (!cancelled) {
+              const relatedPacks = relatedResponse
+                .map(mapApiPack)
+                .filter((item) => item && item.slug !== fetched.slug)
+                .slice(0, 4);
+              setRelated(relatedPacks);
+            }
+          } catch (relatedPackError) {
+            if (!cancelled) {
+              reportError(relatedPackError, { feature: 'product-detail-related-pack' });
+              setRelated([]);
+            }
+          }
+        } else {
+          setRelated([]);
         }
       } catch (error) {
-        reportError(error, { feature: 'product-detail', slug });
-        setHasError(true);
+        if (!cancelled) {
+          reportError(error, { feature: 'product-detail', slug });
+          setHasError(true);
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     }
 
-    fetchProduct();
+    fetchData();
+
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
-  const isInQuote = useMemo(() => product && quoteItems.some((quoteItem) => quoteItem._id === product._id), [quoteItems, product]);
-  const availabilitySummary = useMemo(() => getAvailabilitySummary(product?.bookings), [product?.bookings]);
+  const isInQuote = useMemo(() => product && quoteItems.some((quoteItem) => quoteItem.slug === product.slug), [quoteItems, product]);
+  const availabilityInfo = useMemo(() => (product ? buildAvailabilitySummary(product) : null), [product]);
+  const busyDays = availabilityInfo?.busyDays ?? [];
 
   if (loading) {
     return (
@@ -265,15 +300,21 @@ export default function ProductDetail() {
     );
   }
 
-  const productSlug = product.slug?.current;
   const backHref = product.type === 'pack' ? '/packs' : '/materiel';
+  const imageSrc = product.imageUrl || '/assets/placeholders/product-placeholder.webp';
+  const dailyPrice = product.dailyPrice ?? null;
+  const packs = product.packs ?? [];
+  const includedItems = product.type === 'pack' ? (product.items ?? []) : [];
+  const compatiblePacks = product.type !== 'pack' ? packs : [];
+  const relatedProducts = product.type === 'product' ? related : related;
+  const stockLabel = typeof product.stock === 'number' ? `${product.stock} en stock` : 'Disponibilité sur demande';
 
   return (
     <article className="product-detail">
       <div className="card product-detail__card">
         <div className="product-detail__grid">
           <div className="product-detail__media">
-            {product.image && <img src={urlFor(product.image).width(1000).url()} alt={product.name} loading="lazy" decoding="async" />}
+            {imageSrc && <img src={imageSrc} alt={product.name} loading="lazy" decoding="async" />}
           </div>
           <div className="product-detail__content">
             <Link to={backHref} className="btn ghost product-detail__back">← Retour catalogue</Link>
@@ -283,8 +324,9 @@ export default function ProductDetail() {
               {product.featured && <span className="badge">Mis en avant</span>}
             </div>
             <h1 className="section-title" style={{ marginTop: 0 }}>{product.name}</h1>
-            <div className="product-detail__price">{formatPrice(product.pricePerDay)}</div>
+            {dailyPrice !== null && <div className="product-detail__price">{formatPrice(dailyPrice)}</div>}
             <p className="muted" style={{ whiteSpace: 'pre-line' }}>{product.description || 'Description à venir.'}</p>
+            <p className="muted" style={{ marginTop: '8px' }}>{stockLabel}</p>
 
             <div className="product-detail__actions">
               <button
@@ -294,14 +336,16 @@ export default function ProductDetail() {
               >
                 {isInQuote ? 'Ajouté au devis' : 'Ajouter au devis'}
               </button>
-              <Link className="btn ghost" to={`/contact?items=${productSlug || ''}`}>
+              <Link className="btn ghost" to={`/contact?items=${product.slug || ''}`}>
                 Demander un devis
               </Link>
             </div>
 
             <div className="product-detail__availability">
               <h2>Disponibilité</h2>
-              <AvailabilityPanel summary={availabilitySummary} productSlug={productSlug} />
+              {availabilityInfo && (
+                <AvailabilityPanel summary={availabilityInfo} busyDays={busyDays} />
+              )}
             </div>
             <div className="product-detail__pricing-info">
               <h2>Informations sur le prix selon la durée</h2>
@@ -318,9 +362,9 @@ export default function ProductDetail() {
       </div>
 
       <div className="product-detail__sections">
-        {product.type === 'pack' && <IncludedItems items={product.includes} />}
-        {product.type !== 'pack' && <CompatiblePacks packs={product.includedBy} />}
-        <RelatedProducts products={product.related} currentSlug={productSlug} />
+        {product.type === 'pack' && <IncludedItems items={includedItems} />}
+        {product.type !== 'pack' && <CompatiblePacks packs={compatiblePacks} />}
+        <RelatedProducts products={relatedProducts} currentSlug={product.slug} />
       </div>
     </article>
   );

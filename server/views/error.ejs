@@ -1,0 +1,9 @@
+<header class="page-header">
+  <div>
+    <h2><%= typeof title !== 'undefined' ? title : 'Erreur' %></h2>
+    <% if (message) { %>
+      <p style="margin:0;color:#94a3b8;"><%= message %></p>
+    <% } %>
+  </div>
+  <a class="button-link" href="/admin">← Retour au tableau de bord</a>
+</header>

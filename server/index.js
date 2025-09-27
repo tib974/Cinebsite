@@ -16,6 +16,7 @@ import productsApiRouter from './routes/api/products.js';
 import packsApiRouter from './routes/api/packs.js';
 import quotesApiRouter from './routes/api/quotes.js';
 import availabilityApiRouter from './routes/api/availability.js';
+import realisationsApiRouter from './routes/api/realisations.js';
 import { notFoundHandler, errorHandler } from './middleware/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -41,6 +42,44 @@ const SQLiteStore = connectSqlite3(session);
 app.set('trust proxy', process.env.TRUST_PROXY === '1');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use((req, res, next) => {
+  const parentNext = next;
+  const originalRender = res.render.bind(res);
+
+  res.render = (view, options = {}, callback) => {
+    const cb = typeof options === 'function' ? options : callback;
+    const opts = typeof options === 'function' ? {} : { ...options };
+    const layout = opts.layout === false ? null : opts.layout || 'layout';
+
+    originalRender(view, opts, (err, html) => {
+      if (err) {
+        if (cb) return cb(err);
+        return parentNext(err);
+      }
+
+      if (!layout) {
+        if (cb) return cb(null, html);
+        res.send(html);
+        return undefined;
+      }
+
+      const layoutOptions = { ...opts, body: html };
+      originalRender(layout, layoutOptions, (layoutErr, layoutHtml) => {
+        if (layoutErr) {
+          if (cb) return cb(layoutErr);
+          return parentNext(layoutErr);
+        }
+        if (cb) return cb(null, layoutHtml);
+        res.send(layoutHtml);
+        return undefined;
+      });
+      return undefined;
+    });
+  };
+
+  next();
+});
 
 applySecurity(app);
 
@@ -77,7 +116,7 @@ app.get('/health', (_req, res) => {
 
 // Routes d\'authentification admin
 app.get('/admin/login', ensureLoggedOut, adminCsrfProtection, (req, res) => {
-  res.render('login', { csrfToken: req.csrfToken(), error: null });
+  res.render('login', { layout: false, csrfToken: req.csrfToken(), error: null });
 });
 
 app.post('/admin/login', ensureLoggedOut, adminCsrfProtection, async (req, res, next) => {
@@ -86,6 +125,7 @@ app.post('/admin/login', ensureLoggedOut, adminCsrfProtection, async (req, res, 
     const success = await handleLogin(req, username, password);
     if (!success) {
       return res.status(401).render('login', {
+        layout: false,
         csrfToken: req.csrfToken(),
         error: 'Identifiants invalides',
       });
@@ -113,6 +153,7 @@ app.use('/api/products', productsApiRouter);
 app.use('/api/packs', packsApiRouter);
 app.use('/api/quotes', quotesApiRouter);
 app.use('/api/availability', availabilityApiRouter);
+app.use('/api/realisations', realisationsApiRouter);
 
 // Fichiers statiques si dist présent
 if (fs.existsSync(distDir)) {

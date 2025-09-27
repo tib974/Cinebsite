@@ -2,6 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { QuoteContext } from './quoteContextDefinition.js';
 import { reportError } from '../utils/errorReporter.js';
 
+function normalizeQuoteItem(item) {
+  if (!item) return null;
+  const slug = typeof item.slug === 'string' ? item.slug : item.slug?.current ?? '';
+  if (!slug) {
+    return null;
+  }
+  return {
+    id: item.id ?? item._id ?? null,
+    slug,
+    name: item.name ?? '',
+    type: item.type ?? 'product',
+    dailyPrice: item.dailyPrice ?? item.pricePerDay ?? null,
+  };
+}
+
 export function QuoteProvider({ children }) {
   const [quoteItems, setQuoteItems] = useState([]);
 
@@ -10,7 +25,13 @@ export function QuoteProvider({ children }) {
     try {
       const storedItems = localStorage.getItem('quoteCart');
       if (storedItems) {
-        setQuoteItems(JSON.parse(storedItems));
+        const parsed = JSON.parse(storedItems);
+        if (Array.isArray(parsed)) {
+          const normalized = parsed
+            .map(normalizeQuoteItem)
+            .filter(Boolean);
+          setQuoteItems(normalized);
+        }
       }
     } catch (error) {
       reportError(error, { feature: 'quote-context-load' });
@@ -27,17 +48,20 @@ export function QuoteProvider({ children }) {
   }, [quoteItems]);
 
   const addProductToQuote = (product) => {
-    setQuoteItems(prevItems => {
-      // Eviter les doublons
-      if (prevItems.find(item => item.slug === product.slug)) {
+    const normalized = normalizeQuoteItem(product);
+    if (!normalized) {
+      return;
+    }
+    setQuoteItems((prevItems) => {
+      if (prevItems.some((item) => item.slug === normalized.slug)) {
         return prevItems;
       }
-      return [...prevItems, product];
+      return [...prevItems, normalized];
     });
   };
 
   const removeProductFromQuote = (productSlug) => {
-    setQuoteItems(prevItems => prevItems.filter(item => item.slug !== productSlug));
+    setQuoteItems((prevItems) => prevItems.filter((item) => item.slug !== productSlug));
   };
 
   const clearQuote = () => {

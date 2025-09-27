@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS products (
   name TEXT NOT NULL,
   slug TEXT NOT NULL UNIQUE,
   description TEXT,
+  category TEXT,
+  featured INTEGER NOT NULL DEFAULT 0,
   daily_price REAL NOT NULL DEFAULT 0,
   image_url TEXT,
   stock INTEGER NOT NULL DEFAULT 0,

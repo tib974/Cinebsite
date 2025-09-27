@@ -1,0 +1,145 @@
+<header class="page-header">
+  <div>
+    <h2>Demande #<%= quote.id %></h2>
+    <p style="margin:0;color:#94a3b8;">Créée le <%= new Date(quote.createdAt).toLocaleString('fr-FR') %></p>
+  </div>
+  <div class="actions">
+    <a class="button-link" href="/admin/quotes">← Retour</a>
+    <form action="/admin/quotes/<%= quote.id %>/status" method="post" style="display:inline-flex;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <input type="hidden" name="status" value="validated" />
+      <button type="submit" <%= quote.status === 'validated' ? 'disabled' : '' %>>Valider</button>
+    </form>
+    <form action="/admin/quotes/<%= quote.id %>/status" method="post" style="display:inline-flex;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <input type="hidden" name="status" value="archived" />
+      <button type="submit" class="ghost" <%= quote.status === 'archived' ? 'disabled' : '' %>>Archiver</button>
+    </form>
+  </div>
+</header>
+
+<form class="form-card" action="/admin/quotes/<%= quote.id %>" method="post">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <div class="grid two">
+    <div>
+      <label for="customerName">Nom du client</label>
+      <input id="customerName" name="customerName" type="text" required value="<%= quote.customerName %>" />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required value="<%= quote.email %>" />
+    </div>
+    <div>
+      <label for="phone">Téléphone</label>
+      <input id="phone" name="phone" type="text" value="<%= quote.phone || '' %>" />
+    </div>
+    <div>
+      <label for="status">Statut</label>
+      <select id="status" name="status">
+        <option value="pending" <%= quote.status === 'pending' ? 'selected' : '' %>>En attente</option>
+        <option value="validated" <%= quote.status === 'validated' ? 'selected' : '' %>>Validé</option>
+        <option value="archived" <%= quote.status === 'archived' ? 'selected' : '' %>>Archivé</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid two">
+    <div>
+      <label for="startDate">Début</label>
+      <input id="startDate" name="startDate" type="date" required value="<%= quote.startDate %>" />
+    </div>
+    <div>
+      <label for="endDate">Fin</label>
+      <input id="endDate" name="endDate" type="date" required value="<%= quote.endDate %>" />
+    </div>
+  </div>
+
+  <div class="grid two">
+    <div>
+      <label for="total">Montant estimé (€)</label>
+      <input id="total" name="total" type="number" step="0.01" value="<%= quote.total || '' %>" />
+    </div>
+    <div>
+      <label for="notes">Notes internes</label>
+      <textarea id="notes" name="notes"><%= quote.notes || '' %></textarea>
+    </div>
+  </div>
+
+  <fieldset style="margin-top:16px;">
+    <legend>Articles du devis</legend>
+    <div class="quote-items">
+      <% if (quote.items.length === 0) { %>
+        <p class="muted">Aucun article ajouté. Ajoutez-les ci-dessous.</p>
+      <% } %>
+      <% quote.items.forEach((item) => { %>
+        <div class="grid two" style="align-items:end;">
+          <div>
+            <label>Article</label>
+            <input type="text" name="itemName" value="<%= item.name %>" />
+            <input type="hidden" name="itemType" value="<%= item.itemType %>" />
+            <input type="hidden" name="itemId" value="<%= item.itemId %>" />
+          </div>
+          <div>
+            <label>Quantité</label>
+            <input type="number" name="itemQuantity" min="1" value="<%= item.quantity %>" />
+          </div>
+          <div>
+            <label>Prix unitaire (€)</label>
+            <input type="number" step="0.01" name="itemUnitPrice" value="<%= item.unitPrice %>" />
+          </div>
+        </div>
+      <% }) %>
+      <div class="grid two" style="align-items:end;">
+        <div>
+          <label>Article</label>
+          <input type="text" name="itemName" placeholder="Nom du produit ou pack" />
+          <input type="hidden" name="itemType" value="product" />
+          <input type="hidden" name="itemId" value="0" />
+        </div>
+        <div>
+          <label>Quantité</label>
+          <input type="number" name="itemQuantity" min="1" value="1" />
+        </div>
+        <div>
+          <label>Prix unitaire (€)</label>
+          <input type="number" step="0.01" name="itemUnitPrice" value="0" />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="actions" style="margin-top:16px;">
+    <button type="submit">Enregistrer les modifications</button>
+  </div>
+</form>
+
+<form class="form-card" action="/admin/quotes/<%= quote.id %>/delete" method="post" onsubmit="return confirm('Supprimer ce devis ?');" style="margin-top:16px;">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <button type="submit" class="danger">Supprimer définitivement</button>
+</form>
+
+<section class="form-card" style="margin-top:16px;">
+  <h3 style="margin-top:0;">Disponibilités sur la période</h3>
+  <% if (availability.length === 0) { %>
+    <p class="muted">Aucune donnée de disponibilité enregistrée pour cette période.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Date</th>
+          <th>Quantité réservée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% availability.forEach((entry) => { %>
+          <tr>
+            <td><%= entry.productName || `#${entry.productId}` %></td>
+            <td><%= entry.date %></td>
+            <td><%= entry.reservedQuantity %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</section>

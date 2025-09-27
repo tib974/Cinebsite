@@ -1,0 +1,24 @@
+<% layout('layout', { title: 'Tableau de bord', activePage: 'dashboard', csrfToken }) %>
+<header class="page-header">
+  <h2>Vue d'ensemble</h2>
+</header>
+<div class="grid two">
+  <div class="form-card">
+    <h3>Produits actifs</h3>
+    <p style="font-size:2.5rem;margin:0;color:#38bdf8;"><%= stats.productCount %></p>
+    <p>Produits disponibles à la location</p>
+    <a class="button-link" href="/admin/products">Gérer les produits</a>
+  </div>
+  <div class="form-card">
+    <h3>Packs configurés</h3>
+    <p style="font-size:2.5rem;margin:0;color:#38bdf8;"><%= stats.packCount %></p>
+    <p>Combinaisons prêtes pour vos clients</p>
+    <a class="button-link" href="/admin/packs">Gérer les packs</a>
+  </div>
+  <div class="form-card" style="grid-column: span 2;">
+    <h3>Demandes de devis en attente</h3>
+    <p style="font-size:2.5rem;margin:0;color:#facc15;"><%= stats.pendingQuotes %></p>
+    <p>Soyez réactif pour convertir les prospects en clients.</p>
+    <a class="button-link" href="/admin/quotes">Consulter les demandes</a>
+  </div>
+</div>

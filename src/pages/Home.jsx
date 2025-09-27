@@ -1,14 +1,17 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import sanityClient, { urlFor } from '../sanityClient.js';
+
 import { useQuote } from '../hooks/useQuote.js';
+import { fetchJson, mapApiPack, mapApiProduct } from '../utils/apiClient.js';
+import { reportError } from '../utils/errorReporter.js';
 
 const HERO_SLIDES = [
   {
     id: 'pack-pret-a-tourner',
     eyebrow: 'Prix dégressifs après 3 jours',
     title: 'Pack prêt-à-tourner',
-    description: 'Tournez une vidéo comme un pro avec notre pack prêt à tourner : caméra, optique lumineuse et audio HF réunis.',
+    description:
+      'Tournez une vidéo comme un pro avec notre pack prêt à tourner : caméra, optique lumineuse et audio HF réunis.',
     ctaLabel: 'Découvrir les packs',
     ctaHref: '/packs',
     secondaryLabel: 'Demander un devis',
@@ -21,7 +24,8 @@ const HERO_SLIDES = [
     id: 'lumiere',
     eyebrow: 'Lumière modulable',
     title: 'Éclairez chaque ambiance',
-    description: 'Panneaux LED bi-color, trépieds et softbox prêts à être chargés, pour des interviews nettes et homogènes.',
+    description:
+      'Panneaux LED bi-color, trépieds et softbox prêts à être chargés, pour des interviews nettes et homogènes.',
     ctaLabel: 'Voir la lumière',
     ctaHref: '/materiel?categorie=Lumière',
     secondaryLabel: 'Réserver un créneau',
@@ -33,7 +37,8 @@ const HERO_SLIDES = [
     id: 'audio',
     eyebrow: 'Audio pro sur le terrain',
     title: 'Captations voix claires',
-    description: 'Kits micros HF, perches et enregistreurs supervisés avant chaque sortie avec batteries chargées.',
+    description:
+      'Kits micros HF, perches et enregistreurs supervisés avant chaque sortie avec batteries chargées.',
     ctaLabel: 'Explorer l’audio',
     ctaHref: '/materiel?categorie=Audio',
     secondaryLabel: 'Ajouter au devis',
@@ -42,33 +47,33 @@ const HERO_SLIDES = [
     accent: 'linear-gradient(135deg, rgba(123, 97, 255, 0.18), rgba(40, 47, 78, 0.2))',
   },
 ];
-import { reportError } from '../utils/errorReporter.js';
 
 function ProductPreview({ item }) {
   const { addProductToQuote, quoteItems } = useQuote();
-  const isInQuote = useMemo(() => quoteItems.some((quoteItem) => quoteItem._id === item._id), [quoteItems, item]);
+  const isInQuote = useMemo(
+    () => quoteItems.some((quoteItem) => quoteItem.slug === item.slug),
+    [quoteItems, item.slug],
+  );
+
+  const imageSrc = item.imageUrl || '/assets/placeholders/product-placeholder.webp';
+  const categoryLabel = item.type === 'pack' ? 'Pack complet' : item.category || 'Matériel';
 
   return (
     <div className="card product-card">
       <Link
-        to={`/produit/${item.slug?.current}`}
+        to={`/produit/${item.slug}`}
         style={{ textDecoration: 'none', color: 'inherit', display: 'grid', gap: '12px' }}
       >
         <div className="media">
-          {item.image && (
-            <img
-              src={urlFor(item.image).width(400).height(400).url()}
-              alt={item.name}
-              loading="lazy"
-              decoding="async"
-            />
+          {imageSrc && (
+            <img src={imageSrc} alt={item.name} loading="lazy" decoding="async" />
           )}
           {item.type === 'pack' && <span className="badge badge-cat">Pack</span>}
           {item.featured && <span className="badge" style={{ right: '12px' }}>En avant</span>}
         </div>
         <div className="body">
           <div className="title">{item.name}</div>
-          <div className="category">{item.category}</div>
+          <div className="category">{categoryLabel}</div>
         </div>
       </Link>
       <div className="card-footer" style={{ padding: '16px' }}>
@@ -86,61 +91,70 @@ function ProductPreview({ item }) {
   );
 }
 
-function splitByType(products) {
-  const packs = [];
-  const singles = [];
-  products.forEach((item) => {
-    if (item.type === 'pack') {
-      packs.push(item);
-    } else {
-      singles.push(item);
-    }
-  });
-  return { packs, singles };
-}
-
 export default function Home() {
-  const [productsShowcase, setProductsShowcase] = useState({ packs: [], singles: [] });
+  const [singles, setSingles] = useState([]);
+  const [packs, setPacks] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchFeatured = async () => {
+      setIsLoading(true);
+      setHasError(false);
       try {
-        const productsQuery = `*[_type == "product" && defined(slug.current) && defined(image)][0...10]{
-          _id,
-          name,
-          slug,
-          image,
-          category,
-          featured,
-          type,
-          pricePerDay
-        } | order(featured desc, pricePerDay desc)`;
-        const productsRaw = await sanityClient.fetch(productsQuery);
-        setProductsShowcase(splitByType(productsRaw));
+        const [featuredProducts, packsResponse] = await Promise.all([
+          fetchJson('/api/products?featured=1'),
+          fetchJson('/api/packs'),
+        ]);
+
+        if (cancelled) return;
+
+        const normalizedProducts = featuredProducts
+          .map(mapApiProduct)
+          .filter((item) => Boolean(item) && item.type === 'product');
+
+        const normalizedPacks = packsResponse
+          .map(mapApiPack)
+          .filter(Boolean);
+
+        setSingles(normalizedProducts);
+        setPacks(normalizedPacks);
       } catch (error) {
-        reportError(error, { feature: 'home-featured' });
-        setHasError(true);
+        if (!cancelled) {
+          setHasError(true);
+          reportError(error, { feature: 'home-featured' });
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchFeatured();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    const timerId = window.setInterval(() => {
+      setActiveSlide((previous) => (previous + 1) % HERO_SLIDES.length);
     }, 6000);
-    return () => window.clearInterval(id);
+
+    return () => window.clearInterval(timerId);
   }, []);
 
   const handleSelectSlide = useCallback((index) => {
     setActiveSlide(index);
   }, []);
 
-  const topSingles = useMemo(() => productsShowcase.singles.slice(0, 4), [productsShowcase]);
-  const topPacks = useMemo(() => productsShowcase.packs.slice(0, 4), [productsShowcase]);
+  const topSingles = useMemo(() => singles.slice(0, 4), [singles]);
+  const topPacks = useMemo(() => packs.slice(0, 4), [packs]);
 
   return (
     <>
@@ -216,7 +230,7 @@ export default function Home() {
         </section>
       )}
 
-      {!hasError && topSingles.length > 0 && (
+      {!hasError && !isLoading && topSingles.length > 0 && (
         <section style={{ marginTop: '32px' }}>
           <header className="section-header">
             <div>
@@ -227,13 +241,19 @@ export default function Home() {
           </header>
           <div className="grid cards">
             {topSingles.map((item) => (
-              <ProductPreview key={item._id} item={item} />
+              <ProductPreview key={item.slug} item={item} />
             ))}
           </div>
         </section>
       )}
 
-      {!hasError && topPacks.length > 0 && (
+      {!hasError && isLoading && (
+        <section className="card" style={{ marginTop: '24px', padding: '18px' }}>
+          <p className="muted" style={{ margin: 0 }}>Chargement des sélections...</p>
+        </section>
+      )}
+
+      {!hasError && !isLoading && topPacks.length > 0 && (
         <section style={{ marginTop: '32px' }}>
           <header className="section-header">
             <div>
@@ -244,12 +264,11 @@ export default function Home() {
           </header>
           <div className="grid cards">
             {topPacks.map((item) => (
-              <ProductPreview key={item._id} item={item} />
+              <ProductPreview key={item.slug} item={item} />
             ))}
           </div>
         </section>
       )}
-
     </>
   );
 }

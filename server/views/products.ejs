@@ -1,0 +1,44 @@
+<header class="page-header">
+  <h2>Catalogue matériel</h2>
+  <form action="/admin/products" method="post" class="form-inline" style="display:flex;gap:12px;align-items:center;">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input type="text" name="name" placeholder="Nom" required />
+    <input type="text" name="slug" placeholder="Slug" required />
+    <input type="number" step="0.01" name="dailyPrice" placeholder="Prix/jour" required />
+    <input type="number" name="stock" placeholder="Stock" min="0" />
+    <input type="text" name="imageUrl" placeholder="URL image" />
+    <button type="submit">Ajouter</button>
+  </form>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Slug</th>
+      <th>Tarif/jour</th>
+      <th>Stock</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (products.length === 0) { %>
+      <tr><td colspan="5">Aucun produit enregistré pour l'instant.</td></tr>
+    <% } %>
+    <% products.forEach((product) => { %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><code><%= product.slug %></code></td>
+        <td><%= product.dailyPrice.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }) %></td>
+        <td><%= product.stock %></td>
+        <td class="actions">
+          <a class="button-link" href="/admin/products/<%= product.id %>">Modifier</a>
+          <form action="/admin/products/<%= product.id %>/delete" method="post" onsubmit="return confirm('Supprimer ce produit ?');">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button type="submit" class="danger">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

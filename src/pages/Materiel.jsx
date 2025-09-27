@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import sanityClient, { urlFor } from '../sanityClient.js';
+
 import { useQuote } from '../hooks/useQuote.js';
 import { reportError } from '../utils/errorReporter.js';
-import { getAvailabilitySummary } from '../utils/availability.js';
+import { fetchJson, mapApiProduct } from '../utils/apiClient.js';
 
 const CATEGORY_LABELS = {
   Image: 'Image',
@@ -23,36 +23,42 @@ function formatPrice(pricePerDay) {
 
 function ProductCard({ item }) {
   const { addProductToQuote, quoteItems } = useQuote();
-  const isInQuote = useMemo(() => quoteItems.some((quoteItem) => quoteItem._id === item._id), [quoteItems, item]);
-  const availabilitySummary = useMemo(() => getAvailabilitySummary(item.bookings), [item.bookings]);
-  const hasScheduleInfo = availabilitySummary.ongoingBooking || availabilitySummary.nextBooking;
+  const isInQuote = useMemo(
+    () => quoteItems.some((quoteItem) => quoteItem.slug === item.slug),
+    [quoteItems, item.slug],
+  );
   const categoryLabel = CATEGORY_LABELS[item.displayCategory] || item.displayCategory || 'Matériel';
+  const imageSrc = item.imageUrl || '/assets/placeholders/product-placeholder.webp';
+
+  const availabilityLabel = item.stock > 0 ? 'Disponible' : 'Stock épuisé';
+  const availabilityStatus = item.stock > 0 ? 'available' : 'busy';
+  const availabilityDescription = item.stock > 0
+    ? `${item.stock} exemplaire${item.stock > 1 ? 's' : ''} en stock`
+    : 'Contactez-nous pour une prochaine disponibilité';
 
   return (
     <div className="card product-card pack-card">
       <Link
-        to={`/produit/${item.slug?.current}`}
+        to={`/produit/${item.slug}`}
         style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flexGrow: 1 }}
       >
         <div className="media">
-          {item.image && <img src={urlFor(item.image).width(400).url()} alt={item.name} loading="lazy" decoding="async" />}
+          {imageSrc && <img src={imageSrc} alt={item.name} loading="lazy" decoding="async" />}
           {item.featured && <span className="badge">En avant</span>}
         </div>
         <div className="body">
           <div className="pack-card__header">
             <span className="pack-card__category">{categoryLabel}</span>
             <span
-              className={`availability-chip availability-chip--${availabilitySummary.status}`}
-              title={availabilitySummary.description || undefined}
+              className={`availability-chip availability-chip--${availabilityStatus}`}
+              title={availabilityDescription}
             >
-              {availabilitySummary.label}
+              {availabilityLabel}
             </span>
           </div>
           <div className="title">{item.name}</div>
-          <div className="price">{formatPrice(item.pricePerDay)}</div>
-          {hasScheduleInfo && availabilitySummary.description && (
-            <div className="availability-note">{availabilitySummary.description}</div>
-          )}
+          <div className="price">{formatPrice(item.dailyPrice)}</div>
+          <div className="availability-note">{availabilityDescription}</div>
         </div>
       </Link>
       <div className="card-footer">
@@ -79,14 +85,14 @@ const sorters = {
   },
   price_asc: {
     label: 'Prix (croissant)',
-    sorter: (a, b) => (a.pricePerDay ?? Number.POSITIVE_INFINITY) - (b.pricePerDay ?? Number.POSITIVE_INFINITY),
+    sorter: (a, b) => (a.dailyPrice ?? Number.POSITIVE_INFINITY) - (b.dailyPrice ?? Number.POSITIVE_INFINITY),
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14l-6-6z" /></svg>
     ),
   },
   price_desc: {
     label: 'Prix (décroissant)',
-    sorter: (a, b) => (b.pricePerDay ?? -1) - (a.pricePerDay ?? -1),
+    sorter: (a, b) => (b.dailyPrice ?? -1) - (a.dailyPrice ?? -1),
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10l-6 6z" /></svg>
     ),
@@ -114,28 +120,15 @@ export default function Materiel() {
       setIsLoading(true);
       setHasError(false);
       try {
-        const query = `*[_type == "product" && type != "pack" && defined(slug.current)]{
-          _id,
-          name,
-          slug,
-          image,
-          pricePerDay,
-          description,
-          category,
-          featured,
-          type,
-          "bookings": *[_type == "booking" && references(^._id) && defined(startDate) && defined(endDate) && endDate >= now()] | order(startDate asc) [0...3]{
-            _id,
-            startDate,
-            endDate
-          }
-        } | order(featured desc, name asc)`;
-        const products = await sanityClient.fetch(query);
-        setAllProducts(products.map((product) => ({
-          ...product,
-          bookings: product.bookings ?? [],
-          displayCategory: mapCategory(product),
-        })));
+        const response = await fetchJson('/api/products');
+        const products = response
+          .map(mapApiProduct)
+          .filter((item) => item && item.type === 'product')
+          .map((item) => ({
+            ...item,
+            displayCategory: mapCategory(item),
+          }));
+        setAllProducts(products);
       } catch (error) {
         reportError(error, { feature: 'materiel-catalog' });
         setHasError(true);

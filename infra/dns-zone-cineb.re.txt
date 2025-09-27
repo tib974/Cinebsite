@@ -1,0 +1,20 @@
+$ORIGIN cineb.re.
+$TTL 3600
+
+@           IN  SOA ns1.registrar.example. admin.cineb.re. (
+                2025092701 ; serial
+                3600       ; refresh
+                900        ; retry
+                604800     ; expire
+                86400 )    ; minimum
+
+            IN  NS      ns1.registrar.example.
+            IN  NS      ns2.registrar.example.
+
+@           IN  A       203.0.113.42
+www         IN  CNAME   cineb.re.
+admin       IN  A       203.0.113.42
+api         IN  A       203.0.113.42
+
+; Optionnel : enregistrements MX si messagerie gérée ailleurs
+; @        IN  MX 10   smtp.provider.example.

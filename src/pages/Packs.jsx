@@ -1,9 +1,9 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import sanityClient, { urlFor } from '../sanityClient.js';
+
 import { useQuote } from '../hooks/useQuote.js';
 import { reportError } from '../utils/errorReporter.js';
-import { getAvailabilitySummary } from '../utils/availability.js';
+import { fetchJson, mapApiPack } from '../utils/apiClient.js';
 
 const CATEGORY_LABELS = {
   Combo: 'Packs complets',
@@ -24,16 +24,23 @@ function formatPrice(pricePerDay) {
 
 function ProductCard({ item }) {
   const { addProductToQuote, quoteItems } = useQuote();
-  const isInQuote = useMemo(() => quoteItems.some(quoteItem => quoteItem._id === item._id), [quoteItems, item]);
-  const availabilitySummary = useMemo(() => getAvailabilitySummary(item.bookings), [item.bookings]);
-  const hasScheduleInfo = availabilitySummary.ongoingBooking || availabilitySummary.nextBooking;
+  const isInQuote = useMemo(
+    () => quoteItems.some((quoteItem) => quoteItem.slug === item.slug),
+    [quoteItems, item.slug],
+  );
   const categoryLabel = CATEGORY_LABELS[item.displayCategory] || item.displayCategory || 'Pack';
+  const imageSrc = item.imageUrl || '/assets/placeholders/product-placeholder.webp';
+  const availabilityLabel = item.stock > 0 ? 'Disponible' : 'Sur demande';
+  const availabilityStatus = item.stock > 0 ? 'available' : 'busy';
+  const availabilityDescription = item.stock > 0
+    ? `${item.stock} pack${item.stock > 1 ? 's' : ''} en stock`
+    : 'Contactez-nous pour une mise à disposition rapide';
 
   return (
     <div className="card product-card pack-card">
-      <Link to={`/produit/${item.slug?.current}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <Link to={`/produit/${item.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <div className="media">
-          {item.image && <img src={urlFor(item.image).width(400).url()} alt={item.name} loading="lazy" decoding="async" />}
+          {imageSrc && <img src={imageSrc} alt={item.name} loading="lazy" decoding="async" />}
           {item.type === 'pack' && (
             <span className="badge badge-cat" style={{ left: '12px', right: 'auto' }}>Pack</span>
           )}
@@ -43,17 +50,15 @@ function ProductCard({ item }) {
           <div className="pack-card__header">
             <span className="pack-card__category">{categoryLabel}</span>
             <span
-              className={`availability-chip availability-chip--${availabilitySummary.status}`}
-              title={availabilitySummary.description || undefined}
+              className={`availability-chip availability-chip--${availabilityStatus}`}
+              title={availabilityDescription}
             >
-              {availabilitySummary.label}
+              {availabilityLabel}
             </span>
           </div>
           <div className="title">{item.name}</div>
-          <div className="price">{formatPrice(item.pricePerDay)}</div>
-          {hasScheduleInfo && availabilitySummary.description && (
-            <div className="availability-note">{availabilitySummary.description}</div>
-          )}
+          <div className="price">{formatPrice(item.dailyPrice)}</div>
+          <div className="availability-note">{availabilityDescription}</div>
         </div>
       </Link>
       <div className="card-footer">
@@ -115,34 +120,15 @@ export default function Packs() {
       setIsLoading(true);
       setHasError(false);
       try {
-        const query = `*[_type == "product" && type == "pack" && defined(slug.current)]{
-          _id,
-          name,
-          slug,
-          image,
-          pricePerDay,
-          description,
-          category,
-          featured,
-          type,
-          "includes": includes[]->{
-            _id,
-            slug,
-            name,
-            category
-          },
-          "bookings": *[_type == "booking" && references(^._id) && defined(startDate) && defined(endDate) && endDate >= now()] | order(startDate asc) [0...3]{
-            _id,
-            startDate,
-            endDate
-          }
-        } | order(featured desc, name asc)`;
-        const products = await sanityClient.fetch(query);
-        setAllProducts(products.map((product) => ({
-          ...product,
-          bookings: product.bookings ?? [],
-          displayCategory: derivePackCategory(product),
-        })));
+        const response = await fetchJson('/api/packs');
+        const packs = response
+          .map(mapApiPack)
+          .filter(Boolean)
+          .map((pack) => ({
+            ...pack,
+            displayCategory: derivePackCategory(pack),
+          }));
+        setAllProducts(packs);
       } catch (error) {
         reportError(error, { feature: 'packs-catalog' });
         setHasError(true);
@@ -174,7 +160,7 @@ export default function Packs() {
     }
   }, [categories, selectedCategory]);
 
-  const featuredCatalogItems = useMemo(() => allProducts.filter(p => p.featured).slice(0, 4), [allProducts]);
+  const featuredCatalogItems = useMemo(() => allProducts.filter((p) => p.featured).slice(0, 4), [allProducts]);
 
   const displayedItems = useMemo(() => {
     let items = allProducts;
@@ -267,7 +253,7 @@ export default function Packs() {
           <h2 className="section-title" style={{ marginTop: 0 }}>En ce moment</h2>
           <div className="grid cards">
             {featuredCatalogItems.map((item) => (
-              <ProductCard key={`featured-${item._id}`} item={item} />
+              <ProductCard key={`featured-${item.slug}`} item={item} />
             ))}
           </div>
         </section>
@@ -278,7 +264,7 @@ export default function Packs() {
           <div className="card" style={{ padding: '18px' }}><p className="muted">Chargement du catalogue...</p></div>
         ) : displayedItems.length > 0 ? (
           displayedItems.map((item) => (
-            <ProductCard key={item._id} item={item} />
+            <ProductCard key={item.slug} item={item} />
           ))
         ) : (
           <div className="card" style={{ padding: '18px' }}>
@@ -291,7 +277,7 @@ export default function Packs() {
 }
 
 function derivePackCategory(product) {
-  const includeCategories = (product.includes || [])
+  const includeCategories = (product.items || [])
     .map((item) => item?.category || '')
     .filter(Boolean);
 

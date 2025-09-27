@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= typeof title !== 'undefined' ? `${title} · Admin Cineb` : 'Admin Cineb' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+    }
+    nav {
+      background: #111827;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    nav h1 {
+      font-size: 1.1rem;
+      margin: 0 0 16px;
+      color: #38bdf8;
+    }
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+    nav a:hover,
+    nav a.active {
+      background: rgba(56, 189, 248, 0.1);
+      color: #38bdf8;
+    }
+    main {
+      padding: 32px;
+      background: #0f172a;
+    }
+    header.page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    th {
+      text-align: left;
+      font-weight: 600;
+      background: rgba(15, 23, 42, 0.9);
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    form.form-card {
+      background: rgba(15, 23, 42, 0.8);
+      padding: 24px;
+      border-radius: 12px;
+      display: grid;
+      gap: 16px;
+      max-width: 520px;
+    }
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: inherit;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    button,
+    .button-link {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.1s ease;
+    }
+    button:hover,
+    .button-link:hover {
+      transform: translateY(-1px);
+    }
+    .danger {
+      background: #f87171;
+      color: #111827;
+    }
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    .grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .tag {
+      display: inline-flex;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(148, 163, 184, 0.16);
+    }
+    .tag.validated {
+      background: rgba(134, 239, 172, 0.2);
+      color: #4ade80;
+    }
+    .tag.archived {
+      background: rgba(148, 163, 184, 0.12);
+      color: #cbd5f5;
+    }
+    .quote-items {
+      display: grid;
+      gap: 12px;
+    }
+    fieldset {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    fieldset legend {
+      padding: 0 8px;
+      font-weight: 600;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .top-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Cineb Admin</h1>
+    <a href="/admin" class="<%= typeof activePage !== 'undefined' && activePage === 'dashboard' ? 'active' : '' %>">Tableau de bord</a>
+    <a href="/admin/products" class="<%= typeof activePage !== 'undefined' && activePage === 'products' ? 'active' : '' %>">Produits</a>
+    <a href="/admin/packs" class="<%= typeof activePage !== 'undefined' && activePage === 'packs' ? 'active' : '' %>">Packs</a>
+    <a href="/admin/quotes" class="<%= typeof activePage !== 'undefined' && activePage === 'quotes' ? 'active' : '' %>">Demandes de devis</a>
+    <% if (typeof csrfToken !== 'undefined') { %>
+      <form action="/admin/logout" method="post" style="margin-top:auto;">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button type="submit" class="danger" style="width:100%;">Se déconnecter</button>
+      </form>
+    <% } %>
+  </nav>
+  <main>
+    <%- body %>
+  </main>
+</body>
+</html>
