@@ -220,77 +220,35 @@ body {
 }
 
 .card.hero-slider {
-  /* Make the hero a positioned container so absolutely-positioned children
-     (the ribbon) are clipped to it when overflow is hidden. */
   position: relative;
-  /* Clip any part of the ribbon that would extend outside the hero block */
-  overflow: hidden;
+  overflow: visible;
 }
 
 
 .hero-ribbon {
   position: absolute;
-  /* anchor close to the top-left corner of the hero */
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 280px;
-  padding: 10px 18px;
+  top: 20px;
+  left: -30px;
+  width: 180px;
+  padding: 8px;
   background: linear-gradient(135deg, rgba(126, 87, 194, 0.98), rgba(88, 45, 182, 0.95));
   color: #fff;
-  font-weight: 700;
-  font-size: 0.72rem;
+  font-weight: 600;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  /* position ribbon inside hero and rotate to diagonal */
-  transform: translate(10%, 8%) rotate(-45deg);
-  transform-origin: left top;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
-  pointer-events: none;
-  z-index: 6;
+  letter-spacing: 0.1em;
   text-align: center;
-  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 6;
 }
 
-/* Create triangular ends and a subtle folded look using pseudo elements */
-.hero-ribbon::before,
-.hero-ribbon::after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: inherit;
-  transform: rotate(45deg);
-  top: 50%;
-  margin-top: -12px;
-  box-shadow: inherit;
-}
 .hero-ribbon::before {
-  /* left triangle (closer to top-left of hero) */
-  left: -12px;
-}
-.hero-ribbon::after {
-  /* right tail triangle */
-  right: -12px;
-}
-
-/* Add a small inner darker strip to simulate a fold */
-.hero-ribbon span {
-  display: inline-block;
-  position: relative;
-}
-.hero-ribbon span::after {
   content: '';
   position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: -6px;
-  height: 6px;
-  background: rgba(0,0,0,0.08);
-  transform: skewX(-45deg);
-  border-radius: 2px;
+  top: 100%;
+  left: 0;
+  border-top: 10px solid rgba(88, 45, 182, 0.95);
+  border-left: 15px solid transparent;
 }
 
 .pack-card {
