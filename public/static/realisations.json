@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "slug": "pub-locale-fx30",
+    "title": "Pub locale – Caméra FX30",
+    "description": "Spot 30s tourné à Saint-Denis avec notre FX30.",
+    "customer": "Client X",
+    "url": "https://vimeo.com/example",
+    "date": "2024-08-11",
+    "featured": true,
+    "imageUrl": null
+  },
+  {
+    "id": 2,
+    "slug": "corporate-interview",
+    "title": "Corporate - Interview PDG",
+    "description": "Interview corporate avec éclairage professionnel.",
+    "customer": "Entreprise Y",
+    "url": "https://youtube.com/example",
+    "date": "2024-07-15",
+    "featured": false,
+    "imageUrl": null
+  },
+  {
+    "id": 3,
+    "slug": "clip-musical",
+    "title": "Clip musical - Artiste local",
+    "description": "Clip tourné en extérieur avec kit complet.",
+    "customer": "Artiste Z",
+    "url": "https://vimeo.com/example2",
+    "date": "2024-06-20",
+    "featured": true,
+    "imageUrl": null
+  }
+]

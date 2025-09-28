@@ -88,6 +88,21 @@ sudo systemctl restart nginx
 
 > **Attention** : vérifier les logs `journalctl -u cinebsite` et `/var/log/nginx/...`.
 
+### Variante simple (sans Nginx, sans domaine)
+Si vous n’avez pas encore de nom de domaine et voulez aller au plus simple pour tester en ligne :
+
+1) Ouvrir le port `3000` dans le pare‑feu Oracle (Security Lists / NSG).
+2) Sauter la section Nginx/Certbot ci‑dessous pour l’instant.
+3) Lancer seulement le service Node:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable cinebsite
+   sudo systemctl start cinebsite
+   ```
+4) Accéder au site sur `http://<IP_PUBLIQUE>:3000/` (front + API sur la même adresse).
+
+Plus tard, quand vous achetez un domaine, revenez activer Nginx + HTTPS.
+
 ## 4. DNS et HTTPS
 Chez le registrar (ex: Gandi, OVH, Cloudflare) :
 - A `cineb.re` → IP publique Oracle.
@@ -156,3 +171,16 @@ sudo systemctl reload nginx
 - Configurer CI/CD + secrets ✅
 - Backups + monitoring ✅
 - Documentation rollback ✅
+
+## Annexe: front Vercel + API Oracle
+
+Si vous gardez l’hébergement du front sur Vercel (build statique) et l’API sur la VM Oracle :
+
+- Sur Vercel (Project → Settings → Environment Variables):
+  - `VITE_API_BASE_URL=https://cineb.re` (ou le domaine/Nginx de votre API).
+  - Optionnel: `VITE_USE_API_QUOTES=1` pour que la page Contact envoie vers l’API `/api/quotes`.
+- Sur le serveur Oracle (`/etc/systemd/system/cinebsite.service`):
+  - Ajouter `Environment=ALLOWED_ORIGINS=https://<votre-site>.vercel.app` pour autoriser le front à appeler l’API.
+  - Puis `sudo systemctl daemon-reload && sudo systemctl restart cinebsite`.
+
+Sans ces variables, le front Vercel ne recevra aucune donnée (les appels `/api/...` ne sont pas servis par Vercel et seront bloqués par le navigateur sans CORS).

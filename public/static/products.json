@@ -1,0 +1,3211 @@
+[
+  {
+    "id": 1,
+    "slug": "tamron1770",
+    "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+    "description": "Objectif polyvalent lumineux.",
+    "category": "Image",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 15,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 1,
+        "slug": "pack-fx30-1770",
+        "name": "FX30 + 17/70mm",
+        "description": "Pack de base image.",
+        "dailyPrice": 60,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "slug": "pack-fx30-1770-sd",
+        "name": "FX30 + 17/70mm + carte SD",
+        "description": "Pack avec stockage.",
+        "dailyPrice": 65,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "slug": "pack-fx30-1770-sd-retour",
+        "name": "FX30 + 17/70mm + carte SD + retour vidéo",
+        "description": "Ajout du moniteur.",
+        "dailyPrice": 75,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "slug": "pack-fx30-1770-trepied-sd",
+        "name": "FX30 + 17/70mm + trépied + carte SD",
+        "description": "Avec trépied.",
+        "dailyPrice": 80,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "slug": "pack-fx30-1770-trepied-sd-retour",
+        "name": "FX30 + 17/70mm + trépied + carte SD + retour vidéo",
+        "description": "Complet image.",
+        "dailyPrice": 90,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "sony-fx30",
+    "name": "Sony FX30 (+2 batteries)",
+    "description": "Boîtier Super35 compact.",
+    "category": "Image",
+    "type": "product",
+    "featured": true,
+    "dailyPrice": 50,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 1,
+        "slug": "pack-fx30-1770",
+        "name": "FX30 + 17/70mm",
+        "description": "Pack de base image.",
+        "dailyPrice": 60,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "slug": "pack-fx30-1770-sd",
+        "name": "FX30 + 17/70mm + carte SD",
+        "description": "Pack avec stockage.",
+        "dailyPrice": 65,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "slug": "pack-fx30-1770-sd-retour",
+        "name": "FX30 + 17/70mm + carte SD + retour vidéo",
+        "description": "Ajout du moniteur.",
+        "dailyPrice": 75,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "slug": "pack-fx30-1770-trepied-sd",
+        "name": "FX30 + 17/70mm + trépied + carte SD",
+        "description": "Avec trépied.",
+        "dailyPrice": 80,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "slug": "pack-fx30-1770-trepied-sd-retour",
+        "name": "FX30 + 17/70mm + trépied + carte SD + retour vidéo",
+        "description": "Complet image.",
+        "dailyPrice": 90,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "lilliputa7s",
+    "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+    "description": "Moniteur de contrôle 7\"\".",
+    "category": "Image",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 15,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 3,
+        "slug": "pack-fx30-1770-sd-retour",
+        "name": "FX30 + 17/70mm + carte SD + retour vidéo",
+        "description": "Ajout du moniteur.",
+        "dailyPrice": 75,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "slug": "pack-fx30-1770-trepied-sd-retour",
+        "name": "FX30 + 17/70mm + trépied + carte SD + retour vidéo",
+        "description": "Complet image.",
+        "dailyPrice": 90,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "sacpgytech",
+    "name": "Sac de transport Pgytech",
+    "description": "Sac modulable robuste.",
+    "category": "Image",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 10,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "batteriesonynpfz100",
+    "name": "Batterie Sony NP-FZ100",
+    "description": "Batterie pour FX30.",
+    "category": "Image",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 2.5,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": []
+  },
+  {
+    "id": 6,
+    "slug": "sdlexar128g",
+    "name": "Carte SD Lexar Professional 128GB",
+    "description": "Carte rapide UHS-I.",
+    "category": "Image",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 9,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 2,
+        "slug": "pack-fx30-1770-sd",
+        "name": "FX30 + 17/70mm + carte SD",
+        "description": "Pack avec stockage.",
+        "dailyPrice": 65,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "slug": "pack-fx30-1770-sd-retour",
+        "name": "FX30 + 17/70mm + carte SD + retour vidéo",
+        "description": "Ajout du moniteur.",
+        "dailyPrice": 75,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "slug": "pack-fx30-1770-trepied-sd",
+        "name": "FX30 + 17/70mm + trépied + carte SD",
+        "description": "Avec trépied.",
+        "dailyPrice": 80,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "slug": "pack-fx30-1770-trepied-sd-retour",
+        "name": "FX30 + 17/70mm + trépied + carte SD + retour vidéo",
+        "description": "Complet image.",
+        "dailyPrice": 90,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "trepiedvideo",
+    "name": "Trépied vidéo",
+    "description": "Trépied fluide.",
+    "category": "Image",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 8,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 4,
+        "slug": "pack-fx30-1770-trepied-sd",
+        "name": "FX30 + 17/70mm + trépied + carte SD",
+        "description": "Avec trépied.",
+        "dailyPrice": 80,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "slug": "pack-fx30-1770-trepied-sd-retour",
+        "name": "FX30 + 17/70mm + trépied + carte SD + retour vidéo",
+        "description": "Complet image.",
+        "dailyPrice": 90,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 3,
+            "slug": "lilliputa7s",
+            "name": "Moniteur vidéo LILLIPUT A7S 7\"\" HDMI 4K",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "neewercb300",
+    "name": "NEEWER CB300C",
+    "description": "COB puissant bi-color.",
+    "category": "Lumière",
+    "type": "product",
+    "featured": true,
+    "dailyPrice": 35,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 6,
+        "slug": "pack-cb300c-softbox-pied",
+        "name": "CB300C + softbox + pied alu",
+        "description": "Pack lumière 300C.",
+        "dailyPrice": 42,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "slug": "pack-ms150b-cb300c-softbox-2pieds",
+        "name": "MS150B + CB300C + softbox + pieds x2",
+        "description": "Combo 2 lights.",
+        "dailyPrice": 60,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "neewerms150b",
+    "name": "NEEWER MS150B 130W",
+    "description": "Projecteur 130W bi-color.",
+    "category": "Lumière",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 20,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 7,
+        "slug": "pack-ms150b-softbox-pied",
+        "name": "MS150B + softbox + pied alu",
+        "description": "Pack MS150B.",
+        "dailyPrice": 27,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "slug": "pack-ms150b-cb300c-softbox-2pieds",
+        "name": "MS150B + CB300C + softbox + pieds x2",
+        "description": "Combo 2 lights.",
+        "dailyPrice": 60,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "slug": "pack-ms150b-2xnpf970",
+        "name": "MS150B + 2 Batteries NP-F970",
+        "description": "Autonomie terrain.",
+        "dailyPrice": 27,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 12,
+            "slug": "batteriesonynpf970",
+            "name": "Batterie Sony NP-F970",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "slug": "pack-ms150b-softbox-pied-2xnpf970",
+        "name": "MS150B + softbox + pied + 2x NP-F970",
+        "description": "Complet autonome.",
+        "dailyPrice": 35,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 12,
+            "slug": "batteriesonynpf970",
+            "name": "Batterie Sony NP-F970",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "tarionsoftbox",
+    "name": "Softbox Tarion",
+    "description": "Boîte à lumière.",
+    "category": "Lumière",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 10,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 6,
+        "slug": "pack-cb300c-softbox-pied",
+        "name": "CB300C + softbox + pied alu",
+        "description": "Pack lumière 300C.",
+        "dailyPrice": 42,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "slug": "pack-ms150b-softbox-pied",
+        "name": "MS150B + softbox + pied alu",
+        "description": "Pack MS150B.",
+        "dailyPrice": 27,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "slug": "pack-ms150b-cb300c-softbox-2pieds",
+        "name": "MS150B + CB300C + softbox + pieds x2",
+        "description": "Combo 2 lights.",
+        "dailyPrice": 60,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "slug": "pack-ms150b-softbox-pied-2xnpf970",
+        "name": "MS150B + softbox + pied + 2x NP-F970",
+        "description": "Complet autonome.",
+        "dailyPrice": 35,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 12,
+            "slug": "batteriesonynpf970",
+            "name": "Batterie Sony NP-F970",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "piedlumiere",
+    "name": "Pied lumière alu",
+    "description": "Pied robuste.",
+    "category": "Lumière",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 5,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 6,
+        "slug": "pack-cb300c-softbox-pied",
+        "name": "CB300C + softbox + pied alu",
+        "description": "Pack lumière 300C.",
+        "dailyPrice": 42,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "slug": "pack-ms150b-softbox-pied",
+        "name": "MS150B + softbox + pied alu",
+        "description": "Pack MS150B.",
+        "dailyPrice": 27,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "slug": "pack-ms150b-cb300c-softbox-2pieds",
+        "name": "MS150B + CB300C + softbox + pieds x2",
+        "description": "Combo 2 lights.",
+        "dailyPrice": 60,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "slug": "pack-ms150b-softbox-pied-2xnpf970",
+        "name": "MS150B + softbox + pied + 2x NP-F970",
+        "description": "Complet autonome.",
+        "dailyPrice": 35,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 12,
+            "slug": "batteriesonynpf970",
+            "name": "Batterie Sony NP-F970",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "slug": "pack-2-pieds",
+        "name": "Pieds lumière x2",
+        "description": "Deux pieds.",
+        "dailyPrice": 7,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "batteriesonynpf970",
+    "name": "Batterie Sony NP-F970",
+    "description": "Batterie série NP-F.",
+    "category": "Lumière",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 5,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 9,
+        "slug": "pack-ms150b-2xnpf970",
+        "name": "MS150B + 2 Batteries NP-F970",
+        "description": "Autonomie terrain.",
+        "dailyPrice": 27,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 12,
+            "slug": "batteriesonynpf970",
+            "name": "Batterie Sony NP-F970",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "slug": "pack-ms150b-softbox-pied-2xnpf970",
+        "name": "MS150B + softbox + pied + 2x NP-F970",
+        "description": "Complet autonome.",
+        "dailyPrice": 35,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": false,
+        "items": [
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 12,
+            "slug": "batteriesonynpf970",
+            "name": "Batterie Sony NP-F970",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "comicavm40",
+    "name": "Comica VM40",
+    "description": "Micro canon VM40.",
+    "category": "Audio",
+    "type": "product",
+    "featured": true,
+    "dailyPrice": 20,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "hollylandlarkmax2",
+    "name": "Hollyland Lark Max 2 Ultimate Combo",
+    "description": "HF double émetteur.",
+    "category": "Audio",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 17,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "perchesonrode",
+    "name": "Perche Rode",
+    "description": "Perche micro.",
+    "category": "Audio",
+    "type": "product",
+    "featured": false,
+    "dailyPrice": 11,
+    "imageUrl": null,
+    "stock": null,
+    "availability": [],
+    "packs": [
+      {
+        "id": 12,
+        "slug": "pack-pret-a-tourner",
+        "name": "Prêt à tourner — FX30 + kit complet",
+        "description": "Pack complet image + lumière + son.",
+        "dailyPrice": 165,
+        "imageUrl": null,
+        "type": "pack",
+        "featured": true,
+        "items": [
+          {
+            "productId": 2,
+            "slug": "sony-fx30",
+            "name": "Sony FX30 (+2 batteries)",
+            "dailyPrice": 50,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 1,
+            "slug": "tamron1770",
+            "name": "Tamron 17-70mm F/2.8 Di III‑A VC RXD",
+            "dailyPrice": 15,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 4,
+            "slug": "sacpgytech",
+            "name": "Sac de transport Pgytech",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 7,
+            "slug": "trepiedvideo",
+            "name": "Trépied vidéo",
+            "dailyPrice": 8,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 6,
+            "slug": "sdlexar128g",
+            "name": "Carte SD Lexar Professional 128GB",
+            "dailyPrice": 9,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Image"
+          },
+          {
+            "productId": 8,
+            "slug": "neewercb300",
+            "name": "NEEWER CB300C",
+            "dailyPrice": 35,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 9,
+            "slug": "neewerms150b",
+            "name": "NEEWER MS150B 130W",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 10,
+            "slug": "tarionsoftbox",
+            "name": "Softbox Tarion",
+            "dailyPrice": 10,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 11,
+            "slug": "piedlumiere",
+            "name": "Pied lumière alu",
+            "dailyPrice": 5,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Lumière"
+          },
+          {
+            "productId": 13,
+            "slug": "comicavm40",
+            "name": "Comica VM40",
+            "dailyPrice": 20,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 15,
+            "slug": "perchesonrode",
+            "name": "Perche Rode",
+            "dailyPrice": 11,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          },
+          {
+            "productId": 14,
+            "slug": "hollylandlarkmax2",
+            "name": "Hollyland Lark Max 2 Ultimate Combo",
+            "dailyPrice": 17,
+            "imageUrl": null,
+            "type": "product",
+            "category": "Audio"
+          }
+        ]
+      }
+    ]
+  }
+]
