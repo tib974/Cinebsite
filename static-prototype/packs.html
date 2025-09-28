@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Packs – CinéB</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="brand" href="./index.html">CinéB</a>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li><a href="./materiel.html">Matériel</a></li>
+          <li><a class="active" href="./packs.html">Packs</a></li>
+          <li><a href="./realisations.html">Réalisations</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero" style="padding:32px 28px;">
+        <h1>Packs prêts à tourner</h1>
+        <p>Packs image, lumière et son pensés pour les tournages corporate, clip ou événementiel.</p>
+        <input id="search" type="search" placeholder="Rechercher un pack…" />
+      </header>
+
+      <section>
+        <div class="grid" id="pack-grid"></div>
+      </section>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice, resolvePackItems } from './scripts/data.js';
+
+      const grid = document.getElementById('pack-grid');
+      const input = document.getElementById('search');
+      let packs = [];
+      let catalogRef = null;
+
+      function render(list) {
+        if (!list.length) {
+          grid.innerHTML = '<p class="muted">Aucun pack ne correspond à la recherche.</p>';
+          return;
+        }
+
+        grid.innerHTML = list
+          .map((pack) => {
+            const items = resolvePackItems(catalogRef, pack).map((item) => item?.name).filter(Boolean);
+            return `
+              <a class="card" href="./product.html?slug=${encodeURIComponent(pack.slug)}">
+                <div class="media">
+                  <img src="./assets/placeholder.svg" alt="${pack.name}" />
+                  ${pack.featured ? '<span class="badge">Best-seller</span>' : ''}
+                </div>
+                <div class="body">
+                  <div style="font-weight:600;">${pack.name}</div>
+                  <div class="price">${formatPrice(pack.dailyPrice)}</div>
+                  <div class="muted" style="font-size:0.9rem;">${items.slice(0, 3).join(' • ')}${items.length > 3 ? '…' : ''}</div>
+                </div>
+              </a>`;
+          })
+          .join('');
+      }
+
+      loadCatalog()
+        .then((catalog) => {
+          catalogRef = catalog;
+          packs = catalog.packs.slice().sort((a, b) => a.name.localeCompare(b.name));
+          render(packs);
+        })
+        .catch(() => {
+          grid.innerHTML = '<p class="muted">Erreur de chargement.</p>';
+        });
+
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+          render(packs);
+          return;
+        }
+        const filtered = packs.filter(
+          (pack) =>
+            pack.name.toLowerCase().includes(query) ||
+            (pack.description || '').toLowerCase().includes(query)
+        );
+        render(filtered);
+      });
+    </script>
+  </body>
+</html>

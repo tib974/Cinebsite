@@ -1,0 +1,105 @@
+{
+  "products": [
+    {
+      "slug": "sony-fx30",
+      "name": "Sony FX30 (+2 batteries)",
+      "category": "Image",
+      "dailyPrice": 50,
+      "description": "Boîtier super 35 compact, idéal pour tournage léger.",
+      "featured": true
+    },
+    {
+      "slug": "tamron1770",
+      "name": "Tamron 17-70mm F/2.8 Di III-A VC RXD",
+      "category": "Image",
+      "dailyPrice": 15,
+      "description": "Zoom polyvalent lumineux pour capteurs APS-C.",
+      "featured": false
+    },
+    {
+      "slug": "neewercb300",
+      "name": "NEEWER CB300C",
+      "category": "Lumière",
+      "dailyPrice": 35,
+      "description": "COB bi-color puissant avec ventilateur silencieux.",
+      "featured": true
+    },
+    {
+      "slug": "neewerms150b",
+      "name": "NEEWER MS150B 130W",
+      "category": "Lumière",
+      "dailyPrice": 20,
+      "description": "Projecteur LED 130W bi-color compact.",
+      "featured": false
+    },
+    {
+      "slug": "comicavm40",
+      "name": "Comica VM40",
+      "category": "Audio",
+      "dailyPrice": 20,
+      "description": "Micro canon VM40 avec suspension.",
+      "featured": true
+    },
+    {
+      "slug": "hollylandlarkmax2",
+      "name": "Hollyland Lark Max 2 Ultimate Combo",
+      "category": "Audio",
+      "dailyPrice": 17,
+      "description": "Kit HF double émetteur + boîtier de charge.",
+      "featured": false
+    }
+  ],
+  "packs": [
+    {
+      "slug": "pack-pret-a-tourner",
+      "name": "FX30 + kit complet",
+      "dailyPrice": 165,
+      "description": "Combo image + lumière + son prêt à tourner.",
+      "featured": true,
+      "items": [
+        "sony-fx30",
+        "tamron1770",
+        "neewercb300",
+        "neewerms150b",
+        "comicavm40"
+      ]
+    },
+    {
+      "slug": "pack-fx30-1770",
+      "name": "FX30 + 17/70mm",
+      "dailyPrice": 60,
+      "description": "Base image compacte avec zoom polyvalent.",
+      "featured": true,
+      "items": [
+        "sony-fx30",
+        "tamron1770"
+      ]
+    },
+    {
+      "slug": "pack-cb300c-softbox-pied",
+      "name": "CB300C + softbox + pied",
+      "dailyPrice": 42,
+      "description": "Setup lumière principal pour interview.",
+      "featured": false,
+      "items": [
+        "neewercb300"
+      ]
+    }
+  ],
+  "realisations": [
+    {
+      "slug": "pub-locale-fx30",
+      "title": "Pub locale – FX30",
+      "customer": "Client X",
+      "description": "Spot 30s tourné à Saint-Denis.",
+      "date": "2024-08-11"
+    },
+    {
+      "slug": "corporate-interview",
+      "title": "Corporate – Interview PDG",
+      "customer": "Entreprise Y",
+      "description": "Tournage multi-caméra en lumière continue.",
+      "date": "2024-07-15"
+    }
+  ]
+}

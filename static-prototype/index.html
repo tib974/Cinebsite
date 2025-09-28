@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CinéB – Location audiovisuelle</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="brand" href="./index.html">CinéB</a>
+        <ul>
+          <li><a class="active" href="./index.html">Accueil</a></li>
+          <li><a href="./materiel.html">Matériel</a></li>
+          <li><a href="./packs.html">Packs</a></li>
+          <li><a href="./realisations.html">Réalisations</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero">
+        <h1>Location audiovisuelle à La Réunion</h1>
+        <p>
+          Sélection de caméras, optiques, lumière et audio. Packs prêts à tourner, devis rapide, planning adaptable.
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn" href="./materiel.html">Voir le catalogue</a>
+          <a class="btn" style="background: transparent; border:1px solid rgba(56,189,248,0.35); color: var(--accent);" href="./packs.html">Explorer les packs</a>
+        </div>
+      </header>
+
+      <section>
+        <h2 class="section-title">Sélection du moment</h2>
+        <div id="featured-grid" class="grid"></div>
+      </section>
+
+      <section style="margin-top:48px;">
+        <h2 class="section-title">Pourquoi choisir CinéB ?</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+          <div class="card" style="padding:24px;">
+            <div class="body">
+              <h3>Matériel vérifié</h3>
+              <p class="muted">Chaque sortie inclut tests, batteries chargées et accessoires adaptés à votre tournage.</p>
+            </div>
+          </div>
+          <div class="card" style="padding:24px;">
+            <div class="body">
+              <h3>Devis en 24h</h3>
+              <p class="muted">Calculez un budget approximatif en ligne, nous finalisons ensuite ensemble.</p>
+            </div>
+          </div>
+          <div class="card" style="padding:24px;">
+            <div class="body">
+              <h3>Accompagnement</h3>
+              <p class="muted">Besoin d’un chef op ou d’un technicien ? Nous avons des partenaires locaux.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        © CinéB — prototype statique. Toutes les données sont factices mais reflètent l’offre réelle.
+      </footer>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice } from './scripts/data.js';
+
+      const featuredGrid = document.getElementById('featured-grid');
+
+      function createCard(item) {
+        return `
+          <a class="card" href="./product.html?slug=${encodeURIComponent(item.slug)}">
+            <div class="media">
+              <img src="./assets/placeholder.svg" alt="${item.name}" />
+              ${item.featured ? '<span class="badge">En avant</span>' : ''}
+            </div>
+            <div class="body">
+              <div style="font-weight:600;">${item.name}</div>
+              <div class="muted">${item.category || 'Pack cinéma'}</div>
+              <div class="price">${formatPrice(item.dailyPrice)}</div>
+            </div>
+          </a>`;
+      }
+
+      loadCatalog()
+        .then((catalog) => {
+          const items = [
+            ...catalog.products.filter((p) => p.featured),
+            ...catalog.packs.filter((p) => p.featured)
+          ].slice(0, 6);
+
+          if (items.length === 0) {
+            featuredGrid.innerHTML = '<p class="muted">Aucun élément mis en avant pour le moment.</p>';
+            return;
+          }
+
+          featuredGrid.innerHTML = items.map(createCard).join('');
+        })
+        .catch(() => {
+          featuredGrid.innerHTML = '<p class="muted">Impossible de charger la sélection.</p>';
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Matériel – CinéB</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="brand" href="./index.html">CinéB</a>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li><a class="active" href="./materiel.html">Matériel</a></li>
+          <li><a href="./packs.html">Packs</a></li>
+          <li><a href="./realisations.html">Réalisations</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero" style="padding:32px 28px;">
+        <h1>Catalogue matériel</h1>
+        <p>Caméras, optiques, lumière, audio. Filtrez par nom ou catégorie.</p>
+        <input id="search" type="search" placeholder="Rechercher un produit…" />
+      </header>
+
+      <section>
+        <div class="grid" id="product-grid"></div>
+      </section>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice } from './scripts/data.js';
+
+      const grid = document.getElementById('product-grid');
+      const input = document.getElementById('search');
+      let products = [];
+
+      function render(list) {
+        if (!list.length) {
+          grid.innerHTML = '<p class="muted">Aucun produit ne correspond à la recherche.</p>';
+          return;
+        }
+
+        grid.innerHTML = list
+          .map((item) => `
+            <a class="card" href="./product.html?slug=${encodeURIComponent(item.slug)}">
+              <div class="media">
+                <img src="./assets/placeholder.svg" alt="${item.name}" />
+                ${item.featured ? '<span class="badge">En avant</span>' : ''}
+              </div>
+              <div class="body">
+                <div style="font-weight:600;">${item.name}</div>
+                <div class="muted">${item.category}</div>
+                <div class="price">${formatPrice(item.dailyPrice)}</div>
+              </div>
+            </a>`)
+          .join('');
+      }
+
+      loadCatalog()
+        .then((catalog) => {
+          products = catalog.products.slice().sort((a, b) => a.name.localeCompare(b.name));
+          render(products);
+        })
+        .catch(() => {
+          grid.innerHTML = '<p class="muted">Erreur de chargement.</p>';
+        });
+
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+          render(products);
+          return;
+        }
+        const filtered = products.filter(
+          (item) =>
+            item.name.toLowerCase().includes(query) ||
+            (item.category || '').toLowerCase().includes(query) ||
+            (item.description || '').toLowerCase().includes(query)
+        );
+        render(filtered);
+      });
+    </script>
+  </body>
+</html>

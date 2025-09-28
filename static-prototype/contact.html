@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact – CinéB</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="brand" href="./index.html">CinéB</a>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li><a href="./materiel.html">Matériel</a></li>
+          <li><a href="./packs.html">Packs</a></li>
+          <li><a href="./realisations.html">Réalisations</a></li>
+          <li><a class="active" href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero" style="padding:32px 28px;">
+        <h1>Contact & devis</h1>
+        <p>Donnez-nous vos dates, vos besoins, et on vous répond sous 24h. Les devis sont personnalisés selon la durée et les options.</p>
+      </header>
+
+      <form class="card" action="https://formspree.io/f/xandgvea" method="POST">
+        <input type="text" name="website" style="display:none" />
+        <input name="name" placeholder="Nom" required />
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="phone" type="tel" placeholder="Téléphone (facultatif)" />
+        <input name="items" placeholder="Matériel ou pack souhaité" />
+        <input name="dates" placeholder="Dates ou période" />
+        <textarea name="message" placeholder="Votre projet, contraintes, budget…" required></textarea>
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+
+      <section style="margin-top:48px;">
+        <h2 class="section-title">Estimations rapides</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Pack</th>
+              <th>1 jour</th>
+              <th>3 jours</th>
+              <th>5 jours</th>
+            </tr>
+          </thead>
+          <tbody id="estimate-table"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice } from './scripts/data.js';
+
+      const table = document.getElementById('estimate-table');
+
+      loadCatalog()
+        .then((catalog) => {
+          const rows = catalog.packs.slice(0, 4).map((pack) => {
+            const oneDay = pack.dailyPrice;
+            const threeDays = Math.round(oneDay * 3 * 0.85 * 100) / 100;
+            const fiveDays = Math.round(oneDay * 5 * 0.7 * 100) / 100;
+            return `
+              <tr>
+                <td>${pack.name}</td>
+                <td>${formatPrice(oneDay)}</td>
+                <td>${formatPrice(threeDays)}</td>
+                <td>${formatPrice(fiveDays)}</td>
+              </tr>`;
+          });
+
+          table.innerHTML = rows.join('');
+        })
+        .catch(() => {
+          table.innerHTML = '<tr><td colspan="4" class="muted">Erreur de chargement.</td></tr>';
+        });
+    </script>
+  </body>
+</html>

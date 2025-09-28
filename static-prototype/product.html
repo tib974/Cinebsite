@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fiche produit – CinéB</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="brand" href="./index.html">CinéB</a>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li><a href="./materiel.html">Matériel</a></li>
+          <li><a href="./packs.html">Packs</a></li>
+          <li><a href="./realisations.html">Réalisations</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div id="content" class="card" style="padding:32px; gap:16px;"></div>
+
+      <section style="margin-top:40px;">
+        <h2 class="section-title">Inclus dans le pack</h2>
+        <div id="pack-items" class="grid"></div>
+      </section>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice, queryParam, findAnyItem, resolvePackItems } from './scripts/data.js';
+
+      const slug = queryParam('slug');
+      const content = document.getElementById('content');
+      const itemsGrid = document.getElementById('pack-items');
+
+      if (!slug) {
+        content.innerHTML = '<p class="muted">Aucun élément sélectionné.</p>';
+      } else {
+        loadCatalog()
+          .then((catalog) => {
+            const item = findAnyItem(catalog, slug);
+            if (!item) {
+              content.innerHTML = '<p class="muted">Élément introuvable.</p>';
+              return;
+            }
+
+            content.innerHTML = `
+              <div style="display:flex; flex-direction:column; gap:20px;">
+                <div style="display:flex; flex-wrap:wrap; gap:24px;">
+                  <div style="flex:1 1 280px;">
+                    <img src="./assets/placeholder.svg" alt="${item.name}" style="width:100%; border-radius:var(--radius);" />
+                  </div>
+                  <div style="flex:1 1 320px; display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <span class="badge" style="position:static;">${item.type === 'pack' ? 'Pack' : item.category}</span>
+                      ${item.featured ? '<span class="badge" style="position:static; background:rgba(34,197,94,0.9);">En avant</span>' : ''}
+                    </div>
+                    <h1 class="section-title" style="margin:0;">${item.name}</h1>
+                    <div class="price">${formatPrice(item.dailyPrice)}</div>
+                    <p class="muted">${item.description || 'Description à venir.'}</p>
+                    <a class="btn" href="./contact.html">Demander un devis</a>
+                  </div>
+                </div>
+              </div>`;
+
+            if (item.type === 'pack') {
+              const packItems = resolvePackItems(catalog, item);
+              if (packItems.length === 0) {
+                itemsGrid.innerHTML = '<p class="muted">Ce pack n\'a pas encore de composition détaillée.</p>';
+              } else {
+                itemsGrid.innerHTML = packItems
+                  .map((prod) => `
+                    <a class="card" href="./product.html?slug=${encodeURIComponent(prod.slug)}">
+                      <div class="media"><img src="./assets/placeholder.svg" alt="${prod.name}" /></div>
+                      <div class="body">
+                        <div style="font-weight:600;">${prod.name}</div>
+                        <div class="muted">${prod.category}</div>
+                      </div>
+                    </a>`)
+                  .join('');
+              }
+            } else {
+              itemsGrid.innerHTML = '<p class="muted">Associez ce produit avec nos packs pour des économies.</p>';
+            }
+          })
+          .catch(() => {
+            content.innerHTML = '<p class="muted">Erreur de chargement.</p>';
+          });
+      }
+    </script>
+  </body>
+</html>

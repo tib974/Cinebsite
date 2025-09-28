@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Réalisations – CinéB</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="brand" href="./index.html">CinéB</a>
+        <ul>
+          <li><a href="./index.html">Accueil</a></li>
+          <li><a href="./materiel.html">Matériel</a></li>
+          <li><a href="./packs.html">Packs</a></li>
+          <li><a class="active" href="./realisations.html">Réalisations</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <header class="hero" style="padding:32px 28px;">
+        <h1>Réalisations</h1>
+        <p>Quelques tournages réalisés avec le matériel CinéB : publicités locales, interviews corporate, clips.</p>
+      </header>
+
+      <section>
+        <div class="grid" id="reals-grid"></div>
+      </section>
+    </div>
+
+    <script type="module">
+      import { loadCatalog } from './scripts/data.js';
+
+      const grid = document.getElementById('reals-grid');
+
+      loadCatalog()
+        .then((catalog) => {
+          const items = catalog.realisations;
+          if (!items.length) {
+            grid.innerHTML = '<p class="muted">Aucune réalisation enregistrée pour le moment.</p>';
+            return;
+          }
+
+          grid.innerHTML = items
+            .map(
+              (item) => `
+                <div class="card">
+                  <div class="media"><img src="./assets/placeholder.svg" alt="${item.title}" /></div>
+                  <div class="body">
+                    <div style="font-weight:600;">${item.title}</div>
+                    <div class="muted">${item.customer || 'Client confidentiel'}</div>
+                    <div class="muted" style="font-size:0.85rem;">${item.date || ''}</div>
+                    <p class="muted" style="font-size:0.9rem;">${item.description || ''}</p>
+                  </div>
+                </div>`
+            )
+            .join('');
+        })
+        .catch(() => {
+          grid.innerHTML = '<p class="muted">Erreur de chargement.</p>';
+        });
+    </script>
+  </body>
+</html>
