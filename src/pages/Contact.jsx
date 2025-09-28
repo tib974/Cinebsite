@@ -272,14 +272,42 @@ export default function Contact() {
     formData.append('datesEnd', dateRange.end);
 
     try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' },
-      });
+      const useApiQuotes = (import.meta.env.VITE_USE_API_QUOTES || '0') === '1';
 
-      if (!response.ok) {
-        throw new Error(`Formspree a répondu ${response.status}`);
+      if (useApiQuotes) {
+        const payload = {
+          customerName: formData.get('name') || '',
+          email: formData.get('email') || '',
+          phone: formData.get('phone') || null,
+          startDate: dateRange.start || new Date().toISOString().slice(0, 10),
+          endDate: dateRange.end || dateRange.start || new Date().toISOString().slice(0, 10),
+          notes: formData.get('message') || null,
+          items: (quoteItems || []).map((it) => ({
+            itemType: it.type === 'pack' ? 'pack' : 'product',
+            itemId: Number(it.id || 0),
+            name: it.name,
+            unitPrice: Number(it.dailyPrice || 0),
+            quantity: 1,
+          })).filter((it) => Number.isFinite(it.itemId) && it.itemId > 0),
+        };
+
+        const apiRes = await fetch('/api/quotes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!apiRes.ok) {
+          throw new Error(`API /api/quotes a répondu ${apiRes.status}`);
+        }
+      } else {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) {
+          throw new Error(`Formspree a répondu ${response.status}`);
+        }
       }
 
       setFormStatus({ state: 'success', message: 'Merci ! Votre demande est bien envoyée. Nous revenons vers vous rapidement.' });

@@ -47,12 +47,12 @@ Répertoires clés:
 
 ## 4) Tâches à faire ensuite (priorisées)
 
-1. Calendrier – `src/pages/Calendrier.jsx`
-   - Charger le produit via API si `?produit=slug`.
+1. Calendrier – `src/pages/Calendrier.jsx` ✅ FAIT
+   - Produit pré‑sélectionné via `?produit=slug` et récupération API OK.
    - Optionnel: endpoint disponibilité dédié si besoin (sinon logique locale OK pour vitrine).
 2. Contact – `src/pages/Contact.jsx`
-   - Actuel: Formspree (simple). 
-   - Option internalisation: POST `/api/quotes` (voir `server/services/quotesService.js`), valider via Zod, enregistrer et notifier.
+   - Actuel: Formspree par défaut.
+   - Nouveau: bascule optionnelle vers l’API interne `/api/quotes` via la variable `VITE_USE_API_QUOTES=1` (voir `.env.example`). Les éléments du devis (panier) sont envoyés si présents.
 3. Routes & UX
    - Vérifier `AppRoutes`, fallback SPA, placeholders images, affichage prix/stock cohérent.
 4. Ops/Infra
@@ -102,6 +102,9 @@ Client API: src/utils/apiClient.js
 Contexte devis: src/context/QuoteContext.jsx
 Pages migrées: src/pages/Home.jsx, src/pages/Materiel.jsx, src/pages/Packs.jsx, src/pages/ProductDetail.jsx
 Backend services: server/services/productsService.js, server/services/packsService.js (+ quotesService.js à finaliser selon choix)
+
+Paramètres front:
+- `.env.example` ➜ `VITE_USE_API_QUOTES=0|1` pour basculer l’envoi du formulaire Contact vers `/api/quotes`.
 ---
 
 Document à jour: voir aussi `infra/DEPLOYMENT_GUIDE.md` pour l’exploitation/ops.
