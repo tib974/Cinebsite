@@ -291,7 +291,9 @@ export default function Contact() {
           })).filter((it) => Number.isFinite(it.itemId) && it.itemId > 0),
         };
 
-        const apiRes = await fetch('/api/quotes', {
+        const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+        const apiUrl = `${API_BASE}/api/quotes`;
+        const apiRes = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload),

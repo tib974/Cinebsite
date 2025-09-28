@@ -1,5 +1,16 @@
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+
+function withBase(url) {
+  if (!url) return url;
+  if (typeof url !== 'string') return url;
+  if (API_BASE && url.startsWith('/')) {
+    return `${API_BASE}${url}`;
+  }
+  return url;
+}
+
 export async function fetchJson(url, options = {}) {
-  const response = await fetch(url, options);
+  const response = await fetch(withBase(url), options);
   if (!response.ok) {
     const error = new Error(`Requête échouée (${response.status})`);
     error.status = response.status;

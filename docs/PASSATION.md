@@ -52,7 +52,8 @@ Répertoires clés:
    - Optionnel: endpoint disponibilité dédié si besoin (sinon logique locale OK pour vitrine).
 2. Contact – `src/pages/Contact.jsx`
    - Actuel: Formspree par défaut.
-   - Nouveau: bascule optionnelle vers l’API interne `/api/quotes` via la variable `VITE_USE_API_QUOTES=1` (voir `.env.example`). Les éléments du devis (panier) sont envoyés si présents.
+   - Nouveau: bascule optionnelle vers l’API interne `/api/quotes` via `VITE_USE_API_QUOTES=1`.
+   - Déploiements statiques (ex: Vercel): définir `VITE_API_BASE_URL=https://<domaine-backend>` pour pointer l’API distante. Le front préfixera automatiquement ses appels `/api/...`.
 3. Routes & UX
    - Vérifier `AppRoutes`, fallback SPA, placeholders images, affichage prix/stock cohérent.
 4. Ops/Infra
@@ -104,7 +105,9 @@ Pages migrées: src/pages/Home.jsx, src/pages/Materiel.jsx, src/pages/Packs.jsx,
 Backend services: server/services/productsService.js, server/services/packsService.js (+ quotesService.js à finaliser selon choix)
 
 Paramètres front:
-- `.env.example` ➜ `VITE_USE_API_QUOTES=0|1` pour basculer l’envoi du formulaire Contact vers `/api/quotes`.
+- `.env.example`
+  - `VITE_USE_API_QUOTES=0|1` pour basculer l’envoi du formulaire Contact vers `/api/quotes`.
+  - `VITE_API_BASE_URL` pour faire pointer les appels API vers une instance distante (utile sur Vercel qui ne sert que le front statique).
 ---
 
 Document à jour: voir aussi `infra/DEPLOYMENT_GUIDE.md` pour l’exploitation/ops.
