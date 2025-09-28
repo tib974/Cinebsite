@@ -1,5 +1,3 @@
-import { STATIC_PRODUCTS, STATIC_PACKS, STATIC_REALISATIONS } from '../static-data.mjs';
-
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 const BASE_URL = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 const STATIC_BASE = `${BASE_URL}/static`;
@@ -58,7 +56,7 @@ export async function fetchJson(url, options = {}) {
     return response.json();
   }
 
-  // Static fallback (read-only). Prefer in-bundle data for robustness.
+  // Static fallback (read-only)
   if (options && options.method && options.method !== 'GET') {
     const err = new Error('Mode statique: écriture non supportée');
     err.status = 405;
@@ -67,7 +65,7 @@ export async function fetchJson(url, options = {}) {
 
   if (typeof url === 'string' && url.startsWith('/api/products')) {
     const params = parseQuery(url);
-    const all = (STATIC_PRODUCTS && STATIC_PRODUCTS.length ? STATIC_PRODUCTS : (await loadStatic('products')) || []);
+    const all = (await loadStatic('products')) || [];
     const m = url.match(/\/api\/products\/slug\/([^?]+)/);
     if (m) {
       const slug = decodeURIComponent(m[1]);
@@ -92,7 +90,7 @@ export async function fetchJson(url, options = {}) {
   }
 
   if (typeof url === 'string' && url.startsWith('/api/packs')) {
-    const all = (STATIC_PACKS && STATIC_PACKS.length ? STATIC_PACKS : (await loadStatic('packs')) || []);
+    const all = (await loadStatic('packs')) || [];
     const m = url.match(/\/api\/packs\/slug\/([^?]+)/);
     if (m) {
       const slug = decodeURIComponent(m[1]);
@@ -108,7 +106,7 @@ export async function fetchJson(url, options = {}) {
   }
 
   if (typeof url === 'string' && url.startsWith('/api/realisations')) {
-    const all = (STATIC_REALISATIONS && STATIC_REALISATIONS.length ? STATIC_REALISATIONS : (await loadStatic('realisations')) || []);
+    const all = (await loadStatic('realisations')) || [];
     const m = url.match(/\/api\/realisations\/slug\/([^?]+)/);
     if (m) {
       const slug = decodeURIComponent(m[1]);
