@@ -1,6 +1,5 @@
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
-const BASE_URL = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-const STATIC_BASE = `${BASE_URL}/static`;
+const STATIC_BASE = '/static';
 
 let __staticCache = {
   products: null,
@@ -10,15 +9,7 @@ let __staticCache = {
 
 async function loadStatic(name) {
   if (__staticCache[name]) return __staticCache[name];
-  // Try absolute (with BASE_URL) then root fallback
-  let res = await fetch(`${STATIC_BASE}/${name}.json`, { cache: 'force-cache' });
-  if (!res.ok) {
-    try {
-      res = await fetch(`/static/${name}.json`, { cache: 'force-cache' });
-    } catch (_) {
-      // ignore
-    }
-  }
+  const res = await fetch(`${STATIC_BASE}/${name}.json`, { cache: 'force-cache' });
   if (!res.ok) return null;
   const data = await res.json();
   __staticCache[name] = data;
