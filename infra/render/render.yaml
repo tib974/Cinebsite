@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: cinebsite-api
+    env: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm ci
+    startCommand: npm run render:start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SQLITE_DIR
+        value: /var/data
+      - key: SESSION_DB
+        value: sessions.sqlite
+      - key: ALLOWED_ORIGINS
+        value: https://cinebsite.vercel.app
+      # Ajouter SESSION_SECRET via le dashboard Render (valeur longue aléatoire)
+    healthCheckPath: /health
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1

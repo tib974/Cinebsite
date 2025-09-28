@@ -57,9 +57,9 @@ Répertoires clés:
 3. Routes & UX
    - Vérifier `AppRoutes`, fallback SPA, placeholders images, affichage prix/stock cohérent.
 4. Ops/Infra
-   - Installer/activer `infra/nginx.conf`, `infra/cinebsite.service` sur la VM.
-   - Renseigner secrets GitHub; tester déploiement staging.
-   - Mettre en place cron backup SQLite + `logrotate` + monitoring UptimeRobot.
+   - Déploiement immédiat: Render (blueprint `infra/render/render.yaml`) pour exposer API + back-office.
+   - Objectif finale: installer `infra/nginx.conf`, `infra/cinebsite.service` sur la VM Oracle; recopier `/var/data` depuis Render.
+   - Secrets/CI: Render (`SESSION_SECRET`, `ALLOWED_ORIGINS`), GitHub Actions, monitoring UptimeRobot.
 
 ## 5) Liste de vérification avant prod
 
@@ -108,6 +108,10 @@ Paramètres front:
 - `.env.example`
   - `VITE_USE_API_QUOTES=0|1` pour basculer l’envoi du formulaire Contact vers `/api/quotes`.
   - `VITE_API_BASE_URL` pour faire pointer les appels API vers une instance distante (utile sur Vercel qui ne sert que le front statique).
+
+Infra complémentaires:
+- Render: `infra/render/render.yaml`, `infra/render/README.md`.
+- Oracle: `infra/nginx.conf`, `infra/cinebsite.service`, `infra/DEPLOYMENT_GUIDE.md`.
 ---
 
 Document à jour: voir aussi `infra/DEPLOYMENT_GUIDE.md` pour l’exploitation/ops.

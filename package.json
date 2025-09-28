@@ -8,7 +8,8 @@
     "build": "vite build",
     "migrate": "node scripts/migrate.mjs",
     "server": "node server/index.js",
-    "start": "npm run migrate && npm run build && npm run server"
+    "start": "npm run migrate && npm run build && npm run server",
+    "render:start": "npm run migrate && npm run server"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
