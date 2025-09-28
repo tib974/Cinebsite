@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Packs – CinéB</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+        <a class="brand" href="./index.html">CinéB</a>
+        <div style="display:flex;gap:12px">
+          <a href="./materiel.html">Matériel</a>
+          <a href="./packs.html">Packs</a>
+          <a href="./realisations.html">Réalisations</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <h1 class="section-title">Packs</h1>
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Rechercher un pack…" />
+      </div>
+
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice } from './scripts/data.js'
+      const grid = document.getElementById('grid')
+      const q = document.getElementById('q')
+
+      const render = (items) => {
+        if (!items.length) { grid.innerHTML = '<div class="card"><div class="body"><p class="muted">Aucun pack.</p></div></div>'; return }
+        grid.innerHTML = items.map(p => `
+          <a class="card" href="./product.html?slug=${encodeURIComponent(p.slug)}">
+            <div class="media">${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}" />` : 'Aperçu'}</div>
+            <div class="body">
+              <div class="title">${p.name}</div>
+              <div class="muted">Pack</div>
+              <div>${formatPrice(p.dailyPrice)}</div>
+            </div>
+          </a>
+        `).join('')
+      }
+
+      let all = []
+      loadCatalog().then(({ packs }) => {
+        all = packs
+        render(all)
+      })
+
+      q.addEventListener('input', () => {
+        const query = q.value.trim().toLowerCase()
+        const filtered = !query ? all : all.filter(p => (
+          p.name.toLowerCase().includes(query) ||
+          (p.description || '').toLowerCase().includes(query)
+        ))
+        render(filtered)
+      })
+    </script>
+  </body>
+  </html>
+

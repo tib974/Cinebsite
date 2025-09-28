@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CinéB – Location matériel audiovisuel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+        <a class="brand" href="./index.html">CinéB</a>
+        <div style="display:flex;gap:12px">
+          <a href="./materiel.html">Matériel</a>
+          <a href="./packs.html">Packs</a>
+          <a href="./realisations.html">Réalisations</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <header>
+        <h1 class="section-title">Location audiovisuelle à La Réunion</h1>
+        <p class="muted">Sélection de caméras, optiques, lumière et audio prêtes à tourner. Tarifs dégressifs dès 3 jours.</p>
+      </header>
+
+      <section>
+        <h2 class="section-title">En avant</h2>
+        <div id="featured" class="grid"></div>
+      </section>
+
+      <footer>
+        © CinéB – Site vitrine simplifié. <a href="./materiel.html">Voir tout le matériel</a>.
+      </footer>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice } from './scripts/data.js'
+
+      const featuredEl = document.getElementById('featured')
+      loadCatalog().then(({ products, packs }) => {
+        const items = [
+          ...products.filter(p => p.featured),
+          ...packs.filter(p => p.featured)
+        ].slice(0, 8)
+
+        if (items.length === 0) {
+          featuredEl.innerHTML = '<p class="muted">Aucun élément en avant pour le moment.</p>'
+          return
+        }
+
+        featuredEl.innerHTML = items.map(item => `
+          <a class="card" href="./product.html?slug=${encodeURIComponent(item.slug)}">
+            <div class="media">${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name}" />` : 'Aperçu'}</div>
+            <div class="body">
+              <div class="title">${item.name}</div>
+              <div class="muted">${item.type === 'pack' ? 'Pack' : (item.category || 'Produit')}</div>
+              <div>${formatPrice(item.dailyPrice)}</div>
+            </div>
+          </a>
+        `).join('')
+      }).catch(() => {
+        featuredEl.innerHTML = '<p class="muted">Impossible de charger la sélection.</p>'
+      })
+    </script>
+  </body>
+  </html>
+

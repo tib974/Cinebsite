@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Réalisations – CinéB</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+        <a class="brand" href="./index.html">CinéB</a>
+        <div style="display:flex;gap:12px">
+          <a href="./materiel.html">Matériel</a>
+          <a href="./packs.html">Packs</a>
+          <a href="./realisations.html">Réalisations</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <h1 class="section-title">Réalisations</h1>
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <script type="module">
+      import { loadRealisations } from './scripts/data.js'
+      const grid = document.getElementById('grid')
+      loadRealisations().then(items => {
+        if (!items.length) { grid.innerHTML = '<div class="card"><div class="body"><p class="muted">Aucune réalisation pour le moment.</p></div></div>'; return }
+        grid.innerHTML = items.map(it => `
+          <div class="card">
+            <div class="media">${it.imageUrl ? `<img src="${it.imageUrl}" alt="${it.title}" />` : 'Aperçu'}</div>
+            <div class="body">
+              <div class="title">${it.title}</div>
+              ${it.customer ? `<div class='muted'>${it.customer}</div>` : ''}
+            </div>
+          </div>
+        `).join('')
+      })
+    </script>
+  </body>
+  </html>
+

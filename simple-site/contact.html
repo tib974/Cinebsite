@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact – CinéB</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+        <a class="brand" href="./index.html">CinéB</a>
+        <div style="display:flex;gap:12px">
+          <a href="./materiel.html">Matériel</a>
+          <a href="./packs.html">Packs</a>
+          <a href="./realisations.html">Réalisations</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <h1 class="section-title">Contact</h1>
+      <p class="muted">Partagez vos dates et le matériel souhaité. Réponse rapide.</p>
+
+      <form class="card" action="https://formspree.io/f/xandgvea" method="POST" style="padding:16px;display:grid;gap:12px;max-width:520px">
+        <input type="text" name="website" style="display:none" />
+        <input name="name" placeholder="Nom" required />
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="phone" type="tel" placeholder="Téléphone (facultatif)" />
+        <input name="items" placeholder="Matériel / Pack" />
+        <input name="dates" placeholder="Dates ou période" />
+        <textarea name="message" rows="4" placeholder="Votre message…" required></textarea>
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+    </div>
+  </body>
+  </html>
+

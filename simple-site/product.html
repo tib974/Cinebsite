@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Produit – CinéB</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+        <a class="brand" href="./index.html">CinéB</a>
+        <div style="display:flex;gap:12px">
+          <a href="./materiel.html">Matériel</a>
+          <a href="./packs.html">Packs</a>
+          <a href="./realisations.html">Réalisations</a>
+          <a href="./contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <div id="content"></div>
+    </div>
+
+    <script type="module">
+      import { loadCatalog, formatPrice, qs } from './scripts/data.js'
+      const el = document.getElementById('content')
+      const slug = qs('slug')
+      if (!slug) {
+        el.innerHTML = '<div class="card"><div class="body"><p class="muted">Aucun élément sélectionné.</p></div></div>'
+      } else {
+        loadCatalog().then(({ products, packs }) => {
+          const product = products.find(p => p.slug === slug)
+          const pack = packs.find(p => p.slug === slug)
+          const item = product || pack
+          if (!item) {
+            el.innerHTML = '<div class="card"><div class="body"><p class="muted">Élément introuvable.</p></div></div>'
+            return
+          }
+
+          const includes = pack?.items || []
+          el.innerHTML = `
+            <article class="card">
+              <div class="media">${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name}" />` : 'Aperçu'}</div>
+              <div class="body">
+                <h1 class="section-title" style="margin:0">${item.name}</h1>
+                <p class="muted">${item.type === 'pack' ? 'Pack' : (item.category || 'Produit')}</p>
+                <p>${formatPrice(item.dailyPrice)}</p>
+                ${item.description ? `<p>${item.description}</p>` : ''}
+                <div style="margin-top:12px">
+                  <a class="btn" href="./contact.html">Demander un devis</a>
+                </div>
+              </div>
+            </article>
+            ${includes.length ? `
+              <section style="margin-top:16px">
+                <h2 class="section-title">Inclus dans ce pack</h2>
+                <div class="grid">
+                  ${includes.map(it => `
+                    <a class="card" href="./product.html?slug=${encodeURIComponent(it.slug)}">
+                      <div class="media">${it.imageUrl ? `<img src="${it.imageUrl}" alt="${it.name}" />` : 'Aperçu'}</div>
+                      <div class="body"><div class="title">${it.name}</div></div>
+                    </a>
+                  `).join('')}
+                </div>
+              </section>
+            ` : ''}
+          `
+        })
+      }
+    </script>
+  </body>
+  </html>
+
