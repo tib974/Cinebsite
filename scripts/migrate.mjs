@@ -34,10 +34,23 @@ const migrationFiles = fs
   .filter((file) => file.endsWith('.sql'))
   .sort((a, b) => a.localeCompare(b));
 
-const runMigration = db.transaction((name, sql) => {
-  db.exec(sql);
-  insertMigrationStmt.run(name);
-});
+const runMigration = (name, sql) => {
+  const trimmed = sql.trim().toUpperCase();
+  const hasManualTransaction = trimmed.startsWith('BEGIN') || trimmed.includes('BEGIN TRANSACTION');
+
+  if (hasManualTransaction) {
+    db.exec(sql);
+    insertMigrationStmt.run(name);
+    return;
+  }
+
+  const run = db.transaction(() => {
+    db.exec(sql);
+    insertMigrationStmt.run(name);
+  });
+
+  run();
+};
 
 let appliedCount = 0;
 
