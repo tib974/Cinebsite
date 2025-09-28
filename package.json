@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:static-api": "node scripts/build_static_api.mjs",
-    "build": "npm run build:static-api && vite build",
+    "build": "vite build",
     "migrate": "node scripts/migrate.mjs",
     "server": "node server/index.js",
     "start": "npm run migrate && npm run build && npm run server"
