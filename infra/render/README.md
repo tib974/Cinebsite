@@ -5,12 +5,12 @@ Ce guide permet de publier l'API + back-office Node/Express sur Render (offre gr
 ## 1. Créer le service
 
 1. Aller sur https://render.com et créer un compte (ou se connecter) avec GitHub.
-2. Cliquer **New → Blueprint** et sélectionner ce dépôt.
-3. Dans l’écran de configuration, Render détectera `infra/render/render.yaml`. Valider.
-4. Dans la section *Environment Variables*, ajouter :
-   - `SESSION_SECRET` : générer une chaîne longue (ex. via https://www.lastpass.com/features/password-generator). Garder cette valeur secrète.
-   - (facultatif) `ALLOWED_ORIGINS` : remplacer par l’URL effective du front (peut être ajustée plus tard).
-5. Lancer le déploiement.
+2. Cliquer **New → Blueprint** puis sélectionner le dépôt `tib974/Cinebsite`.
+3. Render détecte le fichier `render.yaml` à la racine (copie du blueprint). Cliquer **Deploy**.
+4. Pendant la création, Render demande les variables d’environnement obligatoires :
+   - `SESSION_SECRET` : clique sur **Add Environment Variable** → mets la clé `SESSION_SECRET` et une longue valeur aléatoire (ex. générée sur https://passwordsgenerator.net/). Tu peux la noter de côté.
+   - Les variables déjà listées dans `render.yaml` (`NODE_ENV`, `SQLITE_DIR`, etc.) sont préremplies, tu n’as rien à modifier.
+5. Lancer le déploiement (bouton **Apply** puis **Deploy**).
 
 ## 2. Ce que fait la configuration
 
@@ -51,4 +51,3 @@ Les mêmes scripts fonctionnent :
 - `npm ci && npm run build && npm run migrate`.
 - Lancer le service systemd `infra/cinebsite.service` et Nginx `infra/nginx.conf`.
 - Mettre `ALLOWED_ORIGINS` sur l’URL publique du front.
-
